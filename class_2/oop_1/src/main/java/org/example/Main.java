@@ -16,5 +16,13 @@ public class Main {
         System.out.println("The perimeter is : " + rect1.getPerimeter() +
                 " The area is : " + rect1.getArea());
 
+
+        Calculator calc = new Calculator();
+        double result1 = calc.add(2.0, 3);
+        double result2 = calc.add(4.0, 5.0);
+        double result3 = calc.add(5);
+
+
     }
+
 }
