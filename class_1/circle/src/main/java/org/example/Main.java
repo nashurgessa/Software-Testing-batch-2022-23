@@ -3,9 +3,16 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
 
+        Dog dog = new Dog();
+        dog.sound();
+
+        /*
         Calculator calc = new Calculator();
         double result1 = calc.add(2, 3);
         double result2 = calc.add(2.0, 3.0);
+
+        double result3 = calc.add(2, 3.5);
+        */
 
         /*
         Circle obj1 = new Circle(5);

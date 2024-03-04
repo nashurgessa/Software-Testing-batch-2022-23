@@ -5,6 +5,11 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
 
+        Dog dog = new Dog();
+        dog.sound();
+        dog.walk();
+
+        /*
         Rectangle rect1 = new Rectangle(3, 5);
 
         Rectangle rect2 = new Rectangle(5, 4);
@@ -22,7 +27,7 @@ public class Main {
         double result2 = calc.add(4.0, 5.0);
         double result3 = calc.add(5);
 
-
+        */
     }
 
 }
