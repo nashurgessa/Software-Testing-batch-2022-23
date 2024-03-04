@@ -2,6 +2,12 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
+
+        Calculator calc = new Calculator();
+        double result1 = calc.add(2, 3);
+        double result2 = calc.add(2.0, 3.0);
+
+        /*
         Circle obj1 = new Circle(5);
 
         Circle obj2 = new Circle(10);
@@ -20,6 +26,6 @@ public class Main {
 //        double area2 = obj2.getArea();
 //        System.out.println("The Circumference of obj2 is :"
 //                + c2 +" and the Area is : " + area2 );
-
+        */
     }
 }
