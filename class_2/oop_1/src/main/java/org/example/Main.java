@@ -5,9 +5,20 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
 
+
+        try {
+            double result = 5 / 0;
+        } catch(ArithmeticException err) {
+           err.printStackTrace();
+        }
+
+
+        /*
         Dog dog = new Dog();
         dog.sound();
         dog.walk();
+        */
+
 
         /*
         Rectangle rect1 = new Rectangle(3, 5);

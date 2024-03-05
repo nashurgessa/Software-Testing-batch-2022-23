@@ -1,10 +1,40 @@
 package org.example;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
 
+        /*
+        try {
+            double result = 5 / 0.0;
+            System.out.println("The result is : " + result);
+        }catch(ArithmeticException err) {
+            throw err;
+        } finally {
+            System.out.println("This is the final");
+        }
+
+         */
+
+        try {
+            FileReader _file = new FileReader("file.txt");
+
+        }
+        catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+        /*
         Dog dog = new Dog();
         dog.sound();
+
+         */
 
         /*
         Calculator calc = new Calculator();
