@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
       try {
-            FileReader fr = new FileReader("/Users/nashu/Desktop/Source_code/software_testing/SoftwareTesting/class_2/try_catch/src/main/java/org/example/Bryan");
+            FileReader fr = new FileReader("Bryan");
             // read the data
            int data = 0;
            while (data != -1) {
