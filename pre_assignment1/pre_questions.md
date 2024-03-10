@@ -4,7 +4,7 @@
 2. List the benefits of writing Test first.
 3. Discuss the difference between traditional methodologies where coding precedes testing and Test-Driven development(TDD) methodology where the test cases are written before the actual implementation code.
 ---
-4. **(a).** Robust implementation in different prograaming language: Implement a robust method or function to calculate the area of a rectangle using two inputs: width and length. You are required to provide implementations in both **Java** and **Python**. After implementing, briefly discuss the key aspects that make your code robust.
+4. **(a).** Robust implementation in different programing language: Implement a robust method or function to calculate the area of a rectangle using two inputs: width and length. You are required to provide implementations in both **Java** and **Python**. After implementing, briefly discuss the key aspects that make your code robust.
 **(b).** Inside the main method of each implementation, write test cases to demonstrate the functionality of your method. Include scenarios that show normal operation, as well as cases that should trigger your error handling. This will help illustrate how your code behaves under various conditions.
 
 5. Implement test cases for an Array Element Counter
@@ -75,3 +75,26 @@ try {
 > - **Time-Consuming:** Initially, TDD can be more time-consuming, as writing tests before implementation requires additional upfront effort.
 > - **Learning Curve:** There's a learning curve associated with adopting TDD, especially for teams used to traditional development methods.
 > - **Complex Scenarios:** In complex scenarios, defining tests upfront can be challenging, potentially limiting the effectiveness of TDD.
+
+4. 
+**Steps used to ensure the robustness of the codes are:**
+
+> **Type Checking and Validation:**
+In Python, `isinstance`` is used to check the type of the inputs. This prevents type-related errors when the function is called with incorrect types.
+Java, being statically typed, inherently ensures type safety through its compilation checks. The parameters width and height are defined as doubles, ***so the method cannot be called with non-numeric types.***
+
+> **Input Validation:**
+Both implementations check whether length and height are **non-negative**. This is crucial because negative values for these parameters don't make sense in the context of a rectangle's area and would lead to incorrect results.
+The use of conditional statements to **check** the value of the ***inputs*** and ***throw exceptions*** in case of **invalid data** is common in both languages.
+
+> **Error Handling:**
+> In Python, the function `raises` a `TypeError` for incorrect types and a `ValueError` for invalid values. This distinction helps the caller understand the nature of the error.
+Similarly, in Java, an `IllegalArgumentException` is *thrown* if either the width or length is negative, clearly informing the caller of the issue.
+
+> **Language-Specific Considerations:**
+Python's dynamic typing requires explicit type checks at **runtime**, which is handled gracefully in the implementation.
+Java, on the other hand, relies on its **compile-time** type checking, making the code less prone to type-related errors at runtime. However, value checks are still crucial.
+
+> **Clarity and Maintainability:**
+Both codes are written in a clear and concise manner, making them easy to understand and maintain.
+Proper naming conventions and error messages are used, which enhances readability and helps other developers understand the code quickly.

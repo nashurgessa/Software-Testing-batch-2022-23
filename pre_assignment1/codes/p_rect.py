@@ -15,6 +15,39 @@ def area_of_a_rectangle(width: float, length: float) -> float:
     return width * length; 
 
 
+def test_area_of_rectangle():
+    # Test case 1: Normal Case
+    try:
+        area1 = area_of_a_rectangle(10, 5)
+        print(f"The area of rectangle is: {area1}")
+    except Exception as e:
+        print(f"Error: ", e)
+        
+    # Test case 2: Negative width
+    try:
+        area_of_a_rectangle(-2.0, 6.0)
+    except ValueError as e:
+        print(f"Value Error: ", e) 
+        
+    # Test case 3: Negative length
+    try:
+        area_of_a_rectangle(2.0, -6.0)
+    except ValueError as e:
+        print(f"Value Error: ", e) 
+        
+    # Test Case 4: Incorrect Type for width
+    try:
+        area_of_a_rectangle("10", 5)
+    except TypeError as e:
+        print(f"Type Error: ", e) 
+    
+    # Test Case 5: Incorrect Type for height
+    try:
+        area_of_a_rectangle(10, "5")
+    except TypeError as e:
+        print(f"Type Error: ", e) 
+
+
 if __name__ == "__main__":
-    area = area_of_a_rectangle(2, 3.0)
-    print(area)
+    # Run the tests
+    test_area_of_rectangle()
