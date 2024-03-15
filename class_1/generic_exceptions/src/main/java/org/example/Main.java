@@ -11,7 +11,7 @@ public class Main {
         }
     }
 
-    public static double add(double dividend, double divisor) {
+    public static int add(int dividend, int divisor) {
         return dividend / divisor;
     }
 }
