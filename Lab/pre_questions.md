@@ -196,6 +196,8 @@ public class ArrayMaxFinder {
 }
 ```
 ---
+6. 
+---
 
 6. Write comprehensive test case of basic Calculator class for the divide, methods of the Calculator class. The test cases should cover both normal and edge cases and for the divide method, include a test case for divison by zero.
 

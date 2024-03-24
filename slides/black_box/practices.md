@@ -1,0 +1,40 @@
+1. Consider a program given below for the selection of the largest of number.
+
+```java
+class LargestNumber {
+    public static void main(String[] args) {
+        double A, B, C;
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the value for A: ");
+        A = scanner.nextFloat();
+        
+        System.out.print("Enter the value for B: ");
+        B = scanner.nextFloat();
+
+        System.out.print("Enter the value for C: ");
+        C = scanner.nextFloat();
+
+        System.out.print("Largest Value is: ");
+
+        if (A > B) {
+            if (A > C) {
+                System.out.printf("%.1f\n", A);
+            } else {
+                System.out.printf("%.1f\n", C);
+            }
+        } else {
+            if (C > B) {
+                System.out.printf("%.1f\n", C); 
+            } else {
+                System.out.printf("%.1f\n", B);
+            }
+        }
+    }
+}
+```
+
+a. Design the set of test cases using **BVA** technique and **equivalence class** testing technique.
+b. Select a set of test cases that will provide 100% statement coverage.
+c. Develop a **decision table** for this program.
