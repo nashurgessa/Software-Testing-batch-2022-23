@@ -1,15 +1,20 @@
 package com.example;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 public class DiscountCalculatorTest {
-	
-	// Add more tests as needed to cover all scenarios 
-	@Test
-    void testNewCustomerNoLoyaltyNoCoupon() {
-        
-    }
 
+    @Test
+    public void testCase3() {
+
+        // Arrange
+        // Act
+        double obtainedResult = DiscountCalculator.
+                calculateDiscount(true, false, true);
+
+        // Assert
+        Assertions.assertEquals(20, obtainedResult, "Rule #3");
+
+    }
 }
