@@ -4,7 +4,7 @@ public class QuadraticEquation {
     private double a, b, c;
     boolean isValid;
     public QuadraticEquation(double a, double b, double c) {
-        isValid = a >= 0 || a <= 100 || b >= 0 || b <= 100 || c>= 0 || c <=100;
+        isValid = a >= 0 && a <= 100 && b >= 0 && b <= 100 && c>= 0 && c <=100;
         this.a = a;
         this.b = b;
         this.c = c;
