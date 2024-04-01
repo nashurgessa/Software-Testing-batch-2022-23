@@ -419,7 +419,7 @@ public class QuadraticGUIController {
 
 ---
 ```java 
-1. int isValid = 0;
+1. int isValid = 0, d // int a, b, c;
 2. double D;
 3. if ((a >= 0) && (a <= 100) && (b >= 0) && (b <= 100) && (c >= 0) && (c <= 100)) {
 4. 	isValid = 1;
@@ -428,33 +428,29 @@ public class QuadraticGUIController {
 7. 	}
 8. }
 9. if (isValid == 1) {
-10. 	D = b * b - 4 * a * c;
-11. 	if (D == 0) {
-12. 		double r1 = -b / (2*a);
-13. 		return "One Real Root, r = " + String.format("%.2f", r1);
-14. 	} 
-15. 	else if (D > 0) {
-16. 		double r1 = (-b + Math.sqrt(D)) / (2 * a);
-17. 		double r2 = (-b - Math.sqrt(D)) / (2 * a);
-18. 		return "2 Real Roots, r1 = " + String.format("%.2f", r1) +
-19. 				" and r2 = " + String.format("%.2f", r2);
-20. 	} 
-21. 	else {
-22. 		D = -1 * D;
-23. 		double realPart = -b / (2 * a);
-24. 		double imaginaryPart = Math.sqrt(-D) / (2 * a);
-25. 		return "2 Imaginary Roots, r1 = " + String.format("%.2f", realPart) + " + " +
-26. 				String.format("%.2f", imaginaryPart) + "i and r2 = " +
-27. 				String.format("%.2f", realPart) + " - " +
-28. 				String.format("%.2f", imaginaryPart) + "i";
-29. 	}
-30. } 
-31. else if (isValid == -1) {
-32. 	return "The Equation is not a quadratic equation";
-33. } 
-34. else {
-35. 	return "The input is out of range";
-36. }
+10. 	d = b * b - 4 * a * c;
+11. 	if (d == 0) {
+12. 	    return "One Real Root, r = " + String.format("%.2f", -b / (2*a));
+13. 	} 
+14. 	else if (d > 0) {
+15		D = Math.sqrt(d);
+16. 	    return "2 Real Roots, r1 = " + String.format("%.2f", (-b + D) / (2 / a)) +
+ 				" and r2 = " + String.format("%.2f", (-b - D) / (2 / a));
+17. 	} 
+18. 	else {
+19. 		D = Math.sqrt(-1 * D) / (2 * a);
+20. 		return "2 Imaginary Roots, r1 = " + String.format("%.2f", -1*b / (2 * a)) + " + " +
+ 				String.format("%.2f", D) + "i and r2 = " +
+ 				String.format("%.2f", -1*b / (2 * a)) + " - " +
+ 				String.format("%.2f", D) + "i";
+21. 	}
+22. } 
+23. else if (isValid == -1) {
+24. 	return "The Equation is not a quadratic equation";
+25. } 
+26. else {
+27. 	return "The input is out of range";
+28. }
 ```
 ---
 
@@ -581,6 +577,82 @@ Several properties of cyclomatic complexity are stated below:
 > 6. V(G) depends only on the decision structure of G.  (仅取决于决策结构)
 
 
+
+
+---
+Two alternate methods are available for the complexity calculations.
+1. Cyclomatic complexity V(G) of a flow graph G is equal to the number of predicate (decision) nodes plus one.
+	> V(G)= $\prod$ +1
+	Where $\prod$ is the number of predicate nodes contained in the flow graph G.
+2. Cyclomatic complexity is equal to the number of regions of the flow graph.
+
+
+***Example 3***
+Consider a flow graph given in Fig below and calculate the cyclomatic complexity by all three methods.
+![1711970476875](image/L12-L13WhiteBoxTesting/1711970476875.png)
+
+---
+Solution
+Cyclomatic complexity can be calculated by any of the three methods.
+1. V(G) = e – n + 2P
+		= 13 – 10 + 2 = 5
+2. V(G) = π + 1
+		= 4 + 1 = 5
+3. V(G) = number of regions = 5
+Therefore, complexity value of a flow graph in Fig. above is 5.
+
+---
+**Example**
+Consider the quadratic equation problem given with its DD Path graph. Find the cyclomatic complexity:
+
+--- 
+
+**Solution**
+Number of nodes (n) = 19
+Number of edges (e) = 24
+(i) V(G) = e – n + 2P = 24 – 19 + 2 = 7
+(ii) V(G) = π + 1 = 6 + 1 = 7
+(iii) V(G) = Number of regions = 7
+Hence cyclomatic complexity is 7 meaning thereby, seven independent paths in the DD Path graph.
+
+---
+
+**Example: Class Activity**
+Consider the classification of triangle problem given. Find the cyclomatic complexity.
+
+
+---
+#### Graph Matrices
+
+A graph matrix is a square matrix with one row and one column for every node in the graph. The size of the matrix (i.e., the number of rows and columns) is equal to the number of nodes in the flow graph. Some examples of graphs and associated matrices are shown in fig. _.
+
+![1711970756554](image/L12-L13WhiteBoxTesting/1711970756554.png)
+
+![1711970764969](image/L12-L13WhiteBoxTesting/1711970764969.png)
+
+Fig. 24 (a): Flow graph and graph matrices
+---
+
+![1711970798695](image/L12-L13WhiteBoxTesting/1711970798695.png)
+
+![1711970806022](image/L12-L13WhiteBoxTesting/1711970806022.png)
+
+Fig. 24 (b): Flow graph and graph matrices
+
+---
+
+![1711970880652](image/L12-L13WhiteBoxTesting/1711970880652.png)
+
+![1711970886772](image/L12-L13WhiteBoxTesting/1711970886772.png)
+
+Fig. 24 (c): Flow graph and graph matrices
+
+---
+
+![1711970907456](image/L12-L13WhiteBoxTesting/1711970907456.png)
+
+Fig. 25 : Connection matrix of flow graph shown in Fig. 24 (c)
+
 ---
 #### Data Flow Testing
 
@@ -649,3 +721,29 @@ Consider the program given in Fig. 20 for the classification of a triangle. Its 
 Find all du-paths and identify those du-paths that are definition clear.
 
 ---
+
+Solution
+Step I: The program flow graph is given in Fig. 19 (a). The variables used in the 
+program are a,b,c,d, validinput, D.
+
+Step II: DD Path graph is given in Fig. 19(b). The cyclomatic complexity of this graph 
+is 7 indicating there are seven independent paths.
+
+Step III: Define/use nodes for all variables are given below:
+
+| Variable | Defined at node | Used at node |
+|----------|-----------------|--------------|
+|a| param - 1 |3, 5, 10, 12, 16, 19, 20|
+|b| param - 1 |3, 10, 12, 16, 20|  
+|c| param - 1 |3, 10|
+|d| 10 | 11, 14, 15, 16, 17|
+| D| 15, 20 | 16, 20, 21|
+|isValid| 1, 4, 6 | 9, 23 |
+
+Step IV: The du-paths are identified and are named by their beginning and ending
+nodes using Fig. 19 (a).
+
+|Variable | Path (beginning, end) nodes | Definition clear ? |
+|---------|-----------------------------|--------------------|
+| a | param - 1, 3 | Yes |
+| a | param - 1, 5 | Yes |
