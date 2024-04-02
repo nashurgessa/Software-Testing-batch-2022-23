@@ -9,7 +9,7 @@
    <children>
       <Label layoutX="151.0" layoutY="99.0" text="Label" />
       <Label layoutX="151.0" layoutY="152.0" text="Label" />
-      <TextField id="txt_A_input" layoutX="204.0" layoutY="95.0" />
+      <TextField fx:id="txt_A_input" layoutX="204.0" layoutY="95.0" />
       <Button fx:id="btn_Click" layoutX="237.0" layoutY="226.0" mnemonicParsing="false" onAction="#quadraticRootFinderButtonClick" text="Click Me!!!" />
    </children>
 </AnchorPane>

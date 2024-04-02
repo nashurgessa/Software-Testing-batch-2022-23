@@ -341,7 +341,7 @@ It's time for the implementation of the `onFindRootButtonClick()` method of Exam
 |----------------------------------------------------------|
 |**Input (输入)** Coefficients `(a,b,c)` within the range `[1,100]`. </br> **Output (输出)** # of Roots and Roots of the quadratic equation, or a message indicating no real roots or invalid input. </br> 
 **1. Inputs** a, b, c </br> 
-**2. variables** isValid=0, D </br> 
+**2. variables** isValid=0, d, D </br> 
 **3. if** ((a >= 0) && (a <=100) && (b >= 0) && (b <=100) && (c >= 0) && (c <=100)) </br> 
 **4.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; isValid = 1  </br>  
 **5.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; **if (a == 0)** </br> 
@@ -349,20 +349,21 @@ It's time for the implementation of the `onFindRootButtonClick()` method of Exam
 **7.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; **end if** </br> 
 **8. end if** </br> 
 **9. if** (isValid == 1) </br> 
-**10.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; D = b^2 - 4ac <br>  
-**11.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; **if (D ==0)**  
-**12.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Set Display label `The roots are equal {root}`</br> 
-**13.** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; **else if(D > 0)** 
-**14.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Set Display label `The 2 roots are real and r1: {root} and r2: {root}`</br>  
-**15.** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; **else** 
-**16.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Set Display label `The 2 roots are imaginary and r1: {root} and r2: {root}`</br> 
-**17.** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  **end else if** <br> 
-**18. else if** (validInput == -1)
-**19.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Set Display label `The values do not constitute a Quadratic equation` </br>  
-**20. else**  
-**21.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Set Display label `The inputs belong to invalid range` </br> 
-**22. end else if**| 
-
+**10.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; d = b^2 - 4ac <br>  
+**11.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; **if (d ==0)**  
+**12.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; return `The roots are equal r: {root}`</br> 
+**13.** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; **else if(d > 0)** </br>
+**14.** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D = sqrt(d) </br>
+**15.** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return `2 real roots r1: {root} and r2: {root}`</br>  
+**16.** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; **else** </br>
+**17.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; D = sqrt(-d) </br>  
+**18.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; return `2 imaginary roots r1: {root} and r2: {root}`</br> 
+**19.** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  **end else if** </br> 
+**20. else if** (validInput == -1) </br>
+**21.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; return `The values do not constitute a Quadratic equation` </br>  
+**22. else** </br> 
+**23.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; return `The inputs belong to invalid range` </br> 
+**24. end else if** | 
 
 ---
 
@@ -419,8 +420,8 @@ public class QuadraticGUIController {
 
 ---
 ```java 
-1. int isValid = 0, d // int a, b, c;
-2. double D;
+1. int isValid = 0 // int a, b, c;
+2. double d, D;
 3. if ((a >= 0) && (a <= 100) && (b >= 0) && (b <= 100) && (c >= 0) && (c <= 100)) {
 4. 	isValid = 1;
 5. 	if (a == 0) {
@@ -434,19 +435,19 @@ public class QuadraticGUIController {
 13. 	} 
 14. 	else if (d > 0) {
 15		D = Math.sqrt(d);
-16. 	    return "2 Real Roots, r1 = " + String.format("%.2f", (-b + D) / (2 / a)) +
+16.   	    return "2 Real Roots, r1 = " + String.format("%.2f", (-b + D) / (2 / a)) +
  				" and r2 = " + String.format("%.2f", (-b - D) / (2 / a));
-17. 	} 
-18. 	else {
-19. 		D = Math.sqrt(-1 * D) / (2 * a);
-20. 		return "2 Imaginary Roots, r1 = " + String.format("%.2f", -1*b / (2 * a)) + " + " +
+17.   	} 
+18.   	else {
+19.   		D = Math.sqrt(-1 * d) / (2 * a);
+20.   		return "2 Imaginary Roots, r1 = " + String.format("%.2f", -1*b / (2 * a)) + " + " +
  				String.format("%.2f", D) + "i and r2 = " +
  				String.format("%.2f", -1*b / (2 * a)) + " - " +
  				String.format("%.2f", D) + "i";
-21. 	}
-22. } 
-23. else if (isValid == -1) {
-24. 	return "The Equation is not a quadratic equation";
+21.   	}
+22.   } 
+23.   else if (isValid == -1) {
+24.   	return "The Equation is not a quadratic equation";
 25. } 
 26. else {
 27. 	return "The input is out of range";
