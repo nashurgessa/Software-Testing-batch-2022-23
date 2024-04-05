@@ -43,10 +43,14 @@ Let's use JavaFX for the GUI implementation, providing a graphical interface for
 
 ![1711768504261](image/L12-L13WhiteBoxTesting/1711768504261.png)
 
+                 Fig 2:- Creating JavaFX project
+
 ---
 > - **Note:** Remember to include FXGL for additional features.
 
 ![1711768356374](image/L12-L13WhiteBoxTesting/1711768356374.png)
+
+                 Fig 3:- Including Additional library
 
 2. **Click 'Create'** to create a new JavaFX project 
 
@@ -59,6 +63,8 @@ Let's use JavaFX for the GUI implementation, providing a graphical interface for
 > - `junit-jupiter-api`:  Part of JUnit 5 (also known as Jupiter), this library is used for writing and running tests in Java applications. It provides annotations and assertions for defining tests and verifying outcomes.
 
 ![1711768746036](image/L12-L13WhiteBoxTesting/1711768746036.png)
+
+                 Fig 4:- Maven dependency
 
 ---
 
@@ -107,29 +113,47 @@ Let's use JavaFX for the GUI implementation, providing a graphical interface for
 
 Step 4. **Setting Up Testing Environment:** Inside the `src` directory, create a new folder by navigating to and selecting the `test/java` directory to incorporate it into your project. Follow these steps: `Right-click` on `Src`, choose `New`, and then `left-click` on `Directory`.
 
-![1711782522825](image/L12-L13WhiteBoxTesting/1711782522825.png)
+
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711782522825.png" alt="Flow Graph">
+</p>
 
 > Write click on test\java
 
-![1711782557284](image/L12-L13WhiteBoxTesting/1711782557284.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711782557284.png" alt="Flow Graph">
+</p>
 
-![1711782585183](image/L12-L13WhiteBoxTesting/1711782585183.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711782585183.png" alt="Flow Graph">
+</p>
 
 > Click **Enter** key to create a folder.
 
-![1711782716046](image/L12-L13WhiteBoxTesting/1711782716046.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711782716046.png" alt="Flow Graph">
+</p>
+
+                 Fig 5:- Creating package for testing
 
 ---
 
 5. **Scene Builder Setup:** Download and install Scene Builder from <a href="https://gluonhq.com/products/scene-builder/">Gluon</a>.
 
-![1711783514624](image/L12-L13WhiteBoxTesting/1711783514624.png)
+
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711783514624.png" alt="Flow Graph">
+</p>
 
 ---
 
 6. **Code Implementation:** Within the `src/resources` directory, rename the `.fxml` to match your UI layout.
 
-![1711783735842](image/L12-L13WhiteBoxTesting/1711783735842.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711783735842.png" alt="Flow Graph">
+</p>
+
+                 Fig 6:- Renaming .fxml
 
 - After renaming the file, navigate to the `src/main/java/package directory`, open `HelloApplication.java`, and execute the Java code to launch your GUI.
 
@@ -154,7 +178,7 @@ public class HelloApplication extends Application {
 
 ![1711784170892](image/L12-L13WhiteBoxTesting/1711784170892.png)
 
-
+ Fig 7:- Testing HelloApplication GUI
 
 **Congratulations on setting up your first GUI! Continue by designing your UI with Scene Builder, focusing on making it user-friendly and intuitive.**
 
@@ -180,20 +204,32 @@ Selecting the appropriate JavaFX layout pane depends on your application's UI ne
 ---
 Designing your UI carefully will enhance the user experience by making the application intuitive and easy to navigate.
 
-**Example UI Implementation (quadratic-gui.fxml)**
+**Example 1 UI Implementation (quadratic-gui.fxml)**
 Here's an example of how your quadratic-gui.fxml could look.
 
-![1711790799512](image/L12-L13WhiteBoxTesting/1711790799512.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711790799512.png" alt="Flow Graph">
+</p>
 
+ Fig 8:- GUI for the user input (a,b, and c) values.
 
-![1711788412968](image/L12-L13WhiteBoxTesting/1711788412968.png)
 
 
 ---
 
 **`quadratic-gui.fxml`**
 
-![1711791140643](image/L12-L13WhiteBoxTesting/1711791140643.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711788412968.png" alt="Flow Graph">
+</p>
+
+
+
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711791140643.png" alt="Flow Graph">
+</p>
+
+
 
 
 ```xml
@@ -330,7 +366,11 @@ public class QuadraticGUIController {
 ```
 Execute `HelloApplication.java` to **test** your GUI
 
-![1711791875955](image/L12-L13WhiteBoxTesting/1711791875955.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711791875955.png" alt="Flow Graph">
+</p>
+
+ Fig 9:- GUI test for button `onActionListener` .
 
 ---
 
@@ -419,8 +459,8 @@ public class QuadraticGUIController {
 
 ---
 ```java 
-1. int isValid = 0, d // int a, b, c;
-2. double D;
+1. int isValid = 0; // int a, b, c;
+2. double d, D;
 3. if ((a >= 0) && (a <= 100) && (b >= 0) && (b <= 100) && (c >= 0) && (c <= 100)) {
 4. 	isValid = 1;
 5. 	if (a == 0) {
@@ -433,12 +473,12 @@ public class QuadraticGUIController {
 12. 	    return "One Real Root, r = " + String.format("%.2f", -b / (2*a));
 13. 	} 
 14. 	else if (d > 0) {
-15		D = Math.sqrt(d);
+15.	    D = Math.sqrt(d);
 16. 	    return "2 Real Roots, r1 = " + String.format("%.2f", (-b + D) / (2 / a)) +
  				" and r2 = " + String.format("%.2f", (-b - D) / (2 / a));
 17. 	} 
 18. 	else {
-19. 		D = Math.sqrt(-1 * D) / (2 * a);
+19. 		D = Math.sqrt(-1 * d) / (2 * a);
 20. 		return "2 Imaginary Roots, r1 = " + String.format("%.2f", -1*b / (2 * a)) + " + " +
  				String.format("%.2f", D) + "i and r2 = " +
  				String.format("%.2f", -1*b / (2 * a)) + " - " +
@@ -454,10 +494,12 @@ public class QuadraticGUIController {
 ```
 ---
 
-Draw a program **flow graph:**
+**Flow graph:**
 Visualize the control flow of the above logic using a flow graph. This graphical representation helps in understanding the possible execution paths through the program.
 
-![1711853753610](image/L12-L13WhiteBoxTesting/1711853753610.png)
+![1712198005828](image/L12-L13WhiteBoxTesting/1712198005828.png)
+
+                 Fig 10: Flow graph of example 1
 
 ---
 
@@ -479,7 +521,20 @@ Control Flow Path: The sequence of execution from one point in a program to anot
 
 
 Decision-to-Desicion (DD) graph 
-![1711887710010](image/L12-L13WhiteBoxTesting/1711887710010.png)
+
+<div style="text-align: center;">
+  <figure style="display: inline-block; margin: 10px;">
+    <img src="image/L12-L13WhiteBoxTesting/1712198005828.png" alt="Data Flow Graph" width="400" height="600"/>
+    <figcaption>(a) Data flow graph</figcaption>
+  </figure>
+  <figure style="display: inline-block; margin: 10px;">
+    <img src="image/L12-L13WhiteBoxTesting/1711887710010.png" alt="DD Graph" width="300" height="600"/>
+    <figcaption>(b) DD - graph</figcaption>
+  </figure>
+</div>
+
+
+                 Fig 11: Example 1 flow graph and DD graph
 
 ---
 
@@ -497,15 +552,15 @@ The Mapping table for DD path graph is:
 | 9 | G | Two edges are combined and decision node |
 |10 | H | Intermediate node |
 |11 | I | Decision node |
-|12, 13, 14 | J | Sequential node |
-|15  | K | Decision node |
-|16, 17, 18, 20 | L | Sequential node |
-|21, 22, 23, 24, 25, 29| M | Sequential node |
-|30 | N | Three edges are combined |
-| 31 |O | Decision node |
-| 32, 33 | P | Sequential node | 
-|34, 35, 36 | Q | Sequential node |
-| 37 | N | Three edges are combined here with exit node |
+|12, 13| J | Sequential node |
+|14 | K | Decision node |
+|15, 16, 17 | L | Sequential node |
+|18, 19, 20, 21| M | Sequential node |
+|22 | N | Three edges are combined |
+| 23 |O | Decision node |
+| 24, 25 | P | Sequential node | 
+|26, 27, 28 | Q | Sequential node |
+| 29 | N | Three edges are combined here with exit node |
 
 
 ***Independent Paths:***
@@ -516,9 +571,29 @@ The Mapping table for DD path graph is:
 
 ---
 
-It's time to create a test package
+#### Class Activity
+Consider a program given below for the classification of a triangle. Its input is a triple of positive integers (say a,b,c) from the interval [1,100]. The output may be 
 
-![1711850390280](image/L12-L13WhiteBoxTesting/1711850390280.png)
+> [Scalene, Isosceles, Equilateral, Not a triangle].
+
+Draw the ***flow graph*** & ***DD Path*** graph. Also find the `independent paths` from the DD Path graph.
+
+---
+
+```java
+
+```
+
+---
+
+
+
+It's time to create a test case for the example 1. 
+
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711850390280.png" alt="Flow Graph">
+</p>
+
 
 
 ```java
@@ -536,14 +611,6 @@ public class QuadraticGUIControllerTest {
 }
 ```
 
-***Class Activity***
-Consider a program given in Fig.8.20 for the classification of a triangle. Its input is a triple of positive integers (say a,b,c) from the interval [1,100]. The output may be 
-
-> [Scalene, Isosceles, Equilateral, Not a triangle].
-
-Draw the flow graph & DD Path graph. Also find the independent paths from the DD Path graph.
-
----
 
 #### Cyclomatic Complexity (环路复杂度)
 McCabe’s cyclomatic metric V(G) = e – n + 2P, measures the number of linearly independent paths through a program's source code. This metric is crucial for determining the thoroughness of the test cases developed based on the control flow graph of the program.
@@ -552,7 +619,9 @@ McCabe’s cyclomatic metric V(G) = e – n + 2P, measures the number of linearl
 
 For example, a flow graph shown in in Fig below with entry node ‘a’ and exit node ‘f’.
 
-![1711889264267](image/L12-L13WhiteBoxTesting/1711889264267.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711889264267.png" alt="Flow Graph">
+</p>
 
 The value of cyclomatic complexity can be calculated as :
 ***V(G) = 9 – 6 + 2 = 5***
@@ -587,9 +656,12 @@ Two alternate methods are available for the complexity calculations.
 2. Cyclomatic complexity is equal to the number of regions of the flow graph.
 
 
-***Example 3***
+***Example 2***
 Consider a flow graph given in Fig below and calculate the cyclomatic complexity by all three methods.
-![1711970476875](image/L12-L13WhiteBoxTesting/1711970476875.png)
+
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711970476875.png" alt="Flow Graph">
+</p>
 
 ---
 Solution
@@ -602,7 +674,7 @@ Cyclomatic complexity can be calculated by any of the three methods.
 Therefore, complexity value of a flow graph in Fig. above is 5.
 
 ---
-**Example**
+**Example 3**
 Consider the quadratic equation problem given with its DD Path graph. Find the cyclomatic complexity:
 
 --- 
@@ -613,11 +685,75 @@ Number of edges (e) = 24
 (i) V(G) = e – n + 2P = 24 – 19 + 2 = 7
 (ii) V(G) = π + 1 = 6 + 1 = 7
 (iii) V(G) = Number of regions = 7
-Hence cyclomatic complexity is 7 meaning thereby, seven independent paths in the DD Path graph.
+
+> - Hence cyclomatic complexity is **7** meaning thereby, ***seven*** independent paths in the DD Path graph.
+
+
+***Independent Paths:***
+(i) ABGOQRS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ii) ABGOPRS
+(iii) ABCDFGOQRS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (iv) ABCDEFGOPRS
+(v) ABGHIJNRS  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  (vi) ABGHIKLNRS
+(vi) ABGHIKMNRS
+
+
+Here's a table of test cases designed to cover these independent paths:
+
+|Test Case ID |	Independent Path|	Input Values (a, b, c)| Outcome|
+|--------------|------------------|-------------------------|--------|
+|TC1|	ABGOQRS|	a=2, b=4, c=2| One Real Root, r = -1.00 |
+|TC2|	ABGOPRS|	a=1, b=5, c=6|	2 Real Roots, r1 = -2.00, r2 = -3.00 |
+|TC3|	ABCDFGOQRS|	a=0, b=5, c=6| The Equation is not a quadratic equation |
+|TC4|	ABCDEFGOPRS|	a=101, b=5, c=6| The input is out of range |
+|TC5|	ABGHIJNRS|	a=2, b=4, c=10|	2 Imaginary Roots, r1 = -1.00 + i3.16, r2 = -1.00 - i3.16 |
+|TC6|	ABGHIKLNRS|	a=1, b=0, c=-1|	2 Real Roots, r1 = 1.00, r2 = -1.00 |
+|TC7|	ABGHIKMNRS|	a=1, b=10, c=100| 2 Imaginary Roots, r1 = -5.00 + i9.49, r2 = -5.00 - i9.49 |
 
 ---
 
-**Example: Class Activity**
+#### Class Activity
+
+Write the JUnit implementation of example 1 based on independent paths.
+
+```java
+
+    QuadraticGUIController quadraticController = new QuadraticGUIController();
+    
+    @Test
+    public void inValid_Type_A_Input_Test() {
+        // Arrange & Act
+        String result = quadraticController.findRoots("N", "4", "2");
+        Assertions.assertEquals("The input must be number", result);
+
+    }
+    @Test
+    public void inValid_Type_B_Input_Test() {
+        // Arrange & Act
+        String result = quadraticController.findRoots("4", "N", "2");
+        Assertions.assertEquals("The input must be number", result);
+
+    }
+    @Test
+    public void inValid_Type_C_Input_Test() {
+        // Arrange & Act
+        String result = quadraticController.findRoots("4", "2", "N");
+        Assertions.assertEquals("The input must be number", result);
+
+    }
+    
+    @Test
+    public void path1() {
+        // arrange
+        double a = 2, b =4, c = 2;
+        String result = quadraticController.quadraticRoots(a, b, c);
+        Assertions.assertEquals("One Real Root, r = -1.00", result);
+    }
+
+	// Implementation
+```
+
+---
+
+**Class Activity**
 Consider the classification of triangle problem given. Find the cyclomatic complexity.
 
 
@@ -626,32 +762,44 @@ Consider the classification of triangle problem given. Find the cyclomatic compl
 
 A graph matrix is a square matrix with one row and one column for every node in the graph. The size of the matrix (i.e., the number of rows and columns) is equal to the number of nodes in the flow graph. Some examples of graphs and associated matrices are shown in fig. _.
 
-![1711970756554](image/L12-L13WhiteBoxTesting/1711970756554.png)
 
-![1711970764969](image/L12-L13WhiteBoxTesting/1711970764969.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711970756554.png" alt="Image 1" width="300"/>
+  <img src="image/L12-L13WhiteBoxTesting/1711970764969.png" alt="Image 2" width="300"/>
+</p>
 
-Fig. 24 (a): Flow graph and graph matrices
----
 
-![1711970798695](image/L12-L13WhiteBoxTesting/1711970798695.png)
-
-![1711970806022](image/L12-L13WhiteBoxTesting/1711970806022.png)
-
-Fig. 24 (b): Flow graph and graph matrices
+Fig. 12 (a): Flow graph and graph matrices
 
 ---
 
-![1711970880652](image/L12-L13WhiteBoxTesting/1711970880652.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711970798695.png" alt="Image 1" width="300"/>
+  <img src="image/L12-L13WhiteBoxTesting/1711970806022.png" alt="Image 2" width="300"/>
+</p>
 
-![1711970886772](image/L12-L13WhiteBoxTesting/1711970886772.png)
 
-Fig. 24 (c): Flow graph and graph matrices
+Fig. 13 (b): Flow graph and graph matrices
 
 ---
 
-![1711970907456](image/L12-L13WhiteBoxTesting/1711970907456.png)
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711970880652.png" alt="Image 1" width="300"/>
+  <img src="image/L12-L13WhiteBoxTesting/1711970886772.png" alt="Image 2" width="300"/>
+</p>
 
-Fig. 25 : Connection matrix of flow graph shown in Fig. 24 (c)
+
+Fig. 14 (c): Flow graph and graph matrices
+
+---
+
+
+<p align="center">
+  <img src="image/L12-L13WhiteBoxTesting/1711970907456.png" alt="Flow Graph">
+</p>
+
+
+Fig. 15 : Connection matrix of flow graph shown in Fig. 24 (c)
 
 ---
 #### Data Flow Testing
@@ -701,49 +849,90 @@ Hence, our objective is to find all du-paths and then identity those du-paths wh
 
 ---
 
-**Example**
+**Example 4**
 
-Consider the program of the determination of the nature of roots of a quadratic equation. Its input is a triple of positive integers (say a,b,c) and values for each of these may be from interval [0,100]. The program is given in **Fig. 19.** The output may have one of the option given below:
-> (i) Not a quadratic program
-> (ii) real roots
-> (iii) imaginary roots
-> (iv) equal roots
-> (v) invalid inputs
-
-Find all **du-paths** and identify those du-paths that are **definition clear**.
+Consider the program of the determination of the nature of roots of a quadratic equation. Find all **du-paths** and identify those du-paths that are **definition clear**.
 
 ---
 
-**Class Activity**
-Consider the program given in Fig. 20 for the classification of a triangle. Its input is a triple of positive integers (say a,b,c) from the interval [1,100]. The output may be:
-> [Scalene, Isosceles, Equilateral, Not a triangle, Invalid inputs].
+**Solution**
+***Step I:*** The program flow graph is given in **Fig. 11(a).** The variables used in the program are a,b,c,d, validinput, D.
 
-Find all du-paths and identify those du-paths that are definition clear.
+***Step II:*** DD Path graph is given in **Fig. 11(b).** The cyclomatic complexity of this graph is 7 indicating there are seven independent paths.
 
----
-
-Solution
-Step I: The program flow graph is given in Fig. 19 (a). The variables used in the 
-program are a,b,c,d, validinput, D.
-
-Step II: DD Path graph is given in Fig. 19(b). The cyclomatic complexity of this graph 
-is 7 indicating there are seven independent paths.
-
-Step III: Define/use nodes for all variables are given below:
+***Step III:*** **Define/use** nodes for all variables are given below:
 
 | Variable | Defined at node | Used at node |
 |----------|-----------------|--------------|
 |a| param - 1 |3, 5, 10, 12, 16, 19, 20|
 |b| param - 1 |3, 10, 12, 16, 20|  
 |c| param - 1 |3, 10|
-|d| 10 | 11, 14, 15, 16, 17|
-| D| 15, 20 | 16, 20, 21|
+|d| 10 | 11, 14, 19|
+| D| 15, 19 | 16, 20|
 |isValid| 1, 4, 6 | 9, 23 |
 
-Step IV: The du-paths are identified and are named by their beginning and ending
-nodes using Fig. 19 (a).
+Step IV: The du-paths are identified and are named by their beginning and endingnodes using **Fig. 11 (a).**
 
 |Variable | Path (beginning, end) nodes | Definition clear ? |
 |---------|-----------------------------|--------------------|
 | a | param - 1, 3 | Yes |
 | a | param - 1, 5 | Yes |
+| a | param - 1, 10 | Yes |
+| a | param - 1, 12 | Yes |
+| a | param - 1, 16 | Yes |
+| a | param - 1, 19 | Yes |
+| a | param - 1, 20 | Yes |
+| b | param - 1, 3 | Yes |
+| b | param - 1, 10 | Yes |
+| b | param - 1, 12 | Yes |
+| b | param - 1, 16 | Yes |
+| b | param - 1, 20 | Yes |
+| c | param - 1, 3 | Yes |
+| c | param - 1, 10 | Yes |
+| d | 10, 11 | Yes |
+| d | 10, 14 | Yes |
+| d | 10, 19 | Yes |
+| D | 15, 16 | Yes |
+| D | 15, 20 | Path not possible |
+| D | 19, 16 | Path not possible |
+| D | 19, 20 | Yes |
+| isValid | 1, 9 | no |
+| isValid | 1, 23 | no |
+| isValid | 4, 9 | no |
+| isValid | 4, 23 | no |
+| isValid | 6, 9 | Yes |
+| isValid | 6, 23 | Yes |
+
+Hence total du-paths are 18 out of which four paths are not definition clear
+
+**DU-Paths Test Cases**
+
+For DU-paths, we focus on paths where the definition to use of a ***variable is clear***:
+
+Below is a table format summarizing the test cases based on the DU-paths for your consideration. This table is designed to cover all definition-clear paths from the given DU-path analysis, excluding paths that are not definition-clear or are not possible.
+
+|Test Case |	Variable	| Input Example|	Expected Output	|Purpose|
+|----------|----------------|--------------|--------------------|-------|
+|TC1|	a|	a=10, b=20, c=5	| Depends on d calculation|	Validates a in the quadratic evaluation.|
+|TC2|	a|	a=1, b=2, c=1	| One Real Root, r = -1.00|	Tests a's impact on root calculation for d=0.|
+|TC3|	a|	a=1, b=3, c=2|	2 Real Roots, r1 = -1.00 and r2 = -2.00|	Checks a's effect on root calculation for d>0.|
+|TC4|	a|	a=1, b=2, c=10|	2 Imaginary Roots, r1 = -1.00 + i and r2 = -1.00 - i|	Evaluates a's influence on imaginary roots calculation.|
+|TC5|	b|	Same as TC1-TC4|	Varies |	Focuses on b's role in outcomes.
+|TC6|	c|	a=10, b=20, c=5|	Dependent on d calculation|	Tests c's impact on d value and flow.
+|TC7|	d|	a=1, b=2, c=1|	One Real Root, r = -1.00|	Direct test for d=0 affecting root type decision.|
+|TC8|	d|	a=1, b=3, c=2|	2 Real Roots, r1 = -1.00 and r2 = -2.00|	Direct test for d>0 on real roots calculation.|
+|TC9|	D|	a=2, b=8, c=2|	2 Real Roots, r1 = -1.00 and r2 = -2.00|	Used for real root calculation.|
+|TC10|	D|	a=1, b=1, c=10|	2 Imaginary Roots, r1 = -0.50 + 3.16i and r2 = -0.50 - 3.16i|	Used for imaginary root calculation.|
+|TC11|	isValid|	a=0, b=10, c=5|	The Equation is not a quadratic equation|	Checks for non-quadratic conditions (a==0).|
+|TC12|	isValid|	a=101, b=20, c=5|	The input is out of range|	Validates input range for all variables.|
+
+--- 
+
+#### Homework
+Write the JUnit implementation for the test cases
+
+
+**Class Activity**
+Consider the program given for the classification of a triangle. Find all du-paths and identify those du-paths that are definition clear.
+
+---
