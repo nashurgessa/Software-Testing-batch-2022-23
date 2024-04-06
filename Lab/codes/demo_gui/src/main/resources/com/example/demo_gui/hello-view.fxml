@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo_gui.HelloController">
+   <children>
+      <Label layoutX="151.0" layoutY="99.0" text="Label" />
+      <Label layoutX="151.0" layoutY="152.0" text="Label" />
+      <TextField fx:id="txt_A_input" layoutX="204.0" layoutY="95.0" />
+      <Button fx:id="btn_Click" layoutX="237.0" layoutY="226.0" mnemonicParsing="false" onAction="#quadraticRootFinderButtonClick" text="Click Me!!!" />
+   </children>
+</AnchorPane>
