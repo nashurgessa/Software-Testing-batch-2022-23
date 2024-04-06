@@ -657,3 +657,121 @@ void whenDivideByZero_thenThrowArithmeticException() {
     assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
 }
 ```
+
+> - **Asserting Exception Details:** Beyond simply testing for the presence of an exception, you can capture the exception and assert details about it.
+```java
+@Test
+void whenDivideByZero_thenThrowExceptionWithSpecificMessage() {
+    Calculator calculator = new Calculator();
+    Exception exception = assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
+    assertEquals("/ by zero", exception.getMessage());
+}
+```
+
+### 5. Testing Strategies for a Todo Application\
+When developing a Todo application with functionalities like login, registration, and CRUD operations for todo items, adopting a strategic approach to testing is crucial. Here, we focus on techniques applicable to a Todo application, employing boundary value analysis (BVA), white box testing, and decision tables to ensure comprehensive coverage.
+
+#### 5.1 Boundary Value Analysis (BVA) for Password Length
+Boundary Value Analysis is an effective testing technique that involves selecting input values at the boundaries of input domains. For a password feature in the registration or login process, assuming valid passwords are required to be between 6 and 16 characters:
+
+- **Test Cases:**
+> - **Just below the lower boundary:** Use a 5-character password to ensure it's rejected.
+> - **At the lower boundary:** Use an 6-character password to ensure it's accepted.
+> - **Just above the lower boundary:** Use a 7-character password to confirm acceptance.
+> - **Just below the upper boundary:** Use a 15-character password to confirm acceptance.
+> - **At the upper boundary:** Use a 16-character password to ensure it's accepted.
+> - **Just above the upper boundary:** Use a 17-character password to ensure it's rejected.
+
+Implementing these tests in ***JUnit*** can be efficiently done using parameterized tests.
+```java
+
+
+```
+
+#### 5.2 White Box Testing for Input Validation
+White box testing involves testing internal structures or workings of an application. For input validation, like ensuring a password contains at least one uppercase letter and one special character, you understand and test the internal logic.
+
+> **Example:** For a method `isValidPassword` that validates password criteria:
+> - **Test for at least one uppercase letter:** Provide a password with and without an uppercase letter and assert the expected outcome.
+> - **Test for at least one special character:** Provide passwords that do and do not contain a special character to test the validation logic.
+
+```java
+
+
+```
+
+#### 5.3 Using Decision Tables for Username and Password Validation
+Decision tables are excellent for scenarios where the outcome depends on a combination of conditions. For validating usernames and passwords, a decision table can cover various combinations:
+
+> **Conditions**:
+> - C1: Username is not empty.
+> - C2: Username exists in the database.
+> - C3: Password is valid (meets length and character requirements).
+> - C4: Password matches the database for the user.
+
+> **Actions**:
+> - A1: Allow login.
+> - A2: Reject login.
+
+You then outline rules (R1, R2, ...) that define which conditions lead to which actions. For example, only when C1, C2, C3, and C4 are true (R1) should A1 (allow login) be the outcome.
+
+Implementing Tests in JUnit
+Parameterized Tests for decision table scenario ensure efficient coverage over various input combinations. Here’s an example structure for a parameterized test using decision tables:
+
+```java
+@ParameterizedTest
+@CsvSource({
+    "John, true, true, true, true, ALLOW",
+    "John, true, true, false, true, REJECT",
+    // additional rows based on decision table
+})
+void testLoginValidation(String username, boolean exists, boolean validPass, boolean matches, boolean expected) {
+    // Mock database responses based on 'exists' and 'matches'
+    // Implement logic to simulate 'validPass' check
+    // Assert 'expected' action (ALLOW or REJECT) matches the outcome
+}
+```
+
+***Conclusion***
+Adopting strategic testing techniques such as BVA, white box testing, and decision tables provides a structured approach to ensuring the robustness and reliability of a Todo application. By carefully designing test cases around these strategies, you can achieve comprehensive coverage, effectively catching potential issues before they impact users. Implementing these tests in JUnit, especially with the support for parameterized tests, allows for thorough and efficient validation of application logic.
+
+
+### 6. Effective Use of JUnit Annotations
+JUnit 5 introduces several annotations that can enhance your testing framework, making your tests more readable, manageable, and efficient. Understanding and utilizing these annotations effectively can significantly improve your test suites.
+
+#### 6.1 Lifecycle Annotations
+Lifecycle annotations in JUnit 5 define methods that run at specific points in the test lifecycle, allowing for setup and teardown operations that are crucial for maintaining test isolation and reducing redundancy.
+
+- `@BeforeAll`: Marks a method to be run before all tests in the current class. It's ideal for expensive setup tasks that need to run only once, like initializing a database connection. Must be static in a regular test class but can be instance-level in a test class annotated with @TestInstance(Lifecycle.PER_CLASS).
+
+- `@AfterAll`: Marks a method to be run after all tests in the class have been executed. Useful for cleanup tasks, such as closing database connections. Similar to @BeforeAll, it must be static unless the test class is annotated with @TestInstance(Lifecycle.PER_CLASS).
+
+- `@BeforeEach`: Marks a method to run before each test method in the class. It's used for setting up test conditions or initializing objects that are required by each test method.
+
+- `@AfterEach`: Marks a method to run after each test method completes. This annotation is typically used for cleanup activities, ensuring that changes made by one test method do not affect others.
+
+#### 6.2 Using @Disabled to Skip Tests
+- `@Disabled`: This annotation can be applied to a test class or test method to prevent it from being executed. It's particularly useful when a test is temporarily irrelevant or if the code it tests is under construction.
+
+#### 6.3 Custom Annotations for JUnit Tests
+JUnit 5 allows the creation of custom composed annotations. These are annotations that can bundle several other annotations together, including JUnit-specific and custom annotations.
+
+> - **Example:** Creating a custom annotation to group lifecycle annotations or to indicate a specific test configuration.
+
+```java
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Test
+@Tag("fast")
+public @interface FastTest {
+    // This custom annotation marks a test as a 'fast' test and is itself annotated with @Test
+}
+```
+
+> **Additional Useful Annotations**
+> - `@DisplayName`: Provides a custom name for the test class or method, making test reports more readable.
+> `@Nested`: Allows grouping of tests within a test class into nested classes, facilitating better organization of complex test suites.
+`@Tag`: Used for tagging tests, which can then be included or excluded in test runs based on their tags. This is especially useful in CI/CD pipelines for running different sets of tests for different environments or contexts.
+`@RepeatedTest`: Indicates that a method is a test template for a repeated test. It's used when you want to run the same test multiple times.
+`@ParameterizedTest`: Indicates that a method is a test template for a parameterized test. It's used in conjunction with sources like @ValueSource, @CsvSource, or @MethodSource to run the same test with different parameters.
+`@TestFactory`: Indicates that a method is a test factory for dynamic tests. Dynamic tests are tests that are generated at runtime by a factory method.
