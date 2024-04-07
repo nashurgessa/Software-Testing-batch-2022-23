@@ -40,10 +40,7 @@
 9. Integrating JUnit Tests into Build Tools and CI/CD Pipelines
 9.1. Using Maven or Gradle for JUnit Testing
 9.2. Integration with Continuous Integration Tools
-10. Conclusion and Next Steps
-10.1. Recap of Key Concepts
-10.2. Further Reading and Resources
-10.3. Encouragement to Practice and Explore
+
 
 ### 1. Introduction to JUnit Testing
 #### 1.1. Overview of JUnit
@@ -156,15 +153,61 @@ JUnit tests are methods annotated with @Test and are contained within test class
 **JavaFX Application Structure**
 Your JavaFX application will consist of three **primary scenes**:
 
-> - `Login Page`
-> - `Registration Page`
-> - `Todo Page`
+> - `Login View`
+> - `Registration View`
+> - `Todo View`
 
-Each page is represented by an FXML file for the layout and a Controller class to handle the user interactions. This separation adheres to the Model-View-Controller (MVC) pattern, enhancing maintainability and testability.
+Each page / view is represented by an FXML file for the layout and a Controller class to handle the user interactions. This separation adheres to the Model-View-Controller (MVC) pattern, enhancing maintainability and testability.
+
+![1712408201148](image/L15-L18Junitpractices/1712408201148.png)
+
+![1712408219467](image/L15-L18Junitpractices/1712408219467.png)
 
 Focusing on a detailed implementation of the **Registration Page** in a JavaFX application, we'll step through creating the **UI** with **FXML**, building the controller, and setting up a comprehensive testing strategy for the registration logic.
 
-**Step 1: Designing the Registration Page UI with FXML**
+**`TodoApplication.java`**
+```java
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+// import org.example.todo_demo.config.Configuration;
+
+import java.io.IOException;
+
+public class TodoApplication extends Application {
+    @Override
+    public void start(Stage stage) throws IOException {
+        Platform.setImplicitExit(false); // Keep application running in background
+
+//        stage.setResizable(false);
+//
+//        stage.setOnCloseRequest(event -> {
+//            // Prevent the window from closing
+//            event.consume();
+//
+//            // Optionally, minimize the window instead
+//            stage.setIconified(true);
+//        });
+        // Configuration.widowResizeCancelController(stage);
+        // Call method to add application to system tray
+        // Configuration.addAppToSystemTray(stage);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(TodoApplication.class.getResource("login_view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 750, 550);
+        stage.setTitle("Todo App");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+}
+```
+
+**Step 1: Designing the UI with FXML**
 
 `Registration.fxml`
 
@@ -173,147 +216,53 @@ Create an FXML file named `Registration.fxml`. This file will define the user in
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<GridPane fx:controller="your.package.RegistrationController"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-    
-    <Text text="Register" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
-    <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    <Button text="Register" onAction="#handleRegistrationAction" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-</GridPane>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_demo.controller.RegistrationController">
+   <children>
+      <GridPane layoutX="54.0" layoutY="103.0" prefHeight="113.0" prefWidth="314.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="115.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="195.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Name" />
+            <Label text="Email" GridPane.rowIndex="1" />
+            <Label text="Password" GridPane.rowIndex="2" />
+            <Label text="Confirm Password" GridPane.rowIndex="3" />
+            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="confirmPasswordField" prefHeight="43.0" prefWidth="195.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="nameField" GridPane.columnIndex="1" />
+            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Button layoutX="122.0" layoutY="237.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Register"
+      onAction="#handleRegistrationAction"/>
+      <Label layoutX="61.0" layoutY="21.0" text="Registration Page">
+         <font>
+            <Font name="Agency FB" size="56.0" />
+         </font>
+      </Label>
+      <Button fx:id="backButton" layoutX="9.0" layoutY="9.0" mnemonicParsing="false" text="Back" onAction="#onBackClickButton"/>
+   </children>
+</AnchorPane>
 ```
 
-**Step 2: Implementing the RegistrationController**
-The RegistrationController class will handle user input and registration logic.
-
-`RegistrationController.java`
-
-```java
-package your.package;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-
-public class RegistrationController {
-    
-    @FXML
-    private TextField nameField;
-    
-    @FXML
-    private TextField emailField;
-    
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    protected void handleRegistrationAction(ActionEvent event) {
-        String name = nameField.getText();
-        String email = emailField.getText();
-        String password = passwordField.getText();
-        
-        if (registerUser(name, email, password)) {
-            // Registration successful
-            // Navigate to login page or show success message
-        } else {
-            // Registration failed
-            // Show error message
-        }
-    }
-    
-    private boolean registerUser(String name, String email, String password) {
-        // Placeholder for registration logic
-        // In a real application, this would involve validating the input and storing the user data
-        return !name.isEmpty() && !email.isEmpty() && password.length() >= 8;
-    }
-}
-```
-
-**Step 3: Writing Test Cases for the Registration Logic**
-Now, let's focus on how to test the registration logic using JUnit 5. The registerUser method checks that none of the fields are empty and that the password is at least 8 characters long.
-
-3.2.1 Unit Testing registerUser Method
-
-`RegistrationControllerTest.java`
-
-We'll create a test class named RegistrationControllerTest. This class will contain test methods to verify the registration logic under various conditions.
-
-```java
-// package your.package;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-class RegistrationControllerTest {
-
-    private RegistrationController controller;
-
-    @BeforeEach
-    void setUp() {
-        controller = new RegistrationController();
-    }
-
-    @Test
-    void testRegisterUserWithValidData() {
-        assertTrue(controller.registerUser("John Doe", "john@example.com", "password123"),
-                   "Registration should succeed with valid data.");
-    }
-
-    @Test
-    void testRegisterUserWithEmptyName() {
-        assertFalse(controller.registerUser("", "john@example.com", "password123"),
-                    "Registration should fail with an empty name.");
-    }
-
-    @Test
-    void testRegisterUserWithShortPassword() {
-        assertFalse(controller.registerUser("John Doe", "john@example.com", "pass"),
-                    "Registration should fail with a password shorter than 8 characters.");
-    }
-
-    // Additional tests can be added to cover more cases, such as invalid email formats.
-}
-```
-
-***Parameterized Testing***
-For more comprehensive testing, especially to cover various input combinations efficiently, you can use JUnit 5's parameterized tests. Here's how you might extend the testing to cover multiple scenarios using @ParameterizedTest.
-
-```java
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-class RegistrationControllerTest {
-
-    private RegistrationController controller = new RegistrationController();
-
-    @ParameterizedTest
-    @CsvSource({
-        "John Doe, john@example.com, password123, true",
-        ", john@example.com, password123, false",
-        "John Doe, , password123, false",
-        "John Doe, john@example.com, pass, false"
-    })
-    void testRegisterUser(String name, String email, String password, boolean expectedOutcome) {
-        assertEquals(expectedOutcome, controller.registerUser(name, email, password),
-                     "Registration validation failed.");
-    }
-}
-```
-
-
-**Step 4: Designing the LoginPage UI with FXML**
+---
 
 `Login.fxml`
 
@@ -322,25 +271,217 @@ Create an FXML file named `Login.fxml` to define the user interface for the logi
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:controller="your.package.LoginController"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-    
-    <Text text="Login" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
-    <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Button text="Login" onAction="#handleLoginAction" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-</GridPane>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_demo.controller.LoginController">
+   <children>
+      <GridPane layoutX="179.0" layoutY="122.0" prefHeight="61.0" prefWidth="500.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="23.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="233.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Email" />
+            <Label text="Password" GridPane.rowIndex="1" />
+            <TextField fx:id="txtUsername" prefHeight="25.0" prefWidth="241.0" GridPane.columnIndex="1" />
+            <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Button layoutX="179.0" layoutY="200.0" mnemonicParsing="false" onAction="#onSignIn" prefHeight="25.0" prefWidth="328.0" text="Sign In" />
+      <Hyperlink layoutX="286.0" layoutY="298.0" onAction="#goToRegistrationPage" stylesheets="@hyperlink_stylesheet.css" text="Register" />
+      <Label layoutX="338.0" layoutY="301.0" text="|" />
+      <Hyperlink layoutX="343.0" layoutY="298.0" text="Forget Password" />
+   </children>
+</AnchorPane>
 ```
 
-**Step 5: Implementing the LoginController**
+---
+
+`Todo.fxml`
+
+Create an FXML file named Todo.fxml to define the user interface for the Todo Page. This interface includes a ListView to display todo items, a TextField to enter new todos, and buttons for adding and deleting todos.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="642.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_demo.controller.TodoViewController">
+   <children>
+      <ListView fx:id="myListView" layoutY="343.0" prefHeight="300.0" prefWidth="656.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="343.0" />
+      <Label layoutX="271.0" layoutY="14.0" text="Todo" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="center" spacing="10" />
+      <GridPane layoutX="74.0" layoutY="44.0" prefHeight="232.0" prefWidth="539.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="72.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="467.0" minWidth="10.0" prefWidth="467.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="138.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Hour: " />
+                  <ComboBox fx:id="hourComboBox" prefWidth="70" />
+                  <Label text="              " />
+                  <Label text="Minute: " />
+                  <ComboBox fx:id="minuteComboBox" prefWidth="70" />
+               </children>
+            </HBox>
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField GridPane.columnIndex="1" />
+            <Label text="Title:" />
+            <Label text="Day" GridPane.rowIndex="1" />
+            <Label text="Time:" GridPane.rowIndex="2" />
+            <TextArea prefHeight="138.0" prefWidth="467.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Description:" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Button layoutX="194.0" layoutY="293.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="344.0" text="Add New Task">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="logoutButton" layoutX="597.0" layoutY="2.0" mnemonicParsing="false" text="Logout" onAction="#onlogout" />
+   </children>
+
+</AnchorPane>
+
+```
+
+---
+
+
+
+**Step 2: Implementing the RegistrationController**
+The RegistrationController class will handle user input and registration logic.
+
+`RegistrationController.java`
+
+```java
+// package your.package;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.example.todo_demo.services.UserService;
+import org.example.todo_demo.utils.AlertMessages;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class RegistrationController {
+    
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+
+    @FXML
+    private Button backButton;
+
+    public void onBackClickButton(ActionEvent actionEvent) throws IOException {
+        // Implementation
+    }
+
+    @FXML
+    protected void handleRegistrationAction(ActionEvent event) {
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+        
+        if (!password.equals(confirmPassword)) {
+            // Password don't match
+            // Show error message
+            return;
+        }
+
+        if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty()) {
+            // Registration successful
+            // Navigate to login page or show success message
+        } else {
+            // Registration failed
+            // Show error message
+        }
+    }
+    
+    // Validate Email format
+     private boolean isValidEmail(String email) {
+        /*
+        ^: Start of the string.
+           [A-Za-z0-9+_.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), plus (+), underscore (_), dot (.), or hyphen (-). This part is intended to match the user name part of the email address before the @ symbol.
+           @: Matches the @ symbol itself, which is a required character in email addresses.
+           [A-Za-z0-9.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), dot (.), or hyphen (-). This part is intended to match the domain part of the email address after the @ symbol. It can match domains like example.com or subdomains like sub.example.com.
+           $: End of the string.
+         */
+     }
+
+     // Validate Password complexity
+      private boolean isValidPassword(String password) {
+        /*
+        ^: Start of string.
+        (?=.*[0-9]): At least one digit.
+        (?=.*[a-z]): Ensures that there is at least one lowercase letter (not explicitly required by your rules but generally considered a good practice for password security).
+        (?=.*[A-Z]): At least one uppercase letter.
+        (?=.*[@#$%^&+=]): At least one special character from the set specified.
+        (?=\\S+$): No whitespace allowed in the entire string.
+        .{8,24}$: Between 8 to 24 characters.
+         */
+      }
+}
+```
+
+
+---
+
+---
+
+**Step 3: Implementing the LoginController**
 The LoginController class will handle user input for login actions.
 
 `LoginController.java`
@@ -362,129 +503,30 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    protected void handleLoginAction(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        
-        if (authenticateUser(username, password)) {
-            // Login successful
-            // Navigate to the Todo Page or show success message
-        } else {
-            // Login failed
-            // Show error message
+    protected void onSignIn(ActionEvent actionEvent) {
+        if (!authenticateUser(txtUsername.getText(), txtPassword.getText())) {
+            // Login Failed
+            return;
+        }
+        // Navigate to MainPage
+    }
+
+    @FXML
+    public void goToRegistrationPage(ActionEvent actionEvent) {
+        try {
+            // Go to Registration
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception as appropriate for your application
         }
     }
     
-    private boolean authenticateUser(String username, String password) {
-        // Placeholder for authentication logic
-        // In a real application, this would check the credentials against a user store (e.g., database)
-        return "admin".equals(username) && "password".equals(password);
-    }
 }
 ```
 
-**Step 3: Writing Test Cases for the Login Logic**
-Testing the authenticateUser method is crucial to ensure that only valid users can access the application.
 
-***Unit Testing authenticateUser Method***
-LoginControllerTest.java
+---
 
-Create a test class named LoginControllerTest for verifying the login functionality.
-
-```java
-package your.package;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-class LoginControllerTest {
-
-    private LoginController controller;
-
-    @BeforeEach
-    void setUp() {
-        controller = new LoginController();
-    }
-
-    @Test
-    void testAuthenticateUserWithValidCredentials() {
-        assertTrue(controller.authenticateUser("admin", "password"),
-                   "Authentication should succeed with valid credentials.");
-    }
-
-    @Test
-    void testAuthenticateUserWithInvalidUsername() {
-        assertFalse(controller.authenticateUser("wrongUser", "password"),
-                    "Authentication should fail with an invalid username.");
-    }
-
-    @Test
-    void testAuthenticateUserWithInvalidPassword() {
-        assertFalse(controller.authenticateUser("admin", "wrongPassword"),
-                    "Authentication should fail with an invalid password.");
-    }
-}
-```
-
-***Parameterized Testing for Login***
-Leverage parameterized tests to cover a broader range of input scenarios for the login logic efficiently.
-
-```java
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-class LoginControllerTest {
-
-    private LoginController controller = new LoginController();
-
-    @ParameterizedTest
-    @CsvSource({
-        "admin, password, true",
-        "admin, wrongPassword, false",
-        "wrongUser, password, false",
-        "admin, , false",
-        ", password, false"
-    })
-    void testAuthenticateUser(String username, String password, boolean expectedOutcome) {
-        assertEquals(expectedOutcome, controller.authenticateUser(username, password),
-                     "Authentication validation failed.");
-    }
-}
-```
-
-Moving forward to the Todo Page in our JavaFX application, we'll illustrate how to design the UI with FXML, implement the functionality with a controller, and discuss testing strategies for the ***CRUD*** operations of todo items using JUnit 5. The Todo Page allows users to add, view, update, and delete todo items.
-
-**Designing the Todo Page UI with FXML**
-`Todo.fxml`
-
-Create an FXML file named Todo.fxml to define the user interface for the Todo Page. This interface includes a ListView to display todo items, a TextField to enter new todos, and buttons for adding and deleting todos.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.collections.FXCollections?>
-<?import javafx.collections.ObservableList?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-
-<VBox fx:controller="your.package.TodoController"
-      xmlns:fx="http://javafx.com/fxml" spacing="10">
-    <padding><Insets top="20" right="20" bottom="10" left="20"/></padding>
-
-    <Text text="Your Todos"/>
-    <ListView fx:id="todoListView" prefHeight="200"/>
-    <HBox spacing="10">
-        <TextField fx:id="todoInputField" HBox.hgrow="ALWAYS"/>
-        <Button text="Add" onAction="#handleAddTodoAction"/>
-        <Button text="Delete" onAction="#handleDeleteTodoAction"/>
-    </HBox>
-</VBox>
-```
-
-**Implementing the TodoController**
+**Step 4. Implementing the TodoController**
 The TodoController class manages the interaction logic for the Todo Page, including adding and deleting todo items.
 
 `TodoController.java`
@@ -532,53 +574,351 @@ public class TodoController {
     }
 }
 ```
+---
 
-**Writing Test Cases for Todo Operations**
-Testing the Todo Page functionality involves verifying that todo items can be added and deleted as expected. However, testing UI controllers directly in JUnit can be complex due to the need for initializing JavaFX components. Here, we focus on testing the logic behind adding and deleting todos, assuming these methods are made accessible (e.g., package-private or public for testing) or refactored into a separate testable class.
+![1712495262723](image/L15-L18Junitpractices/1712495262723.png)
 
-***Unit Testing Todo Operations***
-
-`TodoControllerTest.java`
-
-Create a test class named TodoControllerTest. This class will contain methods to test adding and deleting todo items.
+---
+***Full Impelementation of RegistrationController.java***
 
 ```java
-package your.package;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.example.todo_demo.model.User;
+import org.example.todo_demo.services.UserService;
+import org.example.todo_demo.utils.AlertMessages;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-class TodoControllerTest {
+public class RegistrationController {
 
-    private TodoController controller;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPasswordField;
 
-    @BeforeEach
-    void setUp() {
-        controller = new TodoController();
-        controller.initialize(); // Manually initialize to setup the todoItems list
+    @FXML
+    private Button backButton;
+
+    // private UserService userService = new UserService();
+    private UserService userService = UserService.getInstance();
+
+    public void onBackClickButton(ActionEvent actionEvent) throws IOException {
+        backToLoginPage();
     }
 
-    @Test
-    void testAddTodoItem() {
-        controller.todoInputField.setText("New Todo");
-        controller.handleAddTodoAction();
-        assertFalse(controller.todoItems.isEmpty(), "Todo list should not be empty after adding an item.");
+    public void backToLoginPage() throws IOException {
+        // Hide or close the current todo app window
+        Stage todoStage = (Stage) backButton.getScene().getWindow();
+        todoStage.close();
+
+        // Load and show the login view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/todo_demo/login_view.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage loginStage = new Stage();
+        loginStage.setScene(scene);
+        loginStage.setTitle("Login");
+        loginStage.show();
+
+    }
+    @FXML
+    public void handleRegistrationAction(ActionEvent actionEvent) throws IOException {
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+
+        if (!password.equals(confirmPassword)) {
+            // Password don't match
+            // Show error message
+            return;
+        }
+
+        if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty()) {
+            // Registration successful
+            boolean isRegistered = userService.registerUser(name, email, password);
+            // Navigate to login page or show success message
+            backToLoginPage();
+
+        } else {
+            // Registration failed
+            // Show error message
+            AlertMessages.showErrorToUser("Registration", "Registration Failed");
+        }
     }
 
-    @Test
-    void testDeleteTodoItem() {
-        // Setup - Add an item first
-        controller.todoInputField.setText("Todo to Delete");
-        controller.handleAddTodoAction();
-        
-        // Select the item to delete
-        controller.todoListView.getSelectionModel().select(0);
-        controller.handleDeleteTodoAction();
-        assertTrue(controller.todoItems.isEmpty(), "Todo list should be empty after deleting the item.");
+    // Validate email format
+    private boolean isValidEmail(String email) {
+        /*
+        ^: Start of the string.
+           [A-Za-z0-9+_.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), plus (+), underscore (_), dot (.), or hyphen (-). This part is intended to match the user name part of the email address before the @ symbol.
+           @: Matches the @ symbol itself, which is a required character in email addresses.
+           [A-Za-z0-9.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), dot (.), or hyphen (-). This part is intended to match the domain part of the email address after the @ symbol. It can match domains like example.com or subdomains like sub.example.com.
+           $: End of the string.
+         */
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern emailPart = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPart.matcher(email);
+
+        return matcher.find();
+    }
+
+    // Validate password complexity
+    private boolean isValidPassword(String password) {
+        /*
+        ^: Start of string.
+        (?=.*[0-9]): At least one digit.
+        (?=.*[a-z]): Ensures that there is at least one lowercase letter (not explicitly required by your rules but generally considered a good practice for password security).
+        (?=.*[A-Z]): At least one uppercase letter.
+        (?=.*[@#$%^&+=]): At least one special character from the set specified.
+        (?=\\S+$): No whitespace allowed in the entire string.
+        .{8,24}$: Between 8 to 24 characters.
+         */
+        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,24}$";
+        Pattern passwordPat = Pattern.compile(passwordRegex);
+        Matcher matcher = passwordPat.matcher(password);
+        return matcher.matches();
     }
 }
 ```
+
+---
+
+***Full Impelementation of LoginController.java***
+
+```java
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.example.todo_demo.config.Configuration;
+import org.example.todo_demo.services.UserService;
+import org.example.todo_demo.utils.AlertMessages;
+
+import java.io.IOException;
+
+public class LoginController {
+
+    @FXML
+    private TextField txtUsername;
+
+    @FXML
+    private TextField txtPassword;
+
+    private UserService userService = UserService.getInstance(); // GET THE SINGLETON
+
+    @FXML
+    protected void onSignIn(ActionEvent actionEvent) {
+        if (!authenticateUser(txtUsername.getText(), txtPassword.getText())) {
+            AlertMessages.showErrorToUser("Login Failed", "Incorrect username or password.");
+            return;
+        }
+        navigateToTodoApp();
+    }
+
+    private boolean authenticateUser(String username, String password) {
+        // Use userService to validate credentials
+        return userService.login(username, password);
+    }
+
+    private void navigateToTodoApp() {
+        try {
+            Stage loginStage = getCurrentStage();
+            loginStage.hide();
+
+            Parent root = loadTodoView();
+            Scene todoScene = new Scene(root, 800, 600);
+
+            Stage todoStage = createStage(todoScene, "Todo App");
+
+//            configureWindowResize(todoStage);
+//            addAppToSystemTray(todoStage);
+
+            todoStage.show();
+        } catch (IOException e) {
+            e.getMessage(); // Handle the exception as appropriate for your application
+        }
+    }
+
+    // Rest of your methods here...
+    // Including showErrorToUser, getCurrentStage, loadTodoView, createStage, etc.
+//    private void showErrorToUser() {
+//        // Implementation of showing error to the user
+//        System.out.println("Authentication failed");
+//    }
+
+
+
+    private Stage getCurrentStage() {
+        return (Stage) txtUsername.getScene().getWindow();
+    }
+
+    private Parent loadTodoView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/todo_demo/todo_view.fxml"));
+        return loader.load();
+    }
+
+    private Stage createStage(Scene scene, String title) {
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle(title);
+        return stage;
+    }
+
+//    private void configureWindowResize(Stage stage) {
+//        // Assuming Configuration.windowResizeCancelController(Stage stage) exists and configures the stage
+//        Configuration.windowResizeCancelController(stage);
+//    }
+//
+//    private void addAppToSystemTray(Stage stage) {
+//        // Assuming Configuration.addAppToSystemTray(Stage stage) exists and adds the app to the system tray
+//        Configuration.addAppToSystemTray(stage);
+//    }
+
+
+    @FXML
+    public void goToRegistrationPage(ActionEvent actionEvent) {
+        try {
+            Stage currentStage = getCurrentStage();
+            currentStage.close();
+
+            Parent root = loadRegistrationView();
+            Scene scene = new Scene(root, 500, 600);
+            Stage registrationStage = createStage(scene, "Registration");
+            registrationStage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception as appropriate for your application
+        }
+    }
+
+    private Parent loadRegistrationView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/todo_demo/registration_view.fxml"));
+        return loader.load();
+    }
+}
+```
+
+---
+
+***Full Impelementation of User.java***
+```java
+public class User {
+
+    private String name;
+    private String email;
+    private String password;
+
+    // Constructor
+    public User(String name, String email, String password) {
+        this.name =  name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "The name: "+ this.name + " email :"+ this.email + " and password: " + this.password;
+    }
+}
+```
+---
+
+***Full Impelementation of UserService.java***
+
+```java
+import org.example.todo_demo.model.User;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class UserService {
+    private final Map<String, User> users = new HashMap<>();
+
+    // Singleton
+    private static UserService instance;
+    public UserService() {}
+
+    public static synchronized UserService getInstance() {
+        if (instance == null) {
+            instance = new UserService();
+        }
+        return instance;
+    }
+    // Singleton Finished
+
+    // Register a new user
+    public boolean registerUser(String name, String email, String password) {
+        // Check if user already exists
+//        if (users.containsKey(email)) {
+//            // User already exists
+//            return false;
+//        }
+
+        // Create and store the new user
+        User newUser = new User(name, email, password);
+        // TODO: ONLY USE IT IN DEVELOPMENT
+        System.out.println("The user saved information is: " + newUser.toString());
+        users.put(email, newUser);
+        return true;
+    }
+
+    // Validate login credentials
+    public boolean login(String email, String password) {
+        User user = users.get(email);
+        // TODO: ONLY USE IT IN DEVELOPMENT
+        System.out.println("correct email: " + user.getEmail() + " | user prompt email: " +email);
+        if (user != null && user.getPassword().equals(password)) {
+            return true; // Login successful
+        }
+        return false; // Login failed
+    }
+
+}
+```
+---
+
+---
 
 ### 4. Advanced JUnit Testing Techniques
 
@@ -668,8 +1008,12 @@ void whenDivideByZero_thenThrowExceptionWithSpecificMessage() {
 }
 ```
 
-### 5. Testing Strategies for a Todo Application\
-When developing a Todo application with functionalities like login, registration, and CRUD operations for todo items, adopting a strategic approach to testing is crucial. Here, we focus on techniques applicable to a Todo application, employing boundary value analysis (BVA), white box testing, and decision tables to ensure comprehensive coverage.
+
+
+---
+
+### 5. Testing Strategies for a Todo Application
+When developing a Todo application with functionalities like login, registration, and **CRUD** operations for todo items, adopting a strategic approach to testing is crucial. Here, we focus on techniques applicable to a Todo application, employing **boundary value analysis (BVA)**, **White box testing**, and **decision tables** to ensure comprehensive coverage.
 
 #### 5.1 Boundary Value Analysis (BVA) for Password Length
 Boundary Value Analysis is an effective testing technique that involves selecting input values at the boundaries of input domains. For a password feature in the registration or login process, assuming valid passwords are required to be between 6 and 16 characters:
@@ -682,11 +1026,168 @@ Boundary Value Analysis is an effective testing technique that involves selectin
 > - **At the upper boundary:** Use a 16-character password to ensure it's accepted.
 > - **Just above the upper boundary:** Use a 17-character password to ensure it's rejected.
 
-Implementing these tests in ***JUnit*** can be efficiently done using parameterized tests.
-```java
+|Test Case|	Password Length	|Expected Result|
+|---------|----------------|---------------|
+|Just below lower boundary|	5 characters|	Fail|
+|At lower boundary|	6 characters|	Pass|
+|Just above lower boundary|	7 characters|	Pass|
+|Just below upper boundary|	15 characters|	Pass|
+|At upper boundary|	16 characters|	Pass|
+|Just above upper boundary|	17 characters|	Fail|
 
+**Simple JUnit Test Without Parameterization**
+```java
+public class RegistrationControllerTest {
+    private final RegistrationController registrationController = 
+        new RegistrationController() ;
+
+    @Test
+    void testPasswordJustBelowLowerBoundary() {
+        // This should fail because it's too short and doesn't meet other criteria
+        assertFalse(registrationController.isValidPassword("Aa@5"));
+    }
+
+    @Test
+    void testPasswordAtLowerBoundary() {
+        // This meets all criteria, including length
+        assertTrue(registrationController.isValidPassword("Aa@12345"));
+    }
+
+    @Test
+    void testPasswordJustAboveLowerBoundary() {
+        // This meets all criteria, including length
+        assertTrue(registrationController.isValidPassword("Aa@123456"));
+    }
+
+    @Test
+    void testPasswordJustBelowUpperBoundary() {
+        // Construct a password that's 23 characters long and meets all criteria
+        assertTrue(registrationController.isValidPassword("Aa@1234567890123456789"));
+    }
+
+    @Test
+    void testPasswordAtUpperBoundary() {
+        // Construct a password that's 24 characters long and meets all criteria
+        assertTrue(registrationController.isValidPassword("Aa@12345678901234567890"));
+    }
+
+    @Test
+    void testPasswordJustAboveUpperBoundary() {
+        // This should fail because it's too long
+        assertFalse(registrationController.isValidPassword("Aa@12345678901234567890a1"));
+    }
+
+}
 
 ```
+
+---
+
+```java
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class RegistrationControllerTest {
+    private static RegistrationController registrationController;
+
+    @BeforeAll
+    static void setUp(){
+        registrationController = new RegistrationController();
+        System.out.println("Before all called");
+    }
+
+    // The rest of the method will be the same
+}
+```
+---
+
+Using a CSV data source with JUnit 5's `@CsvSource` or `@CsvFileSource` annotations is an excellent way to simplify the provision of test data for parameterized tests, especially when dealing with a list of values like in Boundary Value Analysis (BVA). This method allows you to externalize your test data, making the test method cleaner and potentially easier to manage, especially if you have a large number of test cases or if the test data is complex.
+
+#### Using @CsvSource
+The `@CsvSource` annotation allows you to define your test data directly within your test class as an array of strings. Each string represents a row of CSV data, and each comma separates the columns in that row.
+
+Here's how you could refactor the previous example to use `@CsvSource`:
+
+
+![1712500650449](image/L15-L18Junitpractices/1712500650449.png)
+
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.Assertions;
+
+public class RegistrationControllerTest {
+
+    private static RegistrationController registrationController;
+    
+    @BeforeAll
+    static void setUp(){
+        registrationController = new RegistrationController();
+        System.out.println("Before all called");
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "Aa@5, false", // Just below lower boundary
+            "Aa@12345, true", // At lower boundary
+            "Aa@123456, true", // Just above lower boundary
+            "Aa@1234567890123456789, true", // Just below upper boundary
+            "Aa@12345678901234567890, true", // At upper boundary
+            "Aa@Aa@12345678901234567890a1, false" // Just above upper boundary
+    })
+    void testPasswordValidation(String password, boolean expectedOutcome) {
+        Assertions.assertEquals(expectedOutcome, registrationController.isValidPassword(password),
+                "Failed for password: " + password);
+    }
+
+}
+```
+
+---
+
+#### Using @CsvFileSource
+Alternatively, if you have a large number of test cases or prefer to keep your test data separate from your test code, @CsvFileSource allows you to load test data from a CSV file located in your resources folder.
+
+First, create a CSV file in src/test/resources (assuming a standard Maven or Gradle project structure). Let's call it passwordTestData.csv, with the following content:
+
+![1712500848519](image/L15-L18Junitpractices/1712500848519.png)
+
+![1712500945671](image/L15-L18Junitpractices/1712500945671.png)
+
+![1712501010331](image/L15-L18Junitpractices/1712501010331.png)
+
+![1712501089062](image/L15-L18Junitpractices/1712501089062.png)
+
+---
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
+public class RegistrationControllerTest {
+    private static RegistrationController registrationController;
+    @BeforeAll
+    static void setUp(){
+        registrationController = new RegistrationController();
+        System.out.println("Before all called");
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/csv_password_length_tester.csv", numLinesToSkip = 1) // Skip header row
+    void testPasswordValidation(String password, boolean expectedOutcome) {
+        Assertions.assertEquals(expectedOutcome, registrationController.isValidPassword(password),
+                "Failed for password: " + password);
+    }
+}
+```
+
+---
+
 
 #### 5.2 White Box Testing for Input Validation
 White box testing involves testing internal structures or workings of an application. For input validation, like ensuring a password contains at least one uppercase letter and one special character, you understand and test the internal logic.
@@ -699,6 +1200,8 @@ White box testing involves testing internal structures or workings of an applica
 
 
 ```
+
+---
 
 #### 5.3 Using Decision Tables for Username and Password Validation
 Decision tables are excellent for scenarios where the outcome depends on a combination of conditions. For validating usernames and passwords, a decision table can cover various combinations:
@@ -732,8 +1235,12 @@ void testLoginValidation(String username, boolean exists, boolean validPass, boo
 }
 ```
 
+---
+
 ***Conclusion***
 Adopting strategic testing techniques such as BVA, white box testing, and decision tables provides a structured approach to ensuring the robustness and reliability of a Todo application. By carefully designing test cases around these strategies, you can achieve comprehensive coverage, effectively catching potential issues before they impact users. Implementing these tests in JUnit, especially with the support for parameterized tests, allows for thorough and efficient validation of application logic.
+
+---
 
 
 ### 6. Effective Use of JUnit Annotations
@@ -742,16 +1249,16 @@ JUnit 5 introduces several annotations that can enhance your testing framework, 
 #### 6.1 Lifecycle Annotations
 Lifecycle annotations in JUnit 5 define methods that run at specific points in the test lifecycle, allowing for setup and teardown operations that are crucial for maintaining test isolation and reducing redundancy.
 
-- `@BeforeAll`: Marks a method to be run before all tests in the current class. It's ideal for expensive setup tasks that need to run only once, like initializing a database connection. Must be static in a regular test class but can be instance-level in a test class annotated with @TestInstance(Lifecycle.PER_CLASS).
+- `@BeforeAll`: Marks a method to be run before all tests in the current class. It's ideal for expensive setup tasks that need to run only once, ***like initializing a database connection***. Must be ***`static`*** in a regular test class but can be instance-level in a test class annotated with `@TestInstance(Lifecycle.PER_CLASS)`.
 
-- `@AfterAll`: Marks a method to be run after all tests in the class have been executed. Useful for cleanup tasks, such as closing database connections. Similar to @BeforeAll, it must be static unless the test class is annotated with @TestInstance(Lifecycle.PER_CLASS).
+- `@AfterAll`: Marks a method to be run after all tests in the class have been executed. Useful for **cleanup** tasks, such as **closing database connections**. Similar to `@BeforeAll`, it must be ***`static`*** unless the test class is annotated with `@TestInstance(Lifecycle.PER_CLASS)`.
 
-- `@BeforeEach`: Marks a method to run before each test method in the class. It's used for setting up test conditions or initializing objects that are required by each test method.
+- `@BeforeEach`: Marks a method to run **before each test** method in the class. It's used for **setting up test conditions or initializing objects** that are required by each test method.
 
-- `@AfterEach`: Marks a method to run after each test method completes. This annotation is typically used for cleanup activities, ensuring that changes made by one test method do not affect others.
+- `@AfterEach`: Marks a method to run **after each test** method completes. This annotation is typically used for **cleanup activities**, ensuring that changes made by one test method do not affect others.
 
 #### 6.2 Using @Disabled to Skip Tests
-- `@Disabled`: This annotation can be applied to a test class or test method to prevent it from being executed. It's particularly useful when a test is temporarily irrelevant or if the code it tests is under construction.
+- `@Disabled`: This annotation can be applied to a test class or test method to **prevent it from being executed**. It's particularly useful when a test is **temporarily irrelevant** or if the code it tests is **under construction**.
 
 #### 6.3 Custom Annotations for JUnit Tests
 JUnit 5 allows the creation of custom composed annotations. These are annotations that can bundle several other annotations together, including JUnit-specific and custom annotations.
@@ -770,8 +1277,325 @@ public @interface FastTest {
 
 > **Additional Useful Annotations**
 > - `@DisplayName`: Provides a custom name for the test class or method, making test reports more readable.
-> `@Nested`: Allows grouping of tests within a test class into nested classes, facilitating better organization of complex test suites.
-`@Tag`: Used for tagging tests, which can then be included or excluded in test runs based on their tags. This is especially useful in CI/CD pipelines for running different sets of tests for different environments or contexts.
-`@RepeatedTest`: Indicates that a method is a test template for a repeated test. It's used when you want to run the same test multiple times.
-`@ParameterizedTest`: Indicates that a method is a test template for a parameterized test. It's used in conjunction with sources like @ValueSource, @CsvSource, or @MethodSource to run the same test with different parameters.
-`@TestFactory`: Indicates that a method is a test factory for dynamic tests. Dynamic tests are tests that are generated at runtime by a factory method.
+> - `@Nested`: Allows grouping of tests within a test class into nested classes, facilitating better organization of complex test suites.
+> - `@Tag`: Used for tagging tests, which can then be included or excluded in test runs based on their tags. This is especially useful in CI/CD pipelines for running different sets of tests for different environments or contexts.
+> - `@RepeatedTest`: Indicates that a method is a test template for a repeated test. It's used when you want to run the same test multiple times.
+> - `@ParameterizedTest`: Indicates that a method is a test template for a parameterized test. It's used in conjunction with sources like @ValueSource, @CsvSource, or @MethodSource to run the same test with different parameters.
+> - `@TestFactory`: Indicates that a method is a test factory for dynamic tests. Dynamic tests are tests that are generated at runtime by a factory method.
+
+
+**Using JUnit Annotations for a Cleaner Approach**
+
+we can use JUnit's `@BeforeEach` annotation to refactor our setup process, making our test code cleaner and reducing repetition.
+
+```java
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class UserServiceTest {
+
+    private UserService userService;
+
+    @BeforeEach
+    public void setUp() {
+        userService = new UserService(); // Initialize UserService before each test
+    }
+
+    // Include test methods here as defined in the simple example above
+}
+```
+
+---
+**Parameterized Tests**
+For a more advanced and efficient approach, we utilize JUnit's parameterized tests to run the same test logic with multiple inputs, significantly reducing code duplication.
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UserServiceTest {
+
+    private static Stream<Arguments> providePasswordTestCases() {
+        return Stream.of(
+            Arguments.of("12345", false),
+            Arguments.of("123456", true),
+            Arguments.of("1234567", true),
+            Arguments.of("123456789012345", true),
+            Arguments.of("1234567890123456", true),
+            Arguments.of("12345678901234567", false)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("providePasswordTestCases")
+    public void testPasswordValidation(String password, boolean expectedResult) {
+        UserService userService = new UserService();
+        assertEquals(expectedResult, userService.registerUser("user", "user@example.com", password));
+    }
+}
+```
+
+---
+
+**Step 5: Writing Test Cases for the Registration Logic**
+Now, let's focus on how to test the registration logic using JUnit 5. The registerUser method checks that none of the fields are empty and that the password is at least 8 characters long.
+
+3.2.1 Unit Testing registerUser Method
+
+`RegistrationControllerTest.java`
+
+We'll create a test class named RegistrationControllerTest. This class will contain test methods to verify the registration logic under various conditions.
+
+```java
+// package your.package;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class RegistrationControllerTest {
+
+    private RegistrationController controller;
+
+    @BeforeEach
+    void setUp() {
+        controller = new RegistrationController();
+    }
+
+    @Test
+    void testRegisterUserWithValidData() {
+        assertTrue(controller.registerUser("John Doe", "john@example.com", "password123"),
+                   "Registration should succeed with valid data.");
+    }
+
+    @Test
+    void testRegisterUserWithEmptyName() {
+        assertFalse(controller.registerUser("", "john@example.com", "password123"),
+                    "Registration should fail with an empty name.");
+    }
+
+    @Test
+    void testRegisterUserWithShortPassword() {
+        assertFalse(controller.registerUser("John Doe", "john@example.com", "pass"),
+                    "Registration should fail with a password shorter than 8 characters.");
+    }
+
+    // Additional tests can be added to cover more cases, such as invalid email formats.
+}
+```
+
+***Parameterized Testing***
+For more comprehensive testing, especially to cover various input combinations efficiently, you can use JUnit 5's parameterized tests. Here's how you might extend the testing to cover multiple scenarios using @ParameterizedTest.
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+class RegistrationControllerTest {
+
+    private RegistrationController controller = new RegistrationController();
+
+    @ParameterizedTest
+    @CsvSource({
+        "John Doe, john@example.com, password123, true",
+        ", john@example.com, password123, false",
+        "John Doe, , password123, false",
+        "John Doe, john@example.com, pass, false"
+    })
+    void testRegisterUser(String name, String email, String password, boolean expectedOutcome) {
+        assertEquals(expectedOutcome, controller.registerUser(name, email, password),
+                     "Registration validation failed.");
+    }
+}
+```
+
+
+
+
+
+
+
+
+**Step 3: Writing Test Cases for the Login Logic**
+Testing the authenticateUser method is crucial to ensure that only valid users can access the application.
+
+***Unit Testing authenticateUser Method***
+LoginControllerTest.java
+
+Create a test class named LoginControllerTest for verifying the login functionality.
+
+```java
+package your.package;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class LoginControllerTest {
+
+    private LoginController controller;
+
+    @BeforeEach
+    void setUp() {
+        controller = new LoginController();
+    }
+
+    @Test
+    void testAuthenticateUserWithValidCredentials() {
+        assertTrue(controller.authenticateUser("admin", "password"),
+                   "Authentication should succeed with valid credentials.");
+    }
+
+    @Test
+    void testAuthenticateUserWithInvalidUsername() {
+        assertFalse(controller.authenticateUser("wrongUser", "password"),
+                    "Authentication should fail with an invalid username.");
+    }
+
+    @Test
+    void testAuthenticateUserWithInvalidPassword() {
+        assertFalse(controller.authenticateUser("admin", "wrongPassword"),
+                    "Authentication should fail with an invalid password.");
+    }
+}
+```
+
+***Parameterized Testing for Login***
+Leverage parameterized tests to cover a broader range of input scenarios for the login logic efficiently.
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+class LoginControllerTest {
+
+    private LoginController controller = new LoginController();
+
+    @ParameterizedTest
+    @CsvSource({
+        "admin, password, true",
+        "admin, wrongPassword, false",
+        "wrongUser, password, false",
+        "admin, , false",
+        ", password, false"
+    })
+    void testAuthenticateUser(String username, String password, boolean expectedOutcome) {
+        assertEquals(expectedOutcome, controller.authenticateUser(username, password),
+                     "Authentication validation failed.");
+    }
+}
+```
+
+Moving forward to the Todo Page in our JavaFX application, we'll illustrate how to design the UI with FXML, implement the functionality with a controller, and discuss testing strategies for the ***CRUD*** operations of todo items using JUnit 5. The Todo Page allows users to add, view, update, and delete todo items.
+
+**Writing Test Cases for Todo Operations**
+Testing the Todo Page functionality involves verifying that todo items can be added and deleted as expected. However, testing UI controllers directly in JUnit can be complex due to the need for initializing JavaFX components. Here, we focus on testing the logic behind adding and deleting todos, assuming these methods are made accessible (e.g., package-private or public for testing) or refactored into a separate testable class.
+
+***Unit Testing Todo Operations***
+
+`TodoControllerTest.java`
+
+Create a test class named TodoControllerTest. This class will contain methods to test adding and deleting todo items.
+
+```java
+package your.package;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class TodoControllerTest {
+
+    private TodoController controller;
+
+    @BeforeEach
+    void setUp() {
+        controller = new TodoController();
+        controller.initialize(); // Manually initialize to setup the todoItems list
+    }
+
+    @Test
+    void testAddTodoItem() {
+        controller.todoInputField.setText("New Todo");
+        controller.handleAddTodoAction();
+        assertFalse(controller.todoItems.isEmpty(), "Todo list should not be empty after adding an item.");
+    }
+
+    @Test
+    void testDeleteTodoItem() {
+        // Setup - Add an item first
+        controller.todoInputField.setText("Todo to Delete");
+        controller.handleAddTodoAction();
+        
+        // Select the item to delete
+        controller.todoListView.getSelectionModel().select(0);
+        controller.handleDeleteTodoAction();
+        assertTrue(controller.todoItems.isEmpty(), "Todo list should be empty after deleting the item.");
+    }
+}
+```
+
+
+
+
+
+
+### 7. Data-Driven Testing (DDT) in JUnit
+Data-Driven Testing (DDT) is a testing paradigm where the test logic is separated from the input and output data. It enables the execution of test cases with sets of data values that are externalized from the test itself. JUnit 5 supports DDT through its @ParameterizedTest annotation and various sources of input data, facilitating the execution of a single test method with different inputs. This approach enhances test coverage and efficiency, particularly for validating a range of conditions and inputs.
+
+#### 7.1 Introduction to DDT
+DDT is particularly useful in scenarios where the logic under test behaves differently based on various inputs. By externalizing input values (and possibly expected outcomes), tests can be made more readable and maintainable. Additionally, adding new test cases often doesn't require changes to the test code but merely the addition of new data sets.
+
+#### 7.2 Parameterized Tests with JUnit 5
+JUnit 5 introduces several annotations to support parameterized tests, allowing a single test method to be executed multiple times with different parameters. Here’s how to use some of the most common sources:
+
+- Using `@ValueSource`: Provides a simple way to specify a single array of literal values.
+```java
+@ParameterizedTest
+@ValueSource(strings = {"Hello", "JUnit"})
+void withValueSource(String argument) {
+    assertNotNull(argument);
+}
+```
+
+- Using @CsvSource and @CsvFileSource: Allows specifying parameter sets as comma-separated values. @CsvSource takes strings directly, while @CsvFileSource reads from CSV files.
+
+```java
+@ParameterizedTest
+@CsvSource({"1, true", "2, true", "3, false"})
+void withCsvSource(int number, boolean expected) {
+    assertEquals(expected, number < 3);
+}
+```
+
+```java
+@ParameterizedTest
+@CsvFileSource(resources = "/input.csv", numLinesToSkip = 1)
+void withCsvFileSource(int number, boolean expected) {
+    assertEquals(expected, number < 3);
+}
+```
+
+- Using @MethodSource: Enables you to specify a method that provides the parameters, allowing for more complex scenarios and data types.
+
+```java
+@ParameterizedTest
+@MethodSource("stringProvider")
+void withMethodSource(String argument) {
+    assertNotNull(argument);
+}
+
+static Stream<String> stringProvider() {
+    return Stream.of("apple", "banana");
+}
+```
+
+#### 7.3 Advantages of Data-Driven Testing
+DDT offers several benefits:
+
+Efficiency: Write once, test multiple times. DDT reduces the amount of code needed for multiple test cases.
+Coverage: Easily achieve high test coverage by covering a wide range of input combinations.
+Maintenance: Adding new test cases usually involves just adding new data sets without modifying the test code.
+Readability: Tests can be simpler and focus on the logic being tested rather than the intricacies of generating test data.
