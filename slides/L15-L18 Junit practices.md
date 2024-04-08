@@ -1,3 +1,8 @@
+<!-- ---
+
+marp: true
+
+--- -->
 
 ### JUnit
 
@@ -22,6 +27,7 @@
 5.2.1. Ensuring at Least One Capital Letter
 5.2.2. Ensuring at Least One Special Character
 5.3. Using Decision Tables for Username and Password Validation
+
 6. Effective Use of JUnit Annotations
 6.1. Lifecycle Annotations (@BeforeAll, @AfterAll, @BeforeEach, @AfterEach)
 6.2. Using @Disabled to Skip Tests
@@ -34,10 +40,13 @@
 7.2.3. Using @MethodSource for Complex Parameters
 7.3. Advantages of Data-Driven Testing
 
+---
 
 ### 1. Introduction to JUnit Testing
 #### 1.1. Overview of JUnit
 JUnit is a popular unit testing framework in the Java programming environment. Developed by Kent Beck and Erich Gamma, it has become a standard tool for implementing unit tests in Java projects. JUnit provides annotations to identify test methods, assertions to test expected results, and test runners for running tests.
+
+---
 
 #### 1.2. Introduction to JUnit 5 (Jupiter)
 JUnit 5, also known as Jupiter, is the next generation of the JUnit framework, introducing many new features and improvements over JUnit 4. It is designed to be more flexible and modular, making it easier to write and maintain tests. JUnit 5 is composed of three main subprojects:
@@ -72,6 +81,15 @@ testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 ```
 
 Ensure you have the JUnit 5 setup in your IDE to start writing and running JUnit 5 tests.
+
+> **Note:** JUnit is a framework for writing unit tests
+> - A unit test is a test of a **single class**
+> - -  A **test case** is a single test of a single method
+> - -  A **test suite** is a collection of test cases 
+
+> Unit testing is particularly important when software requirements change frequently
+ > - Code often has to be refactored to incorporate the changes
+> - Unit testing helps ensure that the refactored code continues to work
 
 ---
 
@@ -156,6 +174,8 @@ Each page / view is represented by an FXML file for the layout and a Controller 
 
 ![1712408219467](image/L15-L18Junitpractices/1712408219467.png)
 
+---
+
 Focusing on a detailed implementation of the **Registration Page** in a JavaFX application, we'll step through creating the **UI** with **FXML**, building the controller, and setting up a comprehensive testing strategy for the registration logic.
 
 **`TodoApplication.java`**
@@ -199,6 +219,8 @@ public class TodoApplication extends Application {
     }
 }
 ```
+
+---
 
 **Step 1: Designing the UI with FXML**
 
@@ -376,8 +398,6 @@ Create an FXML file named Todo.fxml to define the user interface for the Todo Pa
 
 ---
 
-
-
 **Step 2: Implementing the RegistrationController**
 The RegistrationController class will handle user input and registration logic.
 
@@ -468,9 +488,6 @@ public class RegistrationController {
       }
 }
 ```
-
-
----
 
 ---
 
@@ -567,6 +584,7 @@ public class TodoController {
     }
 }
 ```
+
 ---
 
 ![1712495262723](image/L15-L18Junitpractices/1712495262723.png)
@@ -716,7 +734,8 @@ public class LoginController {
     @FXML
     private TextField txtPassword;
 
-    private UserService userService = UserService.getInstance(); // GET THE SINGLETON
+    // Get the Singleton Instance
+    private UserService userService = UserService.getInstance();
 
     @FXML
     protected void onSignIn(ActionEvent actionEvent) {
@@ -742,9 +761,6 @@ public class LoginController {
 
             Stage todoStage = createStage(todoScene, "Todo App");
 
-//            configureWindowResize(todoStage);
-//            addAppToSystemTray(todoStage);
-
             todoStage.show();
         } catch (IOException e) {
             e.getMessage(); // Handle the exception as appropriate for your application
@@ -753,12 +769,11 @@ public class LoginController {
 
     // Rest of your methods here...
     // Including showErrorToUser, getCurrentStage, loadTodoView, createStage, etc.
-//    private void showErrorToUser() {
-//        // Implementation of showing error to the user
-//        System.out.println("Authentication failed");
-//    }
-
-
+    
+    // private void showErrorToUser() {
+    //    // Implementation of showing error to the user
+    //    System.out.println("Authentication failed");
+    // }
 
     private Stage getCurrentStage() {
         return (Stage) txtUsername.getScene().getWindow();
@@ -775,17 +790,6 @@ public class LoginController {
         stage.setTitle(title);
         return stage;
     }
-
-//    private void configureWindowResize(Stage stage) {
-//        // Assuming Configuration.windowResizeCancelController(Stage stage) exists and configures the stage
-//        Configuration.windowResizeCancelController(stage);
-//    }
-//
-//    private void addAppToSystemTray(Stage stage) {
-//        // Assuming Configuration.addAppToSystemTray(Stage stage) exists and adds the app to the system tray
-//        Configuration.addAppToSystemTray(stage);
-//    }
-
 
     @FXML
     public void goToRegistrationPage(ActionEvent actionEvent) {
@@ -883,10 +887,10 @@ public class UserService {
     // Register a new user
     public boolean registerUser(String name, String email, String password) {
         // Check if user already exists
-//        if (users.containsKey(email)) {
-//            // User already exists
-//            return false;
-//        }
+        if (users.containsKey(email)) {
+            // User already exists
+            return false;
+        }
 
         // Create and store the new user
         User newUser = new User(name, email, password);
@@ -911,20 +915,117 @@ public class UserService {
 ```
 ---
 
----
-
-### 4. Advanced JUnit Testing Techniques
-
-#### 4.1 Testing with Assertions
-Assertions are fundamental in JUnit tests; they validate the conditions that the test expects to be true. JUnit 5 introduces more powerful assertion methods compared to its predecessors, offering a wide range of options to test with precision.
-
-> - **Basic Assertions:** Test simple conditions. Use `assertEquals`, `assertTrue`, `assertFalse`, and `assertNull`.
+***Full implementation of AlertMessages.java***
 
 ```java
+// package org.example.todo_demo.utils;
+
+import javafx.scene.control.Alert;
+
+public class AlertMessages {
+    public static void showErrorToUser(String title, String message) {
+        // Show a more user-friendly error using JavaFX components, like Alert
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+}
+```
+
+---
+
+### 4. JUnit Testing Techniques
+
+#### 4.1 Testing with Assertions
+
+**During execution of a test case**:
+> - If an assertion is `true`, 
+> - - Execution continues
+> - If any assertion is `false`, 
+> - - Execution of the test case stops
+> - - The test case ***fails***
+> - If an **unexpected** exception is encountered, 
+> - - The verdict of the test case is an ***error***.
+> - If all assertions were true, 
+> - - The test case ***passes***.
+ 
+---
+> - **Basic Assertions:** Test simple conditions. Use `assertEquals`, `assertTrue`, `assertFalse`, and `assertNull`.
+
+- Assert two objects are equal:
+```java
+assertEquals(expected, actual)
+```
+
+> **True** if: `expected.equals(actual)`
+Relies on the equals() method
+
+With a failure message  
+```java
+assertEquals(message, expected, actual)
+```
+
+- Assert a Boolean condition is true or false
+```java
+assertTrue(condition)
+assertFalse(condition)
+```
+
+- Optionally, include a failure message   
+```java
+assertTrue(condition, message)
+assertFalse(condition, message)
+```
+   
+***Examples***
+```java
 assertEquals(4, calculator.add(2, 2), "Optional failure message");
+
+assertTrue(search(a, 3) == 1);
+assertFalse(search(a, 2) >= 0, “Failure: 2 is not in array.”);
+
 assertTrue('a' < 'b', () -> "Assertion messages can be lazily evaluated 
 -- to avoid constructing complex messages unnecessarily.");
+
+assertEquals("Should be equal.", "JUnit", "JUnit");
+
+assertEquals("Should be equal.", "JUnit", "Java");
 ```
+
+
+***Output***
+```java
+org.junit.ComparisonFailure: 
+Should be equal. expected:<J[Unit]> but was:<J[ava]>
+```
+
+***How to fix the error ?***
+
+---
+
+- Assert an object references is `null` or `non-null`
+
+```java
+assertNull(object)
+assertNotNull(object)
+```
+- With a failure message  
+
+```java
+assertNull(object, message)
+assertNotNull(object, message)
+```
+
+***Examples***
+```java 
+assertNotNull(”Should not be null.", new Object());
+assertNull(”Should be null.", null);
+```
+
+
+---
 
 > - **Grouped Assertions:** Execute a group of assertions together, reporting any failures collectively after all assertions are executed.
 
@@ -937,12 +1038,181 @@ assertAll("Multiple assertions",
 );
 ```
 
+---
+
+
+> - **Method Assertions:** Object Identity
+
+- Assert two object references are identical
+
+```java
+assertSame(expected, actual)
+```
+- ***True*** if: expected == actual
+
+```java
+assertNotSame(expected, actual)
+```
+- ***True*** if: expected != actual
+
+> - The order does not affect the comparison, 
+    > But, affects the message when it ***fails***  
+
+- With a failure message  
+```java
+assertSame(expected, actual, message)
+assertNotSame(expected, actual, message)
+```
+
+***Examples***
+```java
+assertNotSame(new Object(), new Object(), "Should not be same.");
+
+Integer num1 = Integer.valueOf(2013);
+assertSame(num1, num1, "Should be same.");
+
+Integer num2 = Integer.valueOf(2014);
+assertSame( num1, num2, "Should be same.");
+```
+
+***Output***
+> java.lang.AssertionError:
+Should be same. expected same:<2013> was not:<2014>
+
+***Then how to fix the error?***
+
+
+---
+
+> - **Equality of Arrays Assertions:** Test that the two arrays are equal.
+- Assert two arrays are equal:
+```java
+assertArrayEquals(expected, actual)
+```
+> Note: arrays must have same length
+
+- Recursively check for each valid index i,
+```java
+assertEquals(expected[i],actual[i])
+// or
+assertArrayEquals(expected,actual)
+```
+- With a failure message  
+```java
+assertArrayEquals(message, expected, actual)
+```
+
+***Examples***
+```java
+int[] a1 = { 2, 3, 5, 7 };   
+int[] a2 = { 2, 3, 5, 7 };   
+assertArrayEquals(a1, a2, "Should be equal");
+			
+int[][] a11 = { { 2, 3 }, { 5, 7 }, { 11, 13 } };   
+int[][] a12 = { { 2, 3 }, { 5, 7 }, { 11, 13 } };    
+assertArrayEquals(a11, a12, "Should be equal");
+```
+
+
+---
+
+> - **Floating Point Values**
+
+- For comparing floating point values (`double` or `float`)
+`assertEquals` requires an additional parameter ***delta***.
+```java
+assertEquals(expected, actual, delta)
+assertEquals(expected, actual, delta, message)
+```
+- The assertion evaluates to true if 
+	`Math.abs( expected – actual ) <= delta`
+
+**Example:**
+```java
+double d1 = 100.0, d2 = 99.99995;  
+assertEquals(d1, d2, 0.0001, "Should be equal within delta.");
+
+assertEquals(2.0, 2.0009, 0.0001, "Hello");
+```
+
+***Test Result***
+```java
+org.opentest4j.AssertionFailedError:
+```
+
+***How to fix the error?***
+
+--- 
+
 > - **Exception Assertions:** Test that your code throws an expected exception.
+
+***Example 1***
+```java
+public static int checkedSearch(int[] a, int x) {
+  if (a == null || a.length == 0)
+    throw 
+    new IllegalArgumentException("Null or empty array.");
+  …
+}
+```
+
+`checkedSearch(null, 1);`
+
+***Example 2***
 ```java
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Test
+void exceptionTesting(){
 assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
+}
+
+// or 
+
+@Test
+void exceptionTesting() {
+    Exception exception = assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
+    assertEquals("/ by zero", exception.getMessage());
+}
 ```
+
+> The verdict
+***Pass:*** if the expected exception is thrown
+***Fail:*** if no exception, or an unexpected exception
+
+- ssertion methods
+```java
+fail()
+fail(message)
+```
+- Unconditional failure
+i.e., it always fails if it is executed
+- Used in where it should not be reached
+e.g., after a statement, in which an exception should have been thrown.  
+
+
+Catch exceptions, and use `fail()` if `not thrown`
+
+```java
+@Test
+public void testCheckedSearch3() {
+  try {
+	checkedSearch(null, 1);
+	fail("Exception should have occurred");
+  } catch (IllegalArgumentException e) {
+	assertEquals(e.getMessage(), "Null or empty array.");
+  }
+}
+```
+
+- Allows 
+inspecting specific messages/details of the exception
+distinguishing different types of exceptions
+
+----
+
+
+----
 
 > - **Timeout Assertions:** Ensure that your code completes within a specified time.
 
