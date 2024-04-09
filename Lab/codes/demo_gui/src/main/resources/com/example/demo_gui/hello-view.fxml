@@ -11,5 +11,9 @@
       <Label layoutX="151.0" layoutY="152.0" text="Label" />
       <TextField fx:id="txt_A_input" layoutX="204.0" layoutY="95.0" />
       <Button fx:id="btn_Click" layoutX="237.0" layoutY="226.0" mnemonicParsing="false" onAction="#quadraticRootFinderButtonClick" text="Click Me!!!" />
+      <TextField fx:id="txt_B_input" layoutX="204.0" layoutY="148.0" />
+      <TextField layoutX="204.0" layoutY="188.0" />
+      <Label layoutX="151.0" layoutY="281.0" text="Label" />
+      <Label layoutX="222.0" layoutY="281.0" text="lblOutput" />
    </children>
 </AnchorPane>
