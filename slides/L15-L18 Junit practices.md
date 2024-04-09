@@ -2113,3 +2113,105 @@ Adding okhttp & gson dependencies
     <version>2.14.2</version>
 </dependency>
 ```
+
+![Alt text](image.png)
+
+## 8. Integrating
+## 8. Test Doubles (Mocks, Mockinto Stubs and Fakes)
+
+- Unit testing - smallest piece 
+- Integrating testing 
+  - assembles pieces into larger unit
+
+Adding okhttp & jackson dependencies
+
+```xml
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.9.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.14.2</version>
+</dependency>
+```
+
+---
+
+#### 8.1 Mockito
+
+Why mocks? 
+- What if that method depends on other
+things?
+  - a network? a database? a servlet engine?
+  - Other parts of the system? - We don't want to initialize lots of components just to get the right context for one test to run.
+
+**Solution:** Using Mocks / Test doubles
+
+
+#### 8.2 When we need mocks? 
+- The real object has non-deterministic behavior (smt random,
+unpredictable)
+  - The real object is difficult to set up 
+  - The real object has behavior that is hard to trigger a network error..
+  - The real object is slow
+  - The real object has (or is) a user interface 
+  - The test needs to ask the real object about how it was used (e.g. check to see that log message is actually logged by the object under test) 
+  - The real object does not exist a common problem when interfacing
+
+
+---
+
+- Junit provide assertion over object state.
+- Interaction testing
+    - Did my controller correctly called my service?
+  
+> - **Given:** object will result in such way.
+> - **When:** the object execute an action.
+> - **Then:** the object behave as expected.
+
+
+#### 8.2 Mockito Abilities
+- Explicit API
+- Flexible verification
+- Separation of stubbing and verification.
+- Annotation
+
+##### 8.2.2. Mock framework 
+- Too much trouble to write mocks? There are frameworks available.
+- Java: ***JMock***, ***EasyMock***
+
+##### 8.2.1. Import Mockito lib 
+- Allow access to mockito method (when, verify etc) with out the mockito prefix.
+
+```xml
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-core</artifactId>
+    <version>4.0.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+```java
+import static org.mockito.Mockito.*
+```
+
+##### 8.3 Hands-On Practices
+**Mocking**
+Simulates real object behavior in unit tests.
+> ***User Registration/Login Example:*** Mock the database repository to verify interactions, like saving a user or fetching user details.
+
+**Stubbing**
+Provides predefined responses from class dependencies.
+> ***User Registration/Login Example:*** Stub an email service or user fetch operation to return success or a specific user without real operations.
+
+**Faking**
+Simplified implementations that ***mimic*** real ones but are not for production.
+> **User Registration/Login Example:** Use an in-memory database or repository for testing without affecting the actual database.
+
+
+
