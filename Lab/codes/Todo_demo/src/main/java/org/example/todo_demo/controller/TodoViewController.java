@@ -13,6 +13,16 @@ import org.example.todo_demo.model.Todo;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TodoViewController {
 
@@ -37,7 +47,7 @@ public class TodoViewController {
     @FXML
     private ListView<Todo> myListView;
 
-
+    OkHttpClient client = new OkHttpClient();
 
 
     @FXML
@@ -92,8 +102,14 @@ public class TodoViewController {
         LocalTime time = LocalTime.of(Integer.parseInt(String.valueOf(hourComboBox.getValue())),
                 Integer.parseInt(String.valueOf(minuteComboBox.getValue())));
 
+        // new Todo, object
         Todo newTodo = new Todo(title, description, date, time);
         myListView.getItems().add(newTodo);
+
+        // Todo, add to local Database
+
+        // Add to the server
+        sendToServer(newTodo);
 
         // Clear the form fields after adding
         txtTitleField.clear();
@@ -102,4 +118,24 @@ public class TodoViewController {
         hourComboBox.getSelectionModel().clearSelection();
         minuteComboBox.getSelectionModel().clearSelection();
     }
+
+    private void sendToServer(Todo newTodo) {
+
+        String jsonPayload = newTodo.getJson();
+
+        RequestBody body = RequestBody.create(
+                jsonPayload, MediaType.parse("application/json; charset=utf-8"));
+        Request request = new Request.Builder()
+                .url("http://localhost:5000/add_todo")
+                .post(body)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            System.out.println(response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

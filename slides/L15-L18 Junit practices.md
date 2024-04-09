@@ -1146,8 +1146,7 @@ org.opentest4j.AssertionFailedError:
 ```java
 public static int checkedSearch(int[] a, int x) {
   if (a == null || a.length == 0)
-    throw 
-    new IllegalArgumentException("Null or empty array.");
+    throw new IllegalArgumentException("Null or empty array.");
   …
 }
 ```
@@ -1160,7 +1159,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Test
 void exceptionTesting(){
-assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
+    assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
 }
 
 // or 
@@ -1392,17 +1391,9 @@ Implementing Tests in JUnit
 Parameterized Tests for decision table scenario ensure efficient coverage over various input combinations. Here’s an example structure for a parameterized test using decision tables:
 
 ```java
-@ParameterizedTest
-@CsvSource({
-    "John, true, true, true, true, ALLOW",
-    "John, true, true, false, true, REJECT",
-    // additional rows based on decision table
-})
-void testLoginValidation(String username, boolean exists, boolean validPass, boolean matches, boolean expected) {
-    // Mock database responses based on 'exists' and 'matches'
-    // Implement logic to simulate 'validPass' check
-    // Assert 'expected' action (ALLOW or REJECT) matches the outcome
-}
+
+
+
 ```
 
 ---
@@ -1426,8 +1417,8 @@ When running tests, ***JUnit*** will distinguish between tests that ***pass***, 
 ```java
 import static org . junit . jupiter . api . Assertions .*;
 
-import org . junit . jupiter . api . Disabled ;
-import org . junit . jupiter . api . Test ;
+import org.junit.jupiter.api.Disabled ;
+import org.junit.jupiter.api.Test ;
 
 public class IgnoredTestClass {
       @Test
@@ -1762,6 +1753,37 @@ public class RegistrationControllerTest {
 
 ---
 
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UserServiceTest {
+
+    private static Stream<Arguments> providePasswordTestCases() {
+        return Stream.of(
+            Arguments.of("12345", false),
+            Arguments.of("123456", true),
+            Arguments.of("1234567", true),
+            Arguments.of("123456789012345", true),
+            Arguments.of("1234567890123456", true),
+            Arguments.of("12345678901234567", false)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("providePasswordTestCases")
+    public void testPasswordValidation(String password, boolean expectedResult) {
+        UserService userService = new UserService();
+        assertEquals(expectedResult, userService.registerUser("user", "user@example.com", password));
+    }
+}
+```
+
+---
+
+---
+
 ###### 6.2.4.2. Using `@CsvFileSource`
 Alternatively, if you have a large number of test cases or prefer to keep your test data separate from your test code, ``@CsvFileSource` allows you to load test data from a ***CSV*** file located in your resources folder.
 
@@ -1800,37 +1822,9 @@ public class RegistrationControllerTest {
 
 
 ---
-**Parameterized Tests**
-For a more advanced and efficient approach, we utilize JUnit's parameterized tests to run the same test logic with multiple inputs, significantly reducing code duplication.
 
-```java
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserServiceTest {
 
-    private static Stream<Arguments> providePasswordTestCases() {
-        return Stream.of(
-            Arguments.of("12345", false),
-            Arguments.of("123456", true),
-            Arguments.of("1234567", true),
-            Arguments.of("123456789012345", true),
-            Arguments.of("1234567890123456", true),
-            Arguments.of("12345678901234567", false)
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("providePasswordTestCases")
-    public void testPasswordValidation(String password, boolean expectedResult) {
-        UserService userService = new UserService();
-        assertEquals(expectedResult, userService.registerUser("user", "user@example.com", password));
-    }
-}
-```
-
----
 
 > **Additional Useful Annotations**: 
 > - `@Nested`: Allows grouping of tests within a test class into nested classes, facilitating better organization of complex test suites.
@@ -2103,3 +2097,19 @@ Efficiency: Write once, test multiple times. DDT reduces the amount of code need
 Coverage: Easily achieve high test coverage by covering a wide range of input combinations.
 Maintenance: Adding new test cases usually involves just adding new data sets without modifying the test code.
 Readability: Tests can be simpler and focus on the logic being tested rather than the intricacies of generating test data.
+
+Adding okhttp & gson dependencies
+
+```xml
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.9.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.14.2</version>
+</dependency>
+```

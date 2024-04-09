@@ -4,6 +4,8 @@ module org.example.todo_demo {
 
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires okhttp3;
+    requires com.fasterxml.jackson.databind;
 
     opens org.example.todo_demo to javafx.fxml;
     exports org.example.todo_demo;

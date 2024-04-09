@@ -1,13 +1,20 @@
 package org.example.todo_demo.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Todo {
     private String title;
     private String description;
     private LocalDate date;
     private LocalTime time;
+
+    ObjectMapper mapper = new ObjectMapper();
 
     // Constructor
     public Todo(String title, String description, LocalDate date, LocalTime time) {
@@ -22,5 +29,54 @@ public class Todo {
     @Override
     public String toString() {
         return title + " - " + date.toString() + " " + time.toString();
+    }
+
+
+    public String getJson() {
+        Map<String, String> payload = new HashMap<>();
+        payload.put("title", this.getTitle());
+        payload.put("date", this.getDate());
+        payload.put("time", this.getTime());
+        payload.put("description", this.getDescription());
+
+        try {
+            return mapper.writeValueAsString(payload);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDate() {
+        return date.toString();
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time.toString();
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }
