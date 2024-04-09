@@ -5,14 +5,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.example.todo_demo.model.Todo;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class TodoViewController {
 
+    @FXML
+    private DatePicker datePicker;
     @FXML
     private ComboBox<Integer> hourComboBox;
 
@@ -20,7 +25,20 @@ public class TodoViewController {
     private ComboBox<Integer> minuteComboBox;
 
     @FXML
+    private TextField txtTitleField;
+    @FXML
+    private TextArea descriptionTextArea;
+    @FXML
+    private Button addTaskButton;
+
+    @FXML
     private Button logoutButton;
+
+    @FXML
+    private ListView<Todo> myListView;
+
+
+
 
     @FXML
     public void initialize() {
@@ -37,9 +55,22 @@ public class TodoViewController {
         // Select default values if necessary
         hourComboBox.getSelectionModel().select(0); // default to 12
         minuteComboBox.getSelectionModel().select(0); // default to 00
+
+        // Setup click listener
+        myListView.setOnMouseClicked(event -> handleTodoTaskClicked(event));
     }
 
-    public void onlogout(ActionEvent actionEvent) throws IOException {
+    private void handleTodoTaskClicked(MouseEvent event) {
+        // Get the selected item
+        Todo selectedItem = myListView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            // Perform your actions here with the selected item
+            System.out.println("Clicked on " + selectedItem);
+        }
+    }
+
+    @FXML
+    public void onLogout(ActionEvent actionEvent) throws IOException {
         // Hide or close the current todo app window
         Stage todoStage = (Stage) logoutButton.getScene().getWindow();
         todoStage.close();
@@ -52,5 +83,23 @@ public class TodoViewController {
         loginStage.setScene(scene);
         loginStage.setTitle("Login");
         loginStage.show();
+    }
+
+    public void onAddNewTask(ActionEvent actionEvent) {
+        String title = txtTitleField.getText();
+        String description = descriptionTextArea.getText();
+        LocalDate date = datePicker.getValue();
+        LocalTime time = LocalTime.of(Integer.parseInt(String.valueOf(hourComboBox.getValue())),
+                Integer.parseInt(String.valueOf(minuteComboBox.getValue())));
+
+        Todo newTodo = new Todo(title, description, date, time);
+        myListView.getItems().add(newTodo);
+
+        // Clear the form fields after adding
+        txtTitleField.clear();
+        descriptionTextArea.clear();
+        datePicker.setValue(null);
+        hourComboBox.getSelectionModel().clearSelection();
+        minuteComboBox.getSelectionModel().clearSelection();
     }
 }

@@ -45,20 +45,21 @@
                </children>
             </HBox>
             <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" />
+            <TextField fx:id="txtTitleField" GridPane.columnIndex="1" />
             <Label text="Title:" />
             <Label text="Day" GridPane.rowIndex="1" />
             <Label text="Time:" GridPane.rowIndex="2" />
-            <TextArea prefHeight="138.0" prefWidth="467.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextArea fx:id="descriptionTextArea" prefHeight="138.0" prefWidth="467.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Description:" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button layoutX="194.0" layoutY="293.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="344.0" text="Add New Task">
+      <Button fx:id="addTaskButton" layoutX="194.0" layoutY="293.0" mnemonicParsing="false" prefHeight="39.0"
+          prefWidth="344.0" text="Add New Task" onAction="#onAddNewTask">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="logoutButton" layoutX="597.0" layoutY="2.0" mnemonicParsing="false" text="Logout" onAction="#onlogout" />
+      <Button fx:id="logoutButton" layoutX="597.0" layoutY="2.0" mnemonicParsing="false" text="Logout" onAction="#onLogout" />
    </children>
 
 </AnchorPane>

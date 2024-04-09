@@ -104,12 +104,7 @@ public class RegistrationController {
             return RegistrationResult.REGISTRATION_FAILED;
         }
     }
-    // Enum to represent possible outcomes of the registration attempt
-    public enum RegistrationResult {
-        SUCCESS,
-        PASSWORD_MISMATCH,
-        REGISTRATION_FAILED
-    }
+
 
 
     // Validate email format
@@ -145,3 +140,5 @@ public class RegistrationController {
         return matcher.matches();
     }
 }
+
+
