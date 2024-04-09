@@ -6,40 +6,6 @@ marp: true
 
 ### JUnit
 
-### Table of Contents
-1. Introduction to JUnit Testing
-1.1. Overview of JUnit
-1.2. Introduction to JUnit 5 (Jupiter)
-2. Setting Up JUnit with JavaFX
-2.1. Overview of JavaFX
-2.2. Setting Up a JavaFX Project
-2.3. Integrating JUnit 5 into a JavaFX Project
-3. Writing Your First JUnit Test
-3.1. Anatomy of a JUnit Test
-3.2. Writing Simple Unit Tests for a Login Page
-4. Advanced JUnit Testing Techniques
-4.1. Testing with Assertions
-4.2. Grouping and Tagging Tests
-4.3. Testing Exceptions
-5. Testing Strategies for a Todo Application
-5.1. Boundary Value Analysis (BVA) for Password Length
-5.2. White Box Testing for Input Validation
-5.2.1. Ensuring at Least One Capital Letter
-5.2.2. Ensuring at Least One Special Character
-5.3. Using Decision Tables for Username and Password Validation
-
-6. Effective Use of JUnit Annotations
-6.1. Lifecycle Annotations (@BeforeAll, @AfterAll, @BeforeEach, @AfterEach)
-6.2. Using @Disabled to Skip Tests
-6.3. Custom Annotations for JUnit Tests
-7. Data-Driven Testing (DDT) in JUnit
-7.1. Introduction to DDT
-7.2. Parameterized Tests with JUnit 5
-7.2.1. Using @ValueSource
-7.2.2. Using @CsvSource and @CsvFileSource
-7.2.3. Using @MethodSource for Complex Parameters
-7.3. Advantages of Data-Driven Testing
-
 ---
 
 ### 1. Introduction to JUnit Testing
