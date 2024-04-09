@@ -382,7 +382,7 @@ It's time for the implementation of the `onFindRootButtonClick()` method of Exam
 |**Input (输入)** Coefficients `(a,b,c)` within the range `[1,100]`. </br> **Output (输出)** # of Roots and Roots of the quadratic equation, or a message indicating no real roots or invalid input. </br> 
 **1. Inputs** a, b, c </br> 
 **2. variables** isValid=0, D </br> 
-**3. if** ((a >= 0) && (a <=100) && (b >= 0) && (b <=100) && (c >= 0) && (c <=100)) </br> 
+**3. if** ((a >= 0) && (a <=100) && (b >= 0) && (b <=100)) </br> 
 **4.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; isValid = 1  </br>  
 **5.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; **if (a == 0)** </br> 
 **6.** &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; isValid = -1 </br> 
