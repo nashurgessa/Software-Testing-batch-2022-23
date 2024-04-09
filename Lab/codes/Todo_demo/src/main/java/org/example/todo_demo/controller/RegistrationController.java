@@ -60,24 +60,57 @@ public class RegistrationController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        if (!password.equals(confirmPassword)) {
-            // Password don't match
-            // Show error message
-            return;
-        }
+//        if (!password.equals(confirmPassword)) {
+//            // Password don't match
+//            // Show error message
+//            return;
+//        }
+//
+//        if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty()) {
+//            // Registration successful
+//            boolean isRegistered = userService.registerUser(name, email, password);
+//            // Navigate to login page or show success message
+//            backToLoginPage();
+//
+//        } else {
+//            // Registration failed
+//            // Show error message
+//            AlertMessages.showErrorToUser("Registration", "Registration Failed");
+//        }
 
-        if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty()) {
-            // Registration successful
-            boolean isRegistered = userService.registerUser(name, email, password);
-            // Navigate to login page or show success message
-            backToLoginPage();
+        RegistrationResult result = attemptRegistration(name, email, password, confirmPassword);
 
-        } else {
-            // Registration failed
-            // Show error message
-            AlertMessages.showErrorToUser("Registration", "Registration Failed");
+        switch (result) {
+            case SUCCESS:
+                backToLoginPage();
+                break;
+            case PASSWORD_MISMATCH:
+            case REGISTRATION_FAILED:
+                AlertMessages.showErrorToUser("Registration", "Registration Failed");
+                break;
         }
     }
+
+    // This we can use the Whitebox testing
+    // New method to encapsulate the registration logic
+    protected RegistrationResult attemptRegistration(String name, String email, String password, String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            return RegistrationResult.PASSWORD_MISMATCH;
+        }
+
+        if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty() && userService.registerUser(name, email, password)) {
+            return RegistrationResult.SUCCESS;
+        } else {
+            return RegistrationResult.REGISTRATION_FAILED;
+        }
+    }
+    // Enum to represent possible outcomes of the registration attempt
+    public enum RegistrationResult {
+        SUCCESS,
+        PASSWORD_MISMATCH,
+        REGISTRATION_FAILED
+    }
+
 
     // Validate email format
     protected boolean isValidEmail(String email) {

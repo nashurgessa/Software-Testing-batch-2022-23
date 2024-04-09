@@ -6,40 +6,6 @@ marp: true
 
 ### JUnit
 
-### Table of Contents
-1. Introduction to JUnit Testing
-1.1. Overview of JUnit
-1.2. Introduction to JUnit 5 (Jupiter)
-2. Setting Up JUnit with JavaFX
-2.1. Overview of JavaFX
-2.2. Setting Up a JavaFX Project
-2.3. Integrating JUnit 5 into a JavaFX Project
-3. Writing Your First JUnit Test
-3.1. Anatomy of a JUnit Test
-3.2. Writing Simple Unit Tests for a Login Page
-4. Advanced JUnit Testing Techniques
-4.1. Testing with Assertions
-4.2. Grouping and Tagging Tests
-4.3. Testing Exceptions
-5. Testing Strategies for a Todo Application
-5.1. Boundary Value Analysis (BVA) for Password Length
-5.2. White Box Testing for Input Validation
-5.2.1. Ensuring at Least One Capital Letter
-5.2.2. Ensuring at Least One Special Character
-5.3. Using Decision Tables for Username and Password Validation
-
-6. Effective Use of JUnit Annotations
-6.1. Lifecycle Annotations (@BeforeAll, @AfterAll, @BeforeEach, @AfterEach)
-6.2. Using @Disabled to Skip Tests
-6.3. Custom Annotations for JUnit Tests
-7. Data-Driven Testing (DDT) in JUnit
-7.1. Introduction to DDT
-7.2. Parameterized Tests with JUnit 5
-7.2.1. Using @ValueSource
-7.2.2. Using @CsvSource and @CsvFileSource
-7.2.3. Using @MethodSource for Complex Parameters
-7.3. Advantages of Data-Driven Testing
-
 ---
 
 ### 1. Introduction to JUnit Testing
@@ -1212,18 +1178,6 @@ distinguishing different types of exceptions
 ----
 
 
-----
-
-> - **Timeout Assertions:** Ensure that your code completes within a specified time.
-
-```java
-import static org.junit.jupiter.api.Assertions.assertTimeout;
-
-assertTimeout(Duration.ofMillis(100), () -> {
-    // Perform task that should not take more than 100 ms
-});
-```
-
 #### 4.2 Grouping and Tagging Tests
 Grouping and tagging tests in JUnit 5 allow you to categorize your tests logically, making it easier to manage and execute subsets of tests.
 
@@ -1247,6 +1201,8 @@ void aSlowTest() {
 
 **Filtering Tests:** When running your tests, you can specify which tags to include or exclude. This capability is particularly useful in build tools like Maven and Gradle, or within IDEs, to run only a specific subset of tests.
 
+---
+
 #### 4.3 Testing Exceptions
 JUnit 5 provides the assertThrows method to assert that execution of a particular code snippet throws a specific exception.
 
@@ -1261,6 +1217,8 @@ void whenDivideByZero_thenThrowArithmeticException() {
 }
 ```
 
+---
+
 > - **Asserting Exception Details:** Beyond simply testing for the presence of an exception, you can capture the exception and assert details about it.
 ```java
 @Test
@@ -1272,11 +1230,29 @@ void whenDivideByZero_thenThrowExceptionWithSpecificMessage() {
 ```
 
 
+---
+
+> - **Timeout Assertions:** Ensure that your code completes within a specified time.
+
+```java
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+
+assertTimeout(Duration.ofMillis(100), () -> {
+    // Perform task that should not take more than 100 ms
+});
+```
+
 
 ---
 
-### 5. Testing Strategies for a Todo Application
+### 5. Hands-on Practice
 When developing a Todo application with functionalities like login, registration, and **CRUD** operations for todo items, adopting a strategic approach to testing is crucial. Here, we focus on techniques applicable to a Todo application, employing **boundary value analysis (BVA)**, **White box testing**, and **decision tables** to ensure comprehensive coverage.
+
+> ***Boundary Value Analysis (BVA)***: Use BVA for validating input fields like email address, password, and optional fields that have length requirements or specific formats (e.g., date fields).
+
+> ***White Box Testing:*** Inspect the validation logic for each field. Test that the system correctly handles both valid registrations and detects invalid data (such as invalid email formats, too short/long passwords).
+
+> ***Decision Tables:** Use decision tables to cover different combinations of valid and invalid inputs across all registration fields. This helps ensure that your application correctly processes registrations, rejects invalid data, and provides useful feedback to the user.
 
 #### 5.1 Boundary Value Analysis (BVA) for Password Length
 Boundary Value Analysis is an effective testing technique that involves selecting input values at the boundaries of input domains. For a password feature in the registration or login process, assuming valid passwords are required to be between 6 and 16 characters:
@@ -1339,16 +1315,14 @@ public class RegistrationControllerTest {
         // This should fail because it's too long
         assertFalse(registrationController.isValidPassword("Aa@12345678901234567890a1"));
     }
-
 }
-
 ```
 
 ---
 
 
 #### 5.2 White Box Testing for Input Validation
-White box testing involves testing internal structures or workings of an application. For input validation, like ensuring a password contains at least one uppercase letter and one special character, you understand and test the internal logic.
+For input validation, like ensuring a password contains at least one uppercase letter and one special character, you understand and test the internal logic.
 
 > **Example:** For a method `isValidPassword` that validates password criteria:
 > - **Test for at least one uppercase letter:** Provide a password with and without an uppercase letter and assert the expected outcome.
@@ -1375,6 +1349,14 @@ Decision tables are excellent for scenarios where the outcome depends on a combi
 > - A2: Reject login.
 
 You then outline rules (R1, R2, ...) that define which conditions lead to which actions. For example, only when C1, C2, C3, and C4 are true (R1) should A1 (allow login) be the outcome.
+
+|Rule	|C1: Username not empty	|C2: Username exists	|C3: Password valid	|C4: Password matches	|Action|
+|---|-----|-----|---|--|--------|
+|R1|	True|	True|	True|	True|	A1: Allow login|
+|R2	|False|	-|	-|	-|	A2: Reject login|
+|R3|	True|	False|	-|	-|	A2: Reject login|
+|R4	|True|	True	|False	|-|	A2: Reject login|
+|R5	|True	|True	|True|	False|	A2: Reject login|
 
 Implementing Tests in JUnit
 Parameterized Tests for decision table scenario ensure efficient coverage over various input combinations. Here’s an example structure for a parameterized test using decision tables:
@@ -1404,31 +1386,191 @@ Adopting strategic testing techniques such as BVA, white box testing, and decisi
 ### 6. Effective Use of JUnit Annotations
 JUnit 5 introduces several annotations that can enhance your testing framework, making your tests more readable, manageable, and efficient. Understanding and utilizing these annotations effectively can significantly improve your test suites.
 
-#### 6.1 Lifecycle Annotations
-Lifecycle annotations in JUnit 5 define methods that run at specific points in the test lifecycle, allowing for setup and teardown operations that are crucial for maintaining test isolation and reducing redundancy.
+---
 
-- `@BeforeAll`: Marks a method to be run before all tests in the current class. It's ideal for expensive setup tasks that need to run only once, ***like initializing a database connection***. Must be ***`static`*** in a regular test class but can be instance-level in a test class annotated with `@TestInstance(Lifecycle.PER_CLASS)`.
+#### 6.1 Using @Disabled to Skip Tests
+- `@Disabled`: If you want to temporarily disable a test case (this might come up if you have test cases for parts of your program that aren’t fully implemented yet, for instance), you can do so by putting `@Disabled` above `@Test`.
 
-- `@AfterAll`: Marks a method to be run after all tests in the class have been executed. Useful for **cleanup** tasks, such as **closing database connections**. Similar to `@BeforeAll`, it must be ***`static`*** unless the test class is annotated with `@TestInstance(Lifecycle.PER_CLASS)`.
+When running tests, ***JUnit*** will distinguish between tests that ***pass***, tests that ***fail*** due to an `assertion`, tests that ***fail*** due to an `unexpected` and `uncaught exception`, and ***tests*** that were `ignored`.
 
-- `@BeforeEach`: Marks a method to run **before each test** method in the class. It's used for **setting up test conditions or initializing objects** that are required by each test method.
+```java
+import static org . junit . jupiter . api . Assertions .*;
 
-- `@AfterEach`: Marks a method to run **after each test** method completes. This annotation is typically used for **cleanup activities**, ensuring that changes made by one test method do not affect others.
+import org . junit . jupiter . api . Disabled ;
+import org . junit . jupiter . api . Test ;
 
-#### 6.2 Using @Disabled to Skip Tests
-- `@Disabled`: This annotation can be applied to a test class or test method to **prevent it from being executed**. It's particularly useful when a test is **temporarily irrelevant** or if the code it tests is **under construction**.
+public class IgnoredTestClass {
+      @Test
+       public void basicTest () {
+            assertFalse (false , " false is false ");
+       }
+    
+       @Disabled
+       @Test
+        public void ignoredTest () {
+               fail (" ignore me");
+        }
+}
+```
+
+---
 
 
-> **Additional Useful Annotations**
-> - `@DisplayName`: Provides a custom name for the test class or method, making test reports more readable.
-> - `@Nested`: Allows grouping of tests within a test class into nested classes, facilitating better organization of complex test suites.
-> - `@Tag`: Used for tagging tests, which can then be included or excluded in test runs based on their tags. This is especially useful in CI/CD pipelines for running different sets of tests for different environments or contexts.
-> - `@RepeatedTest`: Indicates that a method is a test template for a repeated test. It's used when you want to run the same test multiple times.
-> - `@ParameterizedTest`: Indicates that a method is a test template for a parameterized test. It's used in conjunction with sources like @ValueSource, @CsvSource, or @MethodSource to run the same test with different parameters.
-> - `@TestFactory`: Indicates that a method is a test factory for dynamic tests. Dynamic tests are tests that are generated at runtime by a factory method.
+#### 6.2 JUnit Test Fixtures
+- The context in which a test case is executed.
+- Typically include:
+- - Common objects or resources that are available for use by any test case.
+- Activities to manage these objects 
+- - ***Set-up:*** object and resource allocation
+- - ***Tear-down:*** object and resource de-allocation
+
+---
+
+##### 6.2.1. Set-Up
+
+Tasks that must be done prior to each test case
+
+***Examples:***  
+- Create some objects to work with
+- Open a network connection
+- Open a file to read/write 
+
+##### 6.2.2. Tear-Down
+Tasks to clean up after execution of each test case. 
+- Ensures 
+    - Resources are released
+    - The system is in a known state for the next test case
+- Clean up should not be done at the end of a test case,
+    - since a failure ends execution of a test case at that point
 
 
-**Using JUnit Annotations for a Cleaner Approach**
+---
+
+##### 6.2.3. Method Annotations for Set-Up and Tear-Down
+
+- `@BeforeEach` annotation: ***setup*** 
+    - Code to run before each test case. 
+    - It's used for **setting up test conditions or initializing objects** that are required by each test method.
+
+- `@AfterEach`: annotation: ***teardown*** 
+    - Code to run after each test case. 
+    - will run regardless of the verdict, even if exceptions are thrown in the test case or an assertion fails.
+    - This annotation is typically used for **cleanup activities**, ensuring that changes made by one test method do not affect others.
+
+- Multiple annotations are allowed
+    - All methods annotated with `@BeforeEach` will be run before each test case
+    - But no guarantee of execution order
+
+---
+
+```java
+public class OutputTest {
+    private File output; 
+
+    @BeforeEach
+    public void createOutputFile() { 
+    output = new File(...);
+    }
+
+    @AfterEach
+    public void deleteOutputFile() {
+        output.close(); 
+        output.delete();		
+    }
+    @Test 
+    public void test1WithFile() {
+    // code for test case 
+    …
+    } 
+
+    @Test 
+    public void test2WithFile() {
+    // code for test case 
+    …
+    }
+}  
+```
+
+    **Method Execution Order**
+    1. createOutputFile()
+    2. test1WithFile()		
+    3. deleteOutputFile()
+    4. createOutputFile()
+    5. test2WithFile()
+    6. deleteOutputFile()
+
+    > Not guaranteed: 
+    `test1WithFile` runs before `test2WithFile` 
+
+---
+
+- `@BeforeAll` annotation on a `static` method
+    - one method only
+    - Run the method once only for the entire test class
+        - before any of the tests, and 
+        - before any `@BeforeEach` method(s)
+    - It's ideal for expensive setup tasks that need to run only once, ***like initializing a database connection***. 
+
+    ```java
+    @BeforeAll 
+    public static void anyName() {
+        // class setup code here
+    }
+    ```
+
+---
+
+- `@AfterAll` annotation on a static method
+    - one method only
+    - Run the method once only for the entire test class
+        - after any of the tests
+        - after any @AfterEach method(s)
+    - Useful for stopping servers, closing connections, etc.
+    ```java
+    @AfterAll 
+    public static void anyName() {
+        // class clean up code here
+    }
+    ```
+
+---
+ - `@Timeout`: Timed Tests
+
+- Useful for simple performance test
+    -  Network communication
+    - Complex computation
+- The `@Timeout` annotation
+    - Time unit defaults to seconds but is configurable
+
+```java
+@Test
+@Timeout(5)
+public void testLengthyOperation() {
+        ...
+} 
+```
+
+- The test fails
+    - if ***timeout*** occurs before the test method completes 
+
+
+---
+
+JUnit 5 Unit Testing Framework Summary
+
+| Annotation | Description |
+|------------|-------------|
+|`@Test` </br>`public void method()` |  The annotation @Test identifies that a method is a test method.| 
+|`@BeforeEach` </br> `public void method()` | Will execute the method before each test. Can prepare the test environment (e.g. read input data, initialize the class). |
+| `@AfterEach` </br> `public void method()` | Will execute the method after each test. Can cleanup the test environment (e.g. delete temporary data, restore defaults). |
+| `@BeforeAll` </br> `public void method()` | Will execute the method once, before the start of all tests. Can be used to perform time intensive activities, for example to connect to a database. |
+|`@AfterAll` </br> `public void method()` | Will execute the method once, after all tests have finished. Can be used to perform clean-up activities, for example to disconnect from a database. |
+|`@Timeout(5)`| Fails if the method takes longer than 5 seconds. |
+| `@Timeout(value = 100, unit = TimeUnit.MILLISECONDS)`| Fails if the method takes longer than 100 milliseconds |
+
+---
+
+###### 6.2.3.1. Hands-on Practice Using JUnit Annotations for a Cleaner Approach
 
 we can use JUnit's `@BeforeEach` annotation to refactor our setup process, making our test code cleaner and reducing repetition.
 
@@ -1518,15 +1660,36 @@ public class UserServiceTest {
 
 
 ---
+
 ***Output***
 ![1712554719156](image/L15-L18Junitpractices/1712554719156.png)
----
 
 ---
 
-Using a CSV data source with JUnit 5's `@CsvSource` or `@CsvFileSource` annotations is an excellent way to simplify the provision of test data for parameterized tests, especially when dealing with a list of values like in Boundary Value Analysis (BVA). This method allows you to externalize your test data, making the test method cleaner and potentially easier to manage, especially if you have a large number of test cases or if the test data is complex.
 
-#### Using @CsvSource
+##### 6.2.4. Parameterized Tests
+
+- Repeat a test case multiple times with different data 
+- Define a parameterized test
+    - Declared just like regular `@Test` methods but use the `@ParameterizedTest` annotation instead
+    - Must declare at least one **source** that will provide the arguments for each invocation 
+    - Consume the arguments in the test method
+    - It's used in conjunction with sources like `@ValueSource`, `@CsvSource`, or `@MethodSource` to run the same test with different parameters.
+
+***Example***
+```java
+@ParameterizedTest
+@ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
+void palindromes(String candidate) {
+    assertTrue(StringUtils.isPalindrome(candidate));
+}
+```
+
+---
+
+For a more advanced and efficient approach, we utilize JUnit's parameterized tests to run the same test logic with multiple inputs, significantly reducing code duplication.
+
+###### 6.2.4.1. Using `@CsvSource`
 The `@CsvSource` annotation allows you to define your test data directly within your test class as an array of strings. Each string represents a row of CSV data, and each comma separates the columns in that row.
 
 Here's how you could refactor the previous example to use `@CsvSource`:
@@ -1569,10 +1732,10 @@ public class RegistrationControllerTest {
 
 ---
 
-#### Using @CsvFileSource
-Alternatively, if you have a large number of test cases or prefer to keep your test data separate from your test code, @CsvFileSource allows you to load test data from a CSV file located in your resources folder.
+###### 6.2.4.2. Using `@CsvFileSource`
+Alternatively, if you have a large number of test cases or prefer to keep your test data separate from your test code, ``@CsvFileSource` allows you to load test data from a ***CSV*** file located in your resources folder.
 
-First, create a CSV file in src/test/resources (assuming a standard Maven or Gradle project structure). Let's call it passwordTestData.csv, with the following content:
+First, create a CSV file in `src/test/resources` (assuming a standard Maven or Gradle project structure). Let's call it passwordTestData.csv, with the following content:
 
 ![1712500848519](image/L15-L18Junitpractices/1712500848519.png)
 
@@ -1636,6 +1799,17 @@ public class UserServiceTest {
     }
 }
 ```
+
+---
+
+> **Additional Useful Annotations**: 
+> - `@Nested`: Allows grouping of tests within a test class into nested classes, facilitating better organization of complex test suites.
+> - `@Tag`: Used for tagging tests, which can then be included or excluded in test runs based on their tags. This is especially useful in CI/CD pipelines for running different sets of tests for different environments or contexts.
+> - `@RepeatedTest`: Indicates that a method is a test template for a repeated test. It's used when you want to run the same test multiple times.
+> - `@TestFactory`: Indicates that a method is a test factory for dynamic tests. Dynamic tests are tests that are generated at runtime by a factory method.
+
+
+
 
 ---
 
@@ -1727,7 +1901,7 @@ LoginControllerTest.java
 Create a test class named LoginControllerTest for verifying the login functionality.
 
 ```java
-package your.package;
+// package your.package;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

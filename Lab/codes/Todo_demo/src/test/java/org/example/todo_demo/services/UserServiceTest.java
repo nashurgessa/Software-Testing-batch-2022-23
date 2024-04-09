@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,6 +42,13 @@ public class UserServiceTest {
 
     @Test
     void practice() {
-       assertEquals(2.0, 2.0009, 0.0001, "Hello");
+
+
     }
+
+//    @ParameterizedTest
+//    @ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
+//    void palindromes(String candidate) {
+//        assertTrue(StringUtils.isPalindrome(candidate));
+//    }
 }
