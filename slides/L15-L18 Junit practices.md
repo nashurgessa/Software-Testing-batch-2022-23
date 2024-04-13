@@ -2114,9 +2114,12 @@ Adding okhttp & gson dependencies
 </dependency>
 ```
 
-![Alt text](image.png)
+
 
 ## 8. Integrating
+
+![Alt text](image.png)
+
 ## 8. Test Doubles (Mocks, Mockinto Stubs and Fakes)
 
 - Unit testing - smallest piece 
