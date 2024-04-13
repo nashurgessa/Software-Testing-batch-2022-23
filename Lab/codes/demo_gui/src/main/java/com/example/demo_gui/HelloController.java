@@ -19,7 +19,7 @@ public class HelloController {
         txt_A_input.setText("Welcome NUE!!!");
     }
 
-    public String findRoots(double a, double b, double c) {
-
-    }
+//    public String findRoots(double a, double b, double c) {
+//
+//    }
 }
