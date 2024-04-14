@@ -10,6 +10,47 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
+
+    /*
+    private static UserService service = new UserService(); // Assume this service handles login logic
+
+    @Test
+    void testAllowLogin() {
+        // R1: All conditions are true
+        assertTrue(service.login("example@yahoo.com", "Password123@"),
+                "Should allow login when username exists, password is valid, and matches.");
+    }
+
+    @Test
+    void testRejectLoginEmptyUsername() {
+        // R2: Username not empty is false
+        assertFalse(service.login("", "Password123@"),
+                "Should reject login when username is empty.");
+    }
+
+    @Test
+    void testRejectLoginUsernameDoesNotExist() {
+        // R3: Username exists in the database is false
+        assertFalse(service.login("example$yahoo.com", "password123@"),
+                "Should reject login when username does not exist.");
+    }
+
+    @Test
+    void testRejectLoginInvalidPassword() {
+        // R4: Password valid is false
+        assertFalse(service.login("example@yahoo.com", "pard1@"),
+                "Should reject login when password is invalid.");
+    }
+
+    @Test
+    void testRejectLoginPasswordDoesNotMatch() {
+        // R5: Password matches the database for the user is false
+        assertFalse(service.login("validUser", "wrongPassword"),
+                "Should reject login when password does not match.");
+    }
+    */
+
+
     private static UserService userService;
 
 //    @BeforeAll

@@ -11,4 +11,6 @@ module org.example.todo_demo {
     exports org.example.todo_demo;
     exports org.example.todo_demo.controller;
     opens org.example.todo_demo.controller to javafx.fxml;
+    exports org.example.todo_demo.common;
+    opens org.example.todo_demo.common to javafx.fxml;
 }

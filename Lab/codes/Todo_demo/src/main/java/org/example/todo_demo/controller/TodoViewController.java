@@ -95,6 +95,7 @@ public class TodoViewController {
         loginStage.show();
     }
 
+    @FXML
     public void onAddNewTask(ActionEvent actionEvent) {
         String title = txtTitleField.getText();
         String description = descriptionTextArea.getText();

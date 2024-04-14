@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.todo_demo.model.User;
+import org.example.todo_demo.common.RegistrationResult;
 import org.example.todo_demo.services.UserService;
 import org.example.todo_demo.utils.AlertMessages;
 

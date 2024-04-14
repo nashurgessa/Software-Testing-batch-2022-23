@@ -112,6 +112,11 @@ public class SimpleTest {
     }
 }
 ```
+
+***Visuals and Examples:
+Adding visual aids such as screenshots or diagrams could help illustrate setup steps or flow processes, especially for configurations and the relationships between JavaFX and JUnit components. Diagrams explaining the test architecture or flow of execution might also be beneficial.***
+
+
 4. **Run Your Test:** Use your IDE's test runner to run the test. Ensure the test passes, indicating that JUnit 5 is correctly set up and ready for more complex test scenarios involving your JavaFX application components.
 
 ### 3. Writing Your First JUnit Test
@@ -136,9 +141,13 @@ Your JavaFX application will consist of three **primary scenes**:
 
 Each page / view is represented by an FXML file for the layout and a Controller class to handle the user interactions. This separation adheres to the Model-View-Controller (MVC) pattern, enhancing maintainability and testability.
 
-![1712408201148](image/L15-L18Junitpractices/1712408201148.png)
 
-![1712408219467](image/L15-L18Junitpractices/1712408219467.png)
+
+<div style="text-align: center;">
+    <img src="image/L15-L18Junitpractices/1712408201148.png" width="300" height="643" style="margin-right: 10px;"/>
+    <img src="image\L15-L18Junitpractices\1712408219467.png" width="300" height="643" style="margin-left: 10px;"/>
+</div>
+
 
 ---
 
@@ -159,19 +168,6 @@ public class TodoApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Platform.setImplicitExit(false); // Keep application running in background
-
-//        stage.setResizable(false);
-//
-//        stage.setOnCloseRequest(event -> {
-//            // Prevent the window from closing
-//            event.consume();
-//
-//            // Optionally, minimize the window instead
-//            stage.setIconified(true);
-//        });
-        // Configuration.widowResizeCancelController(stage);
-        // Call method to add application to system tray
-        // Configuration.addAppToSystemTray(stage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(TodoApplication.class.getResource("login_view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 750, 550);
@@ -363,10 +359,79 @@ Create an FXML file named Todo.fxml to define the user interface for the Todo Pa
 
 ---
 
-**Step 2: Implementing the RegistrationController**
-The RegistrationController class will handle user input and registration logic.
+**Step 2: Working in the LoginController**
+The LoginController class handles user input for login actions and navigates to the Todo app upon successful authentication.
 
-`RegistrationController.java`
+***Key Components: (关键组件)***
+
+***TextField Inputs (文本字段输入):*** Fields to capture the username and password.
+***Login Method (登录方法):*** Validates the entered credentials.
+***Navigation Method (导航方法):*** Transitions the user to the Todo app interface upon successful login.
+
+`controller/LoginController.java`
+
+```java
+// package your.package;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+
+public class LoginController {
+    
+    @FXML
+    private TextField txtUsername; // 用户名输入字段 (Input field for the username)
+    @FXML
+    private TextField txtPassword; // 密码输入字段 (Input field for the password)
+
+    // 点击登录按钮时处理登录的方法 (Method to handle login when the Sign In button is clicked)
+    @FXML
+    protected void onSignIn(ActionEvent actionEvent) {
+        // 验证用户名和密码是否正确 (Check if the username and password are correct)
+        if (!authenticateUser(txtUsername.getText(), txtPassword.getText())) {
+            // 如果不正确，显示错误信息 (If incorrect, display an error message)
+            return;
+        }
+
+        // 如果正确，进入待办事项应用 (If correct, proceed to the Todo app)
+        try {
+            navigateToTodoApp();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 将场景更改为待办事项应用的方法 (Method to change the scene to the Todo app)
+    private void navigateToTodoApp() throws IOException {
+        try {
+            // Go to Registration
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception as appropriate for your application
+        }
+    }
+
+
+    // 用于检查登录凭据的辅助方法 (Helper method to check login credentials)
+    private boolean authenticateUser(String username, String password) {
+        // return userService.login(username, password);
+    }
+    
+}
+```
+
+
+---
+
+**Step 3: Working in the RegistrationController**
+The RegistrationController class handles user input and manages the registration process.
+
+***Key Components: (关键组件)***
+
+***TextField and PasswordField Inputs (文本字段和密码字段输入):*** For entering user details such as `name`, `email`, and `passwords`.
+***Registration Method (注册方法):*** Handles form submissions and validates input data.
+
+`controller/RegistrationController.java`
 
 ```java
 // package your.package;
@@ -390,22 +455,24 @@ import java.util.regex.Pattern;
 
 public class RegistrationController {
     
+     @FXML
+    private TextField nameField; // Input field for user's name - 用户名输入字段
     @FXML
-    private TextField nameField;
+    private TextField emailField; // Input field for user's email - 用户邮箱输入字段
     @FXML
-    private TextField emailField;
+    private PasswordField passwordField; // Input field for user's password - 用户密码输入字段
     @FXML
-    private PasswordField passwordField;
-    @FXML
-    private PasswordField confirmPasswordField;
+    private PasswordField confirmPasswordField; // Input field for confirming user's password - 确认密码输入字段
 
     @FXML
-    private Button backButton;
+    private Button backButton; // Button to navigate back - 返回按钮
 
+    // Event handler for back button to return to login page - 返回按钮的事件处理，返回登录页面
     public void onBackClickButton(ActionEvent actionEvent) throws IOException {
         // Implementation
     }
 
+    // Handles registration form submission - 处理注册表单提交
     @FXML
     protected void handleRegistrationAction(ActionEvent event) {
         String name = nameField.getText();
@@ -413,22 +480,16 @@ public class RegistrationController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         
-        if (!password.equals(confirmPassword)) {
-            // Password don't match
-            // Show error message
-            return;
-        }
+        RegistrationResult result = attemptRegistration(name, email, password, confirmPassword);
 
-        if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty()) {
-            // Registration successful
-            // Navigate to login page or show success message
-        } else {
-            // Registration failed
-            // Show error message
-        }
+    }
+
+    // Encapsulates the registration logic - 封装注册逻辑
+    protected RegistrationResult attemptRegistration(String name, String email, String password, String confirmPassword) {
+    
     }
     
-    // Validate Email format
+    // Validates the email format - 验证电子邮件格式
      private boolean isValidEmail(String email) {
         /*
         ^: Start of the string.
@@ -439,7 +500,7 @@ public class RegistrationController {
          */
      }
 
-     // Validate Password complexity
+     // Validates the password complexity - 验证密码复杂度
       private boolean isValidPassword(String password) {
         /*
         ^: Start of string.
@@ -456,55 +517,17 @@ public class RegistrationController {
 
 ---
 
-**Step 3: Implementing the LoginController**
-The LoginController class will handle user input for login actions.
-
-`LoginController.java`
-
-```java
-// package your.package;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-
-public class LoginController {
-    
-    @FXML
-    private TextField usernameField;
-    
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    protected void onSignIn(ActionEvent actionEvent) {
-        if (!authenticateUser(txtUsername.getText(), txtPassword.getText())) {
-            // Login Failed
-            return;
-        }
-        // Navigate to MainPage
-    }
-
-    @FXML
-    public void goToRegistrationPage(ActionEvent actionEvent) {
-        try {
-            // Go to Registration
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception as appropriate for your application
-        }
-    }
-    
-}
-```
+**Step 4. Working in the TodoController**
+The TodoViewController class manages the tasks on the Todo page, facilitating task addition, modification, and display.
 
 
----
+***Key Components: (关键组件)***
 
-**Step 4. Implementing the TodoController**
-The TodoController class manages the interaction logic for the Todo Page, including adding and deleting todo items.
+***UI Elements (UI元素):*** Includes `DatePicker`, `ComboBoxes`, `TextField`, `TextArea`, and `Buttons` for interactive task management.
+***ListView Display (ListView显示):*** Shows the list of tasks dynamically.
+***Event Handling (事件处理):*** Manages actions like adding tasks and logging out.
 
-`TodoController.java`
+`controller/TodoViewController.java`
 
 ```java
 // package your.package;
@@ -514,59 +537,252 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 
-public class TodoController {
-    
+import java.io.IOException;
+
+public class TodoViewController {
+
     @FXML
-    private ListView<String> todoListView;
-    
+    private DatePicker datePicker;  // DatePicker for selecting the date - 用于选择日期的DatePicker
     @FXML
-    private TextField todoInputField;
-    
-    private ObservableList<String> todoItems;
+    private ComboBox<Integer> hourComboBox;  // ComboBox for selecting the hour - 用于选择小时的ComboBox
+    @FXML
+    private ComboBox<Integer> minuteComboBox;  // ComboBox for selecting the minute - 用于选择分钟的ComboBox
+    @FXML
+    private TextField txtTitleField;  // TextField for entering the title of the task - 输入任务标题的TextField
+    @FXML
+    private TextArea descriptionTextArea;  // TextArea for entering the description of the task - 输入任务描述的TextArea
+    @FXML
+    private Button addTaskButton;  // Button to add a new task - 添加新任务的按钮
+    @FXML
+    private Button logoutButton;  // Button for logging out - 登出按钮
+    @FXML
+    private ListView<Todo> myListView;  // ListView for displaying tasks - 显示任务的ListView
 
     @FXML
     public void initialize() {
-        todoItems = FXCollections.observableArrayList();
-        todoListView.setItems(todoItems);
+        // Populate hours from 0 to 23 - 从0到23填充小时
+        for (int hour = 0; hour < 24; hour++) {
+            hourComboBox.getItems().add(hour);
+        }
+
+        // Populate minutes from 0 to 59 - 从0到59填充分钟
+        for (int minute = 0; minute < 60; minute++) {
+            minuteComboBox.getItems().add(minute);
+        }
+
+        // Set default selections for hour and minute - 设置小时和分钟的默认选择
+        hourComboBox.getSelectionModel().select(0); // default to 00 - 默认为00
+        minuteComboBox.getSelectionModel().select(0); // default to 00 - 默认为00
+
+        // Setup an event listener for list selection to handle clicks - 设置列表选择的事件监听器以处理点击
+    }
+
+    private void handleTodoTaskClicked(MouseEvent event) {
+        // Get the selected item from the list - 从列表中获取选定的项
+        // Perform actions based on the selected item - 根据选定的项执行操作
     }
 
     @FXML
-    protected void handleAddTodoAction() {
-        String newTodo = todoInputField.getText().trim();
-        if (!newTodo.isEmpty()) {
-            todoItems.add(newTodo);
-            todoInputField.clear();
-        }
+    public void onLogout(ActionEvent actionEvent) throws IOException {
+        // Close the current window and show the login view - 关闭当前窗口并显示登录视图
     }
 
     @FXML
-    protected void handleDeleteTodoAction() {
-        String selectedTodo = todoListView.getSelectionModel().getSelectedItem();
-        if (selectedTodo != null) {
-            todoItems.remove(selectedTodo);
-        }
+    public void onAddNewTask(ActionEvent actionEvent) {
+        // Collect user input and add a new task - 收集用户输入并添加新任务
+        // Optionally, save the new task to a local database or a server - 可选地，将新任务保存到本地数据库或服务器
+        // Clear form fields after task addition - 添加任务后清除表单字段
     }
 }
 ```
 
 ---
 
-![1712495262723](image/L15-L18Junitpractices/1712495262723.png)
+**Step 5: Adding Functionalities to Different Classes**
 
----
-***Full Impelementation of RegistrationController.java***
+This step focuses on integrating and expanding functionalities within the application's controller classes. The implementation details are highlighted below, including specific functionalities for login and alert systems.
+
+<div style="text-align: center;">
+    <img src="image/L15-L18Junitpractices/1713015544292.png" width="500" height="1043" style="margin-right: 10px;"/>
+</div>
+
+**Step 5. Enhancing the LoginController**
+The `LoginController` manages the authentication process. 
+- It uses methods from the `UserService` to validate user credentials and navigates to the main application upon successful login.
+
+
+***Key Functionalities:***
+
+***Authentication (认证):*** Validates user credentials.
+***Navigation (导航):*** Transitions to the Todo application on successful login.
+***Error Handling (错误处理):*** Displays error messages for failed logins.
+
 
 ```java
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+// Imports the necessary JavaFX and application classes
+
+// ... 
+import org.example.todo_demo.services.UserService;
+import org.example.todo_demo.utils.AlertMessages;
+
+import java.io.IOException;
+
+public class LoginController {
+
+    // ... Previous implementation
+    // Above is the base setup for the controller. Continue from here to add or modify the code as needed.
+    // 上面是控制器的基础设置。从这里开始根据需要添加或修改代码。
+  
+
+    // UserService to manage user data
+    private UserService userService = new UserService();
+
+    // 点击登录按钮时处理登录的方法 (Method to handle login when the Sign In button is clicked)
+    @FXML
+    protected void onSignIn(ActionEvent actionEvent) {
+        // 验证用户名和密码是否正确 (Check if the username and password are correct)
+        if (!authenticateUser(txtUsername.getText(), txtPassword.getText())) {
+            // 如果不正确，显示错误信息 (If incorrect, display an error message)
+            AlertMessages.showErrorToUser("Login Failed", "Incorrect username or password.");
+            return;
+        }
+        // 如果正确，进入待办事项应用 (If correct, proceed to the Todo app)
+        try {
+            navigateToTodoApp();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 用于检查登录凭据的辅助方法 (Helper method to check login credentials)
+    private boolean authenticateUser(String username, String password) {
+        return userService.login(username, password);
+    }
+
+    // 将场景更改为待办事项应用的方法 (Method to change the scene to the Todo app)
+    private void navigateToTodoApp() throws IOException {
+        Stage loginStage = getCurrentStage(); // 获取当前窗口 (Get the current window)
+        loginStage.hide(); // 隐藏当前窗口 (Hide the current window)
+
+        Parent root = loadTodoView(); // 加载待办事项应用视图 (Load the Todo app view)
+        Scene todoScene = new Scene(root, 800, 600); // 设置场景大小 (Set the scene size)
+        Stage todoStage = createStage(todoScene, "Todo App"); // 为待办事项应用创建一个新窗口 (Create a new window for the Todo app)
+        todoStage.show(); // 显示待办事项应用窗口 (Show the Todo app window)
+    }
+
+    // 获取当前舞台（窗口）的实用方法 (Utility method to get the current stage (window))
+    private Stage getCurrentStage() {
+        return (Stage) txtUsername.getScene().getWindow();
+    }
+
+    // 从FXML文件加载视图的实用方法 (Utility method to load the view from an FXML file)
+    private Parent loadTodoView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/todo_demo/todo_view.fxml"));
+        return loader.load();
+    }
+
+    // 使用给定的场景和标题创建新舞台（窗口）的实用方法 (Utility method to create a new stage (window) with the given scene and title)
+    private Stage createStage(Scene scene, String title) {
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle(title);
+        return stage;
+    }
+}
+```
+
+
+---
+
+**Alert Messages Utility**
+
+The AlertMessages class provides utility methods to display user-friendly error messages using JavaFX components (AlertMessages 类提供使用 JavaFX 组件显示用户友好错误消息的实用方法). 
+- This is particularly useful for showing errors or important notifications (这对于显示错误或重要通知特别有用).
+
+***Key Functionality:***
+
+***Error Display (显示错误):*** Shows a more user-friendly error using JavaFX components.
+
+***AlertMessages.java***
+
+```java
+// package org.example.todo_demo.utils;
+
+import javafx.scene.control.Alert;
+
+public class AlertMessages {
+    // Show a more user-friendly error using JavaFX components, like Alert
+    // 使用 JavaFX 组件显示更友好的错误信息，比如 Alert
+    public static void showErrorToUser(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR); // Create an error type alert 创建一个错误类型的警告
+        alert.setTitle(title); // Set the alert title 设置警告标题
+        alert.setHeaderText(null); // Do not set header text 不设置头部文本
+        alert.setContentText(message); // Set the message content to display 设置要显示的消息内容
+        alert.showAndWait(); // Display the alert and wait for user response 显示警告并等待用户响应
+    }
+}
+```
+
+---
+
+**User Service Implementation**
+
+UserService Class
+
+This class manages user registration and login processes. (这个类管理用户注册和登录过程)
+- It provides methods to check user credentials and to register new users. 它提供了检查用户凭证和注册新用户的方法。
+
+***Key Functionalities:***
+
+***User Registration (用户注册):*** Registers new users, ensuring data persistence.
+***Credential Validation (凭证验证):*** Validates user login credentials.
+
+***UserService.java***
+
+```java
+public class UserService {
+    
+    // Constructor - 构造函数
+    public UserService() {}
+
+    // Register a new user - 注册新用户
+    public boolean registerUser(String name, String email, String password) {
+        // Implementation should store user data in a persistent storage
+        // 实现应该将用户数据存储在持久存储中
+        return true; // Return true to indicate successful registration
+        // 返回true表示注册成功
+    }
+
+    // Validate login credentials - 验证登录凭证
+    public boolean login(String email, String password) {
+        // Check if the email and password are correct
+        // 检查电子邮件和密码是否正确
+        return "user@example.com".equals(email) && "Password$123".equals(password);
+        // 返回值为true表示邮箱和密码匹配
+    }
+}
+```
+
+---
+
+Step 6: Enhancing the RegistrationController
+
+The RegistrationController handles user input for registration and interacts with the UserService to register new users based on provided credentials.
+
+Key Functionalities:
+
+User Registration (用户注册): Handles the logic for registering new users.
+Input Validation (输入验证): Ensures that user inputs meet specific criteria before submission.
+
+```java
+// ...
 import org.example.todo_demo.model.User;
 import org.example.todo_demo.services.UserService;
 import org.example.todo_demo.utils.AlertMessages;
@@ -577,31 +793,26 @@ import java.util.regex.Pattern;
 
 public class RegistrationController {
 
-    @FXML
-    private TextField nameField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private PasswordField confirmPasswordField;
+    // ... Previous implementation
+    // Above is the base setup for the controller. Continue from here to add or modify the code as needed.
+    // 上面是控制器的基础设置。从这里开始根据需要添加或修改代码。
 
     @FXML
     private Button backButton;
 
-    // private UserService userService = new UserService();
-    private UserService userService = UserService.getInstance();
+    // UserService instance - 用户服务实例
+    private UserService userService = new UserService();
 
     public void onBackClickButton(ActionEvent actionEvent) throws IOException {
         backToLoginPage();
     }
 
     public void backToLoginPage() throws IOException {
-        // Hide or close the current todo app window
+        // Hide or close the current todo app window - 隐藏或关闭当前待办应用窗口
         Stage todoStage = (Stage) backButton.getScene().getWindow();
         todoStage.close();
 
-        // Load and show the login view
+        // Load and show the login view - 加载并显示登录视图
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/todo_demo/login_view.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -609,32 +820,13 @@ public class RegistrationController {
         loginStage.setScene(scene);
         loginStage.setTitle("Login");
         loginStage.show();
-
     }
+
     @FXML
     public void handleRegistrationAction(ActionEvent actionEvent) throws IOException {
-        String name = nameField.getText();
-        String email = emailField.getText();
-        String password = passwordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
-
-        // if (!password.equals(confirmPassword)) {
-        // // Password don't match
-        // // Show error message
-        //   return;
-        // }
-        //
-        // if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty()) {
-        //    // Registration successful
-        //    boolean isRegistered = userService.registerUser(name, email, password);
-        //    // Navigate to login page or show success message
-        //    backToLoginPage();
-        // } else {
-        // // Registration failed
-        // // Show error message
-        //  AlertMessages.showErrorToUser("Registration", "Registration Failed");
-        // }
-
+        // ... Previous implementation
+        // Continue coding from here for additional registration logic - 从这里继续编写额外的注册逻辑
+    
         RegistrationResult result = attemptRegistration(name, email, password, confirmPassword);
 
         switch (result) {
@@ -648,8 +840,7 @@ public class RegistrationController {
         }
     }
 
-    // This we can use the Whitebox testing
-    // New method to encapsulate the registration logic
+    // Encapsulates the registration logic - 封装注册逻辑
     protected RegistrationResult attemptRegistration(String name, String email, String password, String confirmPassword) {
         if (!password.equals(confirmPassword)) {
             return RegistrationResult.PASSWORD_MISMATCH;
@@ -661,22 +852,9 @@ public class RegistrationController {
             return RegistrationResult.REGISTRATION_FAILED;
         }
     }
-    // Enum to represent possible outcomes of the registration attempt
-    public enum RegistrationResult {
-        SUCCESS,
-        PASSWORD_MISMATCH,
-        REGISTRATION_FAILED
-    }
 
-    // Validate email format
-    private boolean isValidEmail(String email) {
-        /*
-        ^: Start of the string.
-           [A-Za-z0-9+_.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), plus (+), underscore (_), dot (.), or hyphen (-). This part is intended to match the user name part of the email address before the @ symbol.
-           @: Matches the @ symbol itself, which is a required character in email addresses.
-           [A-Za-z0-9.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), dot (.), or hyphen (-). This part is intended to match the domain part of the email address after the @ symbol. It can match domains like example.com or subdomains like sub.example.com.
-           $: End of the string.
-         */
+    // Validate email format - 验证电子邮件格式
+    protected boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         Pattern emailPart = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPart.matcher(email);
@@ -684,248 +862,183 @@ public class RegistrationController {
         return matcher.find();
     }
 
-    // Validate password complexity
-    private boolean isValidPassword(String password) {
-        /*
-        ^: Start of string.
-        (?=.*[0-9]): At least one digit.
-        (?=.*[a-z]): Ensures that there is at least one lowercase letter (not explicitly required by your rules but generally considered a good practice for password security).
-        (?=.*[A-Z]): At least one uppercase letter.
-        (?=.*[@#$%^&+=]): At least one special character from the set specified.
-        (?=\\S+$): No whitespace allowed in the entire string.
-        .{8,24}$: Between 8 to 24 characters.
-         */
-        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,24}$";
+    // Validate password complexity - 验证密码复杂度
+    protected boolean isValidPassword(String password) {
+        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,24}$";
         Pattern passwordPat = Pattern.compile(passwordRegex);
         Matcher matcher = passwordPat.matcher(password);
+
         return matcher.matches();
     }
 }
 ```
 
+
 ---
 
-***Full Impelementation of LoginController.java***
+**common/RegistrationResult.java**
+
+This enum defines the potential outcomes of a registration attempt.
 
 ```java
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import org.example.todo_demo.config.Configuration;
-import org.example.todo_demo.services.UserService;
-import org.example.todo_demo.utils.AlertMessages;
+// package org.example.todo_demo.common;
 
-import java.io.IOException;
-
-public class LoginController {
-
-    @FXML
-    private TextField txtUsername;
-
-    @FXML
-    private TextField txtPassword;
-
-    // Get the Singleton Instance
-    private UserService userService = UserService.getInstance();
-
-    @FXML
-    protected void onSignIn(ActionEvent actionEvent) {
-        if (!authenticateUser(txtUsername.getText(), txtPassword.getText())) {
-            AlertMessages.showErrorToUser("Login Failed", "Incorrect username or password.");
-            return;
-        }
-        navigateToTodoApp();
-    }
-
-    private boolean authenticateUser(String username, String password) {
-        // Use userService to validate credentials
-        return userService.login(username, password);
-    }
-
-    private void navigateToTodoApp() {
-        try {
-            Stage loginStage = getCurrentStage();
-            loginStage.hide();
-
-            Parent root = loadTodoView();
-            Scene todoScene = new Scene(root, 800, 600);
-
-            Stage todoStage = createStage(todoScene, "Todo App");
-
-            todoStage.show();
-        } catch (IOException e) {
-            e.getMessage(); // Handle the exception as appropriate for your application
-        }
-    }
-
-    // Rest of your methods here...
-    // Including showErrorToUser, getCurrentStage, loadTodoView, createStage, etc.
-    
-    // private void showErrorToUser() {
-    //    // Implementation of showing error to the user
-    //    System.out.println("Authentication failed");
-    // }
-
-    private Stage getCurrentStage() {
-        return (Stage) txtUsername.getScene().getWindow();
-    }
-
-    private Parent loadTodoView() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/todo_demo/todo_view.fxml"));
-        return loader.load();
-    }
-
-    private Stage createStage(Scene scene, String title) {
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle(title);
-        return stage;
-    }
-
-    @FXML
-    public void goToRegistrationPage(ActionEvent actionEvent) {
-        try {
-            Stage currentStage = getCurrentStage();
-            currentStage.close();
-
-            Parent root = loadRegistrationView();
-            Scene scene = new Scene(root, 500, 600);
-            Stage registrationStage = createStage(scene, "Registration");
-            registrationStage.show();
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception as appropriate for your application
-        }
-    }
-
-    private Parent loadRegistrationView() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/todo_demo/registration_view.fxml"));
-        return loader.load();
-    }
+// Enum to represent possible outcomes of the registration attempt 
+// 用于表示注册尝试可能的结果的枚举
+public enum RegistrationResult {
+    SUCCESS,               // Registration was successful - 注册成功
+    PASSWORD_MISMATCH,     // Passwords provided did not match - 提供的密码不匹配
+    REGISTRATION_FAILED    // Registration failed due to other reasons - 因其他原因注册失败
 }
 ```
 
 ---
 
-***Full Impelementation of User.java***
+**Step 7: Implementing the TodoController**
+
+The TodoController manages tasks, including adding, updating, and deleting items, and interfaces with UI elements to provide a dynamic user experience.
+
+
+The Todo model represents tasks in the system with attributes such as title, description, date, and time.
+
+***model/Todo.java*** 
+
 ```java
-public class User {
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-    private String name;
-    private String email;
-    private String password;
+public class Todo {
+    private String title; // 任务标题 - The title of the todo item
+    private String description; // 任务描述 - The description of the todo item
+    private LocalDate date; // 任务日期 - The date of the todo item
+    private LocalTime time; // 任务时间 - The time of the todo item
 
-    // Constructor
-    public User(String name, String email, String password) {
-        this.name =  name;
-        this.email = email;
-        this.password = password;
+    // Constructor - 构造器
+    public Todo(String title, String description, LocalDate date, LocalTime time) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.time = time;
     }
 
-    public String getName() {
-        return name;
+    // Getters and setters - 获取器和设置器
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPassword() {
-        return password;
+    public String getDate() {
+        return date.toString();
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
+
+    public String getTime() {
+        return time.toString();
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    // `toString()` method to display Todo attributes - `toString()` 方法用来显示待办事项的属性
     @Override
     public String toString() {
-        return "The name: "+ this.name + " email :"+ this.email + " and password: " + this.password;
+        return title + " - " + date.toString() + " " + time.toString();
     }
 }
 ```
+
 ---
 
-***Full Impelementation of UserService.java***
+
+***Key Functionalities:***
+
+***Task Management (任务管理):*** Handles adding, updating, and removing tasks.
+***Event Handling (事件处理):*** Manages user interactions with the task list.
+
+`controller/TodoViewController.java`
 
 ```java
-import org.example.todo_demo.model.User;
+// package your.package;
 
-import java.util.HashMap;
-import java.util.Map;
+// ...
 
-public class UserService {
-    private final Map<String, User> users = new HashMap<>();
+public class TodoViewController {
 
-    // Singleton
-    private static UserService instance;
-    public UserService() {}
+    // continue ...
 
-    public static synchronized UserService getInstance() {
-        if (instance == null) {
-            instance = new UserService();
-        }
-        return instance;
-    }
-    // Singleton Finished
+    @FXML
+    public void initialize() {
+        
+        // continue ...
 
-    // Register a new user
-    public boolean registerUser(String name, String email, String password) {
-        // Check if user already exists
-        if (users.containsKey(email)) {
-            // User already exists
-            return false;
-        }
-
-        // Create and store the new user
-        User newUser = new User(name, email, password);
-        // TODO: ONLY USE IT IN DEVELOPMENT
-        System.out.println("The user saved information is: " + newUser.toString());
-        users.put(email, newUser);
-        return true;
+        // Setup click listener - 设置点击监听器
+        myListView.setOnMouseClicked(event -> handleTodoTaskClicked(event));
     }
 
-    // Validate login credentials
-    public boolean login(String email, String password) {
-        User user = users.get(email);
-        // TODO: ONLY USE IT IN DEVELOPMENT
-        System.out.println("correct email: " + user.getEmail() + " | user prompt email: " +email);
-        if (user != null && user.getPassword().equals(password)) {
-            return true; // Login successful
+    private void handleTodoTaskClicked(MouseEvent event) {
+        // Get the selected item - 获取选中的项目
+        Todo selectedItem = myListView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            // Perform your actions here with the selected item - 在这里对选中的项目执行操作
+            System.out.println("Clicked on " + selectedItem);
         }
-        return false; // Login failed
     }
 
-}
-```
----
+    @FXML
+    public void onLogout(ActionEvent actionEvent) throws IOException {
+        // Hide or close the current todo app window - 隐藏或关闭当前的待办事项应用窗口
+        Stage todoStage = (Stage) logoutButton.getScene().getWindow();
+        todoStage.close();
 
-***Full implementation of AlertMessages.java***
+        // Load and show the login view - 加载并显示登录视图
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/todo_demo/login_view.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage loginStage = new Stage();
 
-```java
-// package org.example.todo_demo.utils;
+        loginStage.setScene(scene);
+        loginStage.setTitle("Login");
+        loginStage.show();
+    }
 
-import javafx.scene.control.Alert;
+    public void onAddNewTask(ActionEvent actionEvent) {
+        String title = txtTitleField.getText();
+        String description = descriptionTextArea.getText();
+        LocalDate date = datePicker.getValue();
+        LocalTime time = LocalTime.of(Integer.parseInt(
+            String.valueOf(hourComboBox.getValue())),
+                Integer.parseInt(String.valueOf(minuteComboBox.getValue())));
 
-public class AlertMessages {
-    public static void showErrorToUser(String title, String message) {
-        // Show a more user-friendly error using JavaFX components, like Alert
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        // New Todo object - 新建待办事项对象
+        Todo newTodo = new Todo(title, description, date, time);
+        // Adding to the listview - 添加到列表视图
+        myListView.getItems().add(newTodo);
+
+        // Add to local Database - 添加到本地数据库
+
+        // Send to the server - 发送到服务器
+
+        // Clear the form fields after adding - 添加后清除表单字段
+        txtTitleField.clear();
+        descriptionTextArea.clear();
+        datePicker.setValue(null);
+        hourComboBox.getSelectionModel().clearSelection();
+        minuteComboBox.getSelectionModel().clearSelection();
     }
 }
 ```
@@ -1206,33 +1319,7 @@ distinguishing different types of exceptions
 
 ----
 
-
-#### 4.2 Grouping and Tagging Tests
-Grouping and tagging tests in JUnit 5 allow you to categorize your tests logically, making it easier to manage and execute subsets of tests.
-
-- **Using Tags:** You can tag your test methods with `@Tag` annotation. Tags are useful for filtering tests during execution.
-
-```java
-import org.junit.jupiter.api.Tag;
-
-@Tag("fast")
-@Test
-void aFastTest() {
-    // This test is tagged as "fast"
-}
-
-@Tag("slow")
-@Test
-void aSlowTest() {
-    // This test is tagged as "slow"
-}
-```
-
-**Filtering Tests:** When running your tests, you can specify which tags to include or exclude. This capability is particularly useful in build tools like Maven and Gradle, or within IDEs, to run only a specific subset of tests.
-
----
-
-#### 4.3 Testing Exceptions
+#### 4.2 Testing Exceptions
 JUnit 5 provides the assertThrows method to assert that execution of a particular code snippet throws a specific exception.
 
 > - **Basic Exception Testing:**
@@ -1275,15 +1362,179 @@ assertTimeout(Duration.ofMillis(100), () -> {
 ---
 
 ### 5. Hands-on Practice
+
+![1712982137341](image/L15-L18Junitpractices/1712982137341.png)
+
+
+
 When developing a Todo application with functionalities like login, registration, and **CRUD** operations for todo items, adopting a strategic approach to testing is crucial. Here, we focus on techniques applicable to a Todo application, employing **boundary value analysis (BVA)**, **White box testing**, and **decision tables** to ensure comprehensive coverage.
+
+> ***Equivalent Partitioning (EP)***: This testing technique divides input data into partitions of equivalent data from which test cases can be derived.
 
 > ***Boundary Value Analysis (BVA)***: Use BVA for validating input fields like email address, password, and optional fields that have length requirements or specific formats (e.g., date fields).
 
 > ***White Box Testing:*** Inspect the validation logic for each field. Test that the system correctly handles both valid registrations and detects invalid data (such as invalid email formats, too short/long passwords).
 
-> ***Decision Tables:** Use decision tables to cover different combinations of valid and invalid inputs across all registration fields. This helps ensure that your application correctly processes registrations, rejects invalid data, and provides useful feedback to the user.
+> ***Decision Tables:*** Use decision tables to cover different combinations of valid and invalid inputs across all registration fields. This helps ensure that your application correctly processes registrations, rejects invalid data, and provides useful feedback to the user.
 
-#### 5.1 Boundary Value Analysis (BVA) for Password Length
+---
+
+#### 5.1 Equivalent Partitioning (EP)
+
+To create a test case for the `authenticateUser` method in the `LoginController`, we can use the technique of Equivalence Partitioning. For the authenticateUser method, input equivalence can be considered in terms of `valid` and `invalid` credentials.
+
+**Objective:** To ensure that authenticateUser correctly authenticates a user based on the validity of provided credentials.
+**Method:** Input combinations for username and password will be derived based on their validity.
+**Expected Results:** The method should return true for valid credentials and false for invalid credentials.
+
+**Generating Test Cases:**
+For authenticateUser, two main equivalence classes can be considered:
+
+**Valid Credentials:** Username and password combinations that are known to be correct.
+**Invalid Credentials:** Username and password combinations that are incorrect.
+
+```java
+// Validate login credentials - 验证登录凭证
+public boolean login(String email, String password) {
+    // Check if the email and password are correct
+    // 检查电子邮件和密码是否正确
+    return "user@example.com".equals(email) && "Password$123".equals(password);
+    // 返回值为true表示邮箱和密码匹配
+}
+```
+
+**Test Case Table for authenticateUser**
+|Test Case ID|	username | password|	Expected Output|	
+|------------|-----| ---|----------------|
+|TC1	| "user@example.com" | "Password$123"	|	True |	
+|TC2	|"user@wrong.com" | "Password$123" |	False	|
+|TC3	|"user@example.com" |  "wrongPassword" |	False	|
+|TC4	|"invalid@example.com"  | "123456"	| False|
+
+
+```java
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+class LoginControllerTest {
+
+    @Test // 使用有效的凭据测试用户认证 - Test user authentication with valid credentials
+    void testAuthenticateUserWithValidCredentials() {
+        LoginController controller = new LoginController();
+        assertTrue(controller.authenticateUser("user@example.com", "Password$123"),
+                   "Authentication should succeed with correct credentials."); // 应当在凭据正确时成功认证
+    }
+
+    @Test // 使用无效用户名测试用户认证 - Test user authentication with an invalid username
+    void testAuthenticateUserWithInvalidUsername() {
+        LoginController controller = new LoginController();
+        assertFalse(controller.authenticateUser("user@wrong.com", "Password$123"),
+                    "Authentication should fail with incorrect username."); // 应当在用户名不正确时认证失败
+    }
+
+    @Test // 使用无效密码测试用户认证 - Test user authentication with an invalid password
+    void testAuthenticateUserWithInvalidPassword() {
+        LoginController controller = new LoginController();
+        assertFalse(controller.authenticateUser("user@example.com", "wrongPassword"),
+                    "Authentication should fail with incorrect password."); // 应当在密码不正确时认证失败
+    }
+
+    @Test // 使用无效用户名和密码测试用户认证 - Test user authentication with both an invalid username and password
+    void testAuthenticateUserWithInvalidUsernamePassword() {
+        LoginController controller = new LoginController();
+        assertFalse(controller.authenticateUser("invalid@example.co", "123456"),
+                    "Authentication should fail with incorrect username & password."); // 应当在用户名和密码均不正确时认证失败
+    }
+}
+```
+
+---
+
+
+#### 5.2 White Box Testing for Input Validation
+
+For the `attemptRegistration` method in the RegistrationController, we apply White Box Testing to assess its internal logic and validate that each conditional branch behaves as expected. 
+- The primary focus is on ensuring that different branches of the method react correctly to the various combinations of input values.
+
+**Method Overview:**
+The `attemptRegistration` method checks multiple conditions:
+1. Password match.
+2. Email validity.
+3. Password validity.
+4. Non-empty name field.
+5. Successful registration into the system (simulated by the registerUser method).
+
+**Objective:** To thoroughly test all branches and ensure the method handles all expected and edge cases correctly.
+
+**Cyclomatic Complexity:** Based on the conditions, the cyclomatic complexity is calculated as follows:
+
+> 1 for the method entry.
+4 additional for the conditional checks (if statements).
+Total Complexity V(G) = 1 (method entry) + 4 (conditions) = 5 paths.
+
+***Generating Test Cases Using White Box Testing:***
+We derive test cases to cover each path and decision outcome within the `attemptRegistration` method.
+
+***Test Case Table for attemptRegistration:***
+
+|Test Case ID|	Name|	Email	|Password	|Confirm Password|	Expected Result|
+|------------|-------|-------|-----------|-------------------|---------------------------------|
+|TC1	| Lee |	lee@example.com	| Pass$1234|	Pass$1234 |	SUCCESS	All |
+|TC2	| Lee |	lee@example.com|	Pass$1234|	Pass1234	|PASSWORD_MISMATCH|
+|TC3	| Lee |	lee@example|	Pass$1234	|Pass$1234	|REGISTRATION_FAILED|
+|TC4	| Lee |	lee@example.com|	password	| password |	REGISTRATION_FAILED|
+|TC5	|	  |lee@example.com|	Pass$1234|	Pass$1234	| REGISTRATION_FAILED|
+
+**JUnit Test Code for attemptRegistration:**
+```java
+Copy code
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+class RegistrationControllerTest {
+
+    @Test
+    void testValidRegistration() {
+        RegistrationController controller = new RegistrationController();
+        RegistrationResult result = controller.attemptRegistration("Lee", "lee@example.com", "Pass$1234", "Pass$1234");
+        assertEquals(RegistrationResult.SUCCESS, result, "Registration should succeed with correct and matching credentials.");
+    }
+
+    @Test
+    void testRegistrationWithPasswordMismatch() {
+        RegistrationController controller = new RegistrationController();
+        RegistrationResult result = controller.attemptRegistration("Lee", "lee@example.com", "Pass$1234", "Pass1234");
+        assertEquals(RegistrationResult.PASSWORD_MISMATCH, result, "Registration should fail due to password mismatch.");
+    }
+
+    @Test
+    void testRegistrationWithInvalidEmail() {
+        RegistrationController controller = new RegistrationController();
+        RegistrationResult result = controller.attemptRegistration("Lee", "lee@example.com", "Pass$1234", "Pass$1234");
+        assertEquals(RegistrationResult.REGISTRATION_FAILED, result, "Registration should fail due to invalid email.");
+    }
+
+    @Test
+    void testRegistrationWithInvalidPassword() {
+        RegistrationController controller = new RegistrationController();
+        RegistrationResult result = controller.attemptRegistration("Lee", "lee@example.com", "password", "password");
+        assertEquals(RegistrationResult.REGISTRATION_FAILED, result, "Registration should fail due to invalid password.");
+    }
+
+    @Test
+    void testRegistrationWithEmptyName() {
+        RegistrationController controller = new RegistrationController();
+        RegistrationResult result = controller.attemptRegistration("", "john@example.com", "Pass$1234", "Pass$1234");
+        assertEquals(RegistrationResult.REGISTRATION_FAILED, result, "Registration should fail due to empty name field.");
+    }
+}
+```
+These tests comprehensively cover each path determined by the cyclomatic complexity, ensuring that all branches and conditions within the `attemptRegistration` method are **validated** against expected behaviors and input validations.
+
+---
+
+#### 5.3 Boundary Value Analysis (BVA) for Password Length
 Boundary Value Analysis is an effective testing technique that involves selecting input values at the boundaries of input domains. For a password feature in the registration or login process, assuming valid passwords are required to be between 6 and 16 characters:
 
 - **Test Cases:**
@@ -1350,21 +1601,9 @@ public class RegistrationControllerTest {
 ---
 
 
-#### 5.2 White Box Testing for Input Validation
-For input validation, like ensuring a password contains at least one uppercase letter and one special character, you understand and test the internal logic.
-
-> **Example:** For a method `isValidPassword` that validates password criteria:
-> - **Test for at least one uppercase letter:** Provide a password with and without an uppercase letter and assert the expected outcome.
-> - **Test for at least one special character:** Provide passwords that do and do not contain a special character to test the validation logic.
-
-```java
 
 
-```
-
----
-
-#### 5.3 Using Decision Tables for Username and Password Validation
+#### 5.4 Using Decision Tables for Username and Password Validation
 Decision tables are excellent for scenarios where the outcome depends on a combination of conditions. For validating usernames and passwords, a decision table can cover various combinations:
 
 > **Conditions**:
@@ -1379,7 +1618,7 @@ Decision tables are excellent for scenarios where the outcome depends on a combi
 
 You then outline rules (R1, R2, ...) that define which conditions lead to which actions. For example, only when C1, C2, C3, and C4 are true (R1) should A1 (allow login) be the outcome.
 
-|Rule	|C1: Username not empty	|C2: Username exists	|C3: Password valid	|C4: Password matches	|Action|
+|Rule	|C1: Username & Password not empty |C2: Username exists	|C3: Password valid	|C4: Password matches	|Action|
 |---|-----|-----|---|--|--------|
 |R1|	True|	True|	True|	True|	A1: Allow login|
 |R2	|False|	-|	-|	-|	A2: Reject login|
@@ -1391,10 +1630,71 @@ Implementing Tests in JUnit
 Parameterized Tests for decision table scenario ensure efficient coverage over various input combinations. Here’s an example structure for a parameterized test using decision tables:
 
 ```java
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
+class LoginServiceTest {
+
+    private static UserService service = new UserService(); // Assume this service handles login logic
+
+    @Test
+    void testAllowLogin() {
+        // R1: All conditions are true
+        assertTrue(service.login("example@yahoo.com", "Password123@"),
+                "Should allow login when username exists, password is valid, and matches.");
+    }
+
+    @Test
+    void testRejectLoginEmptyUsername() {
+        // R2: Username not empty is false
+        assertFalse(service.login("", "Password123@"),
+                "Should reject login when username is empty.");
+    }
+
+    @Test
+    void testRejectLoginUsernameDoesNotExist() {
+        // R3: Username exists in the database is false
+        assertFalse(service.login("example$yahoo.com", "password123@"),
+                "Should reject login when username does not exist.");
+    }
+
+    @Test
+    void testRejectLoginInvalidPassword() {
+        // R4: Password valid is false
+        assertFalse(service.login("example@yahoo.com", "pard1@"),
+                "Should reject login when password is invalid.");
+    }
+
+    @Test
+    void testRejectLoginPasswordDoesNotMatch() {
+        // R5: Password matches the database for the user is false
+        assertFalse(service.login("validUser", "wrongPassword"),
+                "Should reject login when password does not match.");
+    }
+}
+```
+
+---
+
+**Class Activity**
+
+For input validation, like ensuring a password contains at least one uppercase letter and one special character, you understand and test the internal logic.
+
+> **Example:** For a method `isValidPassword` that validates password criteria:
+> - **Test for at least one uppercase letter:** Provide a password with and without an uppercase letter and assert the expected outcome.
+> - **Test for at least one special character:** Provide passwords that do and do not contain a special character to test the validation logic.
+
+```java
 
 
 ```
+
+---
+
+**Homework**
+
+Finish implementing the jUnit vode for the remaining methods.
 
 ---
 
@@ -1415,7 +1715,7 @@ JUnit 5 introduces several annotations that can enhance your testing framework, 
 When running tests, ***JUnit*** will distinguish between tests that ***pass***, tests that ***fail*** due to an `assertion`, tests that ***fail*** due to an `unexpected` and `uncaught exception`, and ***tests*** that were `ignored`.
 
 ```java
-import static org . junit . jupiter . api . Assertions .*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Disabled ;
 import org.junit.jupiter.api.Test ;
@@ -1651,7 +1951,8 @@ public class UserServiceTest {
 
     @BeforeAll
     static void setUp() {
-        userService = UserService.getInstance();
+        // userService = UserService.getInstance();
+        userService = new UserService();
         System.out.println("BeforeAll is called");
     }
 
@@ -1897,10 +2198,10 @@ class RegistrationControllerTest {
 
     @ParameterizedTest
     @CsvSource({
-        "John Doe, john@example.com, password123, true",
-        ", john@example.com, password123, false",
-        "John Doe, , password123, false",
-        "John Doe, john@example.com, pass, false"
+        "Lee, lee@example.com, password123, true",
+        ", lee@example.com, password123, false",
+        "Lee, , password123, false",
+        "Lee, lee@example.com, pass, false"
     })
     void testRegisterUser(String name, String email, String password, boolean expectedOutcome) {
         assertEquals(expectedOutcome, controller.registerUser(name, email, password),
@@ -2120,13 +2421,268 @@ Adding okhttp & gson dependencies
 
 ![Alt text](image.png)
 
-## 8. Test Doubles (Mocks, Mockinto Stubs and Fakes)
+## 8.1 Test Doubles (Mocks, Mockinto Stubs and Fakes)
+
+![1712971602622](image/L15-L18Junitpractices/1712971602622.png)
 
 - Unit testing - smallest piece 
 - Integrating testing 
   - assembles pieces into larger unit
 
-Adding okhttp & jackson dependencies
+
+--- 
+### 8.2 Fake
+
+Fakes are objects that have working implementations, but not same as production one. Usually they take some shortcut and have simplified version of production code.
+
+
+- An example of this shortcut, can be an ***in-memory*** implementation of **Data Access Object (DAO)** or **Repository**. 
+    - This fake implementation **will not** engage database, but will use a **simple collection** to store data. 
+        - This allows us to do integration test of services without starting up a database and performing time consuming requests.
+
+
+![1712971819872](image/L15-L18Junitpractices/1712971819872.png)
+
+---
+
+```JAVA
+public class FakeAccountRepository implements AccountRepository {
+       
+       Map<User, Account> accounts = new HashMap<>();
+       
+       public FakeAccountRepository() {
+              this.accounts.put(new User("john@bmail.com"), new UserAccount());
+              this.accounts.put(new User("boby@bmail.com"), new AdminAccount());
+       }
+       
+       String getPasswordHash(User user) {
+              return accounts.get(user).getPasswordHash();
+       }
+}
+```
+
+---
+
+
+Apart from testing, fake implementation can come handy for prototyping and spikes.
+ - We can quickly implement and run our system with in-memory store, deferring decisions about database design. 
+    - Another example can be also a ***fake payment system***, that will always return ***successful payments***.
+
+---
+```java
+public class UserService {
+    private final Map<String, User> users = new HashMap<>();
+
+    // Singleton
+    private static UserService instance;
+    
+    public UserService() {}
+
+    public static synchronized UserService getInstance() {
+        if (instance == null) {
+            instance = new UserService();
+        }
+        return instance;
+    }
+    // Singleton Finished
+
+    // Register a new user
+    public boolean registerUser(String name, String email, String password) {
+        // Check if user already exists
+        if (users.containsKey(email)) {
+            // User already exists
+            return false;
+        }
+
+        // Create and store the new user
+        User newUser = new User(name, email, password);
+        // TODO: ONLY USE IT IN DEVELOPMENT
+        System.out.println("The user saved information is: " + newUser.toString());
+        users.put(email, newUser);
+        return true;
+    }
+
+    // Validate login credentials
+    public boolean login(String email, String password) {
+        User user = users.get(email);
+        // TODO: ONLY USE IT IN DEVELOPMENT
+        System.out.println("correct email: " + user.getEmail() + " | user prompt email: " +email);
+        if (user != null && user.getPassword().equals(password)) {
+            return true; // Login successful
+        }
+        return false; // Login failed
+    }
+}
+```
+
+
+---
+***Impelementation of model/User.java*** Model
+```java
+public class User {
+
+    private String name;
+    private String email;
+    private String password;
+
+    // Constructor
+    public User(String name, String email, String password) {
+        this.name =  name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "The name: "+ this.name + " email :"+ this.email + " and password: " + this.password;
+    }
+}
+```
+
+---
+
+### 8.3 Stub
+Stub is an object that holds predefined data and uses it to answer calls during tests. 
+- It is used when we cannot or don’t want to involve objects that would answer with real data or have undesirable side effects.
+
+> An example can be an object that needs to grab some data from the database to respond to a method call. 
+    - Instead of the real object, we introduced a ***stub*** and **defined what data should be returned**.
+
+
+---
+
+![1712973224602](image/L15-L18Junitpractices/1712973224602.png)
+
+---
+
+
+```java
+public class GradesService {
+    private final Gradebook gradebook;
+    
+    public GradesService(Gradebook gradebook) {
+        this.gradebook = gradebook;
+    }
+    
+    Double averageGrades(Student student) {
+        return average(gradebook.gradesFor(student));
+    }
+}
+```
+
+
+Instead of calling database from **Gradebook** store to get real students grades, we preconfigure stub with grades that will be returned. We define just enough data to test average calculation algorithm.
+
+```java
+public class GradesServiceTest {
+    private Student student;
+    private Gradebook gradebook;
+
+    @Before
+    public void setUp() throws Exception {
+        gradebook = mock(Gradebook.class);
+        student = new Student();
+    }
+
+    @Test
+    public void calculates_grades_average_for_student() {
+        when(gradebook.gradesFor(student)).thenReturn(grades(8, 6, 10)); //stubbing gradebook
+        double averageGrades = new GradesService(gradebook).averageGrades(student);
+        assertThat(averageGrades).isEqualTo(8.0);
+    }
+}
+```
+
+---
+
+#### 8.4 Mock
+
+Mocks are ***objects that register calls*** they receive.
+- In test assertion we can verify on Mocks that all expected actions were performed.
+
+Why mocks? 
+- What if that method depends on other things?
+  - a network? a database? a servlet engine?
+  - Other parts of the system? - We don't want to initialize lots of components just to get the right context for one test to run.
+
+    - **Solution:** Using Mocks / Test doubles
+
+
+#### 8.4.1. When we need mocks? 
+- The real object has non-deterministic behavior (smt random, unpredictable)
+  - The real object is difficult to set up 
+  - The real object has behavior that is hard to trigger a network error..
+  - The real object is slow
+  - The real object has (or is) a user interface 
+  - The test needs to ask the real object about how it was used (e.g. check to see that log message is actually logged by the object under test) 
+  - The real object does not exist a common problem when interfacing
+
+> An example can be a functionality that calls ***e-mail*** sending service.
+- We don’t want to send e-mails each time we run a test. Moreover, it is not easy to verify in tests that a right email was send. 
+- Only thing we can do is to verify the outputs of the functionality that is exercised in our test. In other worlds, verify that e-mail sending service was called.
+
+
+---
+
+![1712973632661](image/L15-L18Junitpractices/1712973632661.png)
+
+---
+
+- Junit provide assertion over object state.
+- Interaction testing
+    - Did my controller correctly called my service?
+  
+> - **Given:** object will result in such way.
+> - **When:** the object execute an action.
+> - **Then:** the object behave as expected.
+
+
+#### 8.4.2. Mockito Abilities
+- Explicit API
+- Flexible verification
+- Separation of stubbing and verification.
+- Annotation
+
+##### 8.4.3. Mock framework 
+- Too much trouble to write mocks? There are frameworks available.
+- Java: ***JMock***, ***EasyMock***
+
+##### 8.4.4. Import Mockito library
+- Allow access to mockito method (when, verify etc) with out the mockito prefix.
+
+```xml
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-core</artifactId>
+    <version>4.0.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Adding ***okhttp*** & ***jackson*** dependencies
 
 ```xml
 <dependency>
@@ -2144,66 +2700,16 @@ Adding okhttp & jackson dependencies
 
 ---
 
-#### 8.1 Mockito
-
-Why mocks? 
-- What if that method depends on other
-things?
-  - a network? a database? a servlet engine?
-  - Other parts of the system? - We don't want to initialize lots of components just to get the right context for one test to run.
-
-**Solution:** Using Mocks / Test doubles
-
-
-#### 8.2 When we need mocks? 
-- The real object has non-deterministic behavior (smt random,
-unpredictable)
-  - The real object is difficult to set up 
-  - The real object has behavior that is hard to trigger a network error..
-  - The real object is slow
-  - The real object has (or is) a user interface 
-  - The test needs to ask the real object about how it was used (e.g. check to see that log message is actually logged by the object under test) 
-  - The real object does not exist a common problem when interfacing
-
-
----
-
-- Junit provide assertion over object state.
-- Interaction testing
-    - Did my controller correctly called my service?
-  
-> - **Given:** object will result in such way.
-> - **When:** the object execute an action.
-> - **Then:** the object behave as expected.
-
-
-#### 8.2 Mockito Abilities
-- Explicit API
-- Flexible verification
-- Separation of stubbing and verification.
-- Annotation
-
-##### 8.2.2. Mock framework 
-- Too much trouble to write mocks? There are frameworks available.
-- Java: ***JMock***, ***EasyMock***
-
-##### 8.2.1. Import Mockito lib 
-- Allow access to mockito method (when, verify etc) with out the mockito prefix.
-
-```xml
-<dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-core</artifactId>
-    <version>4.0.0</version>
-    <scope>test</scope>
-</dependency>
-```
-
 ```java
 import static org.mockito.Mockito.*
 ```
 
-##### 8.3 Hands-On Practices
+##### 8.5 Hands-On Practices
+
+**Faking**
+Simplified implementations that ***mimic*** real ones but are not for production.
+> **User Registration/Login Example:** Use an in-memory database or repository for testing without affecting the actual database.
+
 **Mocking**
 Simulates real object behavior in unit tests.
 > ***User Registration/Login Example:*** Mock the database repository to verify interactions, like saving a user or fetching user details.
@@ -2212,10 +2718,92 @@ Simulates real object behavior in unit tests.
 Provides predefined responses from class dependencies.
 > ***User Registration/Login Example:*** Stub an email service or user fetch operation to return success or a specific user without real operations.
 
-**Faking**
-Simplified implementations that ***mimic*** real ones but are not for production.
-> **User Registration/Login Example:** Use an in-memory database or repository for testing without affecting the actual database.
+
+
+**Approach to Testing handleRegistrationAction***
+**Mock Dependencies:** Use mocking frameworks like Mockito to simulate the interactions with dependencies such as UserService, AlertMessages, and UI components like TextField.
+
+**Verify Method Calls:** Since the method executes different branches based on conditions, verify that the correct methods (like backToLoginPage and showErrorToUser) are called with expected parameters.
+
+**Test Environment Setup**
+***Mock UI Components:*** Mock the TextField components to return predefined strings when getText() is called.
+***Mock UserService:** Simulate the behavior of the registerUser method depending on the test case.
+***Spy on RegistrationController:*** Use a spy to verify if methods like `backToLoginPage` are called.
+
+Example Test Cases Using Mockito
+
+```java
+Copy code
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import javafx.event.ActionEvent;
+
+class RegistrationControllerTest {
+
+    RegistrationController controller;
+    UserService mockUserService;
+    ActionEvent mockActionEvent;
+
+    @BeforeEach
+    void setUp() {
+        controller = spy(new RegistrationController());
+        mockUserService = mock(UserService.class);
+        controller.userService = mockUserService;
+        mockActionEvent = mock(ActionEvent.class);
+
+        // Setup the text fields
+        controller.nameField = mock(TextField.class);
+        controller.emailField = mock(TextField.class);
+        controller.passwordField = mock(TextField.class);
+        controller.confirmPasswordField = mock(TextField.class);
+        
+        // Setup AlertMessages
+        mockStatic(AlertMessages.class);
+    }
+
+    @Test
+    void testHandleRegistrationAction_Success() throws IOException {
+        when(controller.nameField.getText()).thenReturn("John Doe");
+        when(controller.emailField.getText()).thenReturn("john@example.com");
+        when(controller.passwordField.getText()).thenReturn("Password123");
+        when(controller.confirmPasswordField.getText()).thenReturn("Password123");
+        when(mockUserService.registerUser(anyString(), anyString(), anyString())).thenReturn(true);
+
+        controller.handleRegistrationAction(mockActionEvent);
+
+        verify(controller).backToLoginPage(); // Verify that backToLoginPage is called
+    }
+
+    @Test
+    void testHandleRegistrationAction_Failure() throws IOException {
+        when(controller.nameField.getText()).thenReturn("John Doe");
+        when(controller.emailField.getText()).thenReturn("john@example.com");
+        when(controller.passwordField.getText()).thenReturn("Password123");
+        when(controller.confirmPasswordField.getText()).thenReturn("Password123");
+        when(mockUserService.registerUser(anyString(), anyString(), anyString())).thenReturn(false);
+
+        controller.handleRegistrationAction(mockActionEvent);
+
+        verifyStatic(AlertMessages.class); // Verify that AlertMessages.showErrorToUser is called
+        AlertMessages.showErrorToUser("Registration", "Registration Failed");
+    }
+
+    @Test
+    void testHandleRegistrationAction_PasswordMismatch() throws IOException {
+        when(controller.nameField.getText()).thenReturn("John Doe");
+        when(controller.emailField.getText()).thenReturn("john@example.com");
+        when(controller.passwordField.getText()).thenReturn("Password123");
+        when(controller.confirmPasswordField.getText()).thenReturn("DifferentPassword");
+
+        controller.handleRegistrationAction(mockActionEvent);
+
+        verifyStatic(AlertMessages.class); // Verify that AlertMessages.showErrorToUser is called
+        AlertMessages.showErrorToUser("Registration", "Registration Failed");
+    }
+}
+```
 
 
 
-https://blog.pragmatists.com/test-doubles-fakes-mocks-and-stubs-1a7491dfa3da

@@ -16,7 +16,8 @@
 
 <AnchorPane prefHeight="642.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_demo.controller.TodoViewController">
    <children>
-      <ListView fx:id="myListView" layoutY="343.0" prefHeight="300.0" prefWidth="656.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="343.0" />
+      <ListView fx:id="myListView" layoutY="343.0" prefHeight="300.0" prefWidth="656.0"
+          AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="343.0" />
       <Label layoutX="271.0" layoutY="14.0" text="Todo" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
