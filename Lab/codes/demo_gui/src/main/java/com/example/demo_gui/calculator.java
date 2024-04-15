@@ -6,4 +6,10 @@ public class calculator {
         return a + b;
     }
 
+    public static int checkedSearch(int[] a, int x) {
+        if (a == null || a.length == 0)
+            throw new IllegalArgumentException("Null or empty array.");
+        return -1;
+    }
+
 }
