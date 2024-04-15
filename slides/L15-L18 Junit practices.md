@@ -2805,5 +2805,180 @@ class RegistrationControllerTest {
 }
 ```
 
+---
+***Example 2:
+![1713160221978](image/L15-L18Junitpractices/1713160221978.png)
 
 
+Create a data sender over http protocol
+
+***common/HttpBackConnector***
+```java
+import okhttp3.*;
+
+import java.io.IOException;
+
+public class HttpBackendConnector {
+    private static HttpBackendConnector instance;
+    HttpBackendConnector() {
+
+    }
+
+    // Singleton
+    public static synchronized HttpBackendConnector getInstance() {
+        if (instance == null) {
+            instance = new HttpBackendConnector();
+        }
+        return instance;
+    }
+    // Singleton
+
+    static OkHttpClient client = new OkHttpClient();
+
+    public Response sendGet(String body, String url) {
+        RequestBody formattedBody = RequestBody.create(
+                body, MediaType.parse("application/json; charset=utf-8"));
+    
+
+        Request request = new Request.Builder()
+                .url(String.format("http://127.0.0.1:8000/" + url))
+                .post(formattedBody)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response;
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+}
+```
+
+---
+
+**Working with a backend Python Flask**
+
+```python
+# Importing flask module in the project is mandatory
+# An object of Flask class is our WSGI application.
+from flask import Flask, jsonify, request
+ 
+# Flask constructor takes the name of 
+# current module (__name__) as argument.
+app = Flask(__name__)
+ 
+# The route() function of the Flask class is a decorator, 
+# which tells the application which URL should call 
+# the associated function.
+@app.route('/')
+# ‘/’ URL is bound with hello_world() function.
+def hello_world():
+    return 'Hello Neusoft'
+ 
+# main driver function
+if __name__ == '__main__':
+ 
+    # run() method of Flask class runs the application 
+    # on the local development server.
+    app.run(host="0.0.0.0", port=8000, debug=True)
+```
+
+Now run the server side code.
+
+After checking your server start working time to add **end point** to the your backserver code like registration, login and add_todo.
+
+```python
+@app.route('/add_todo', methods=["GET", "POST"])
+def add_todo():
+    return jsonify({
+        "message": "Okay"
+        });
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    # Safely get JSON data
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+
+    try:
+        # Retrieve data from JSON
+        name = data['name']
+        email = data['email']
+        password = data['password']
+
+        # Check for empty values
+        if not all([name, email, password]):
+            return jsonify({"error": "Missing name, email, or password"}), 400
+
+        # Hash password using bcrypt
+        # password_bytes = password.encode('utf-8')
+        # hashed_password = bcrypt.hashpw(password_bytes, bcrypt.gensalt()).decode('utf-8')
+
+        # Store in the dictionary (replace with database storage in production)
+        users[email] = {'name': name, 'email': email, 'hashed_password': password}
+
+        return jsonify({
+            "name": name,
+            "email": email
+        }), 200
+    except KeyError as e:
+        # Handling missing form data
+        return jsonify({"error": f"Missing field: {str(e)}"}), 400
+```
+
+
+```java
+public class UserService {
+
+    // ...
+
+    public boolean registerUser(String name, String email, String password) {
+        System.out.println();
+
+        // Check if user already exists
+        if (users.containsKey(email)) {
+            // User already exists
+            return false;
+        }
+
+        // Create and store the new user
+        User newUser = new User(name, email, password);
+        // TODO: ONLY USE IT IN DEVELOPMENT
+        System.out.println("The user saved information is: " + newUser.toString());
+
+        // Instead of this save iot to local Database
+        users.put(email, newUser);
+
+        // Save to server as well
+        RegisterToServer(newUser);
+
+        // add
+        return true;
+    }
+
+    //Mocking
+    public boolean RegisterToServer(User user) {
+        // Todo, saving to Local database
+
+        // get the json format of user format
+        String jsonPayload = user.getJson();
+
+        Response jsonResponse = http.sendPost(jsonPayload, "register");
+
+        if (jsonResponse.body() != null) {
+            System.out.println(jsonResponse.body().toString());
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+}
+    ```
+
+Step 1: Include Necessary Dependencies
+Make sure you have JUnit 5 and Mockito in your project's Maven dependencies:

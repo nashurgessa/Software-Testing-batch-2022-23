@@ -60,6 +60,9 @@ public class RegistrationController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
+        System.out.println("name : "+ name+ " email: "+email+ " password: "
+                +password+ " confirm password: " + confirmPassword);
+
 //        if (!password.equals(confirmPassword)) {
 //            // Password don't match
 //            // Show error message

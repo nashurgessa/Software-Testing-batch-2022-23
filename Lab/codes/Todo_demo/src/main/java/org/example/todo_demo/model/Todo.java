@@ -34,15 +34,15 @@ public class Todo {
 
     public String getJson() {
         Map<String, String> payload = new HashMap<>();
-        payload.put("title", this.getTitle());
-        payload.put("date", this.getDate());
-        payload.put("time", this.getTime());
-        payload.put("description", this.getDescription());
+        payload.put("title", this.title);
+        payload.put("date", this.date.toString());
+        payload.put("time", this.time.toString());
+        payload.put("description", this.description);
 
         try {
             return mapper.writeValueAsString(payload);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         return null;

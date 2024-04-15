@@ -49,7 +49,7 @@ public class TodoViewController {
     private ListView<Todo> myListView;
 
 
-    HttpBackendConnector http = new HttpBackendConnector();
+    HttpBackendConnector http = HttpBackendConnector.getInstance();
 
 
     @FXML
@@ -126,7 +126,10 @@ public class TodoViewController {
 
         String jsonPayload = newTodo.getJson();
 
-        Response jsonResponse = HttpBackendConnector.sendGet(jsonPayload);
+        Response jsonResponse = http.sendPost(jsonPayload, "add_todo");
+
+        assert jsonResponse.body() != null;
+        System.out.println(jsonResponse.body().toString());
     }
 
 
