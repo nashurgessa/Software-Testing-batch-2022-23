@@ -1250,8 +1250,15 @@ org.opentest4j.AssertionFailedError:
 ```
 
 ***How to fix the error?***
+```java
+
+
+```
 
 --- 
+
+#### 4.2 Testing Exceptions
+JUnit 5 provides the assertThrows method to assert that execution of a particular code snippet throws a specific exception.
 
 > - **Exception Assertions:** Test that your code throws an expected exception.
 
@@ -1260,32 +1267,15 @@ org.opentest4j.AssertionFailedError:
 public static int checkedSearch(int[] a, int x) {
   if (a == null || a.length == 0)
     throw new IllegalArgumentException("Null or empty array.");
-  …
+  // …
 }
 ```
 
 `checkedSearch(null, 1);`
 
-***Example 2***
-```java
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-@Test
-void exceptionTesting(){
-    assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
-}
-
-// or 
-
-@Test
-void exceptionTesting() {
-    Exception exception = assertThrows(ArithmeticException.class, () -> calculator.divide(1, 0));
-    assertEquals("/ by zero", exception.getMessage());
-}
-```
 
 > The verdict
-***Pass:*** if the expected exception is thrown
+***Pass:*** if the expected exception is ***thrown***
 ***Fail:*** if no exception, or an unexpected exception
 
 - ssertion methods
@@ -1301,6 +1291,8 @@ e.g., after a statement, in which an exception should have been thrown.
 
 Catch exceptions, and use `fail()` if `not thrown`
 
+***Example 2***
+
 ```java
 @Test
 public void testCheckedSearch3() {
@@ -1314,15 +1306,20 @@ public void testCheckedSearch3() {
 ```
 
 - Allows 
-inspecting specific messages/details of the exception
-distinguishing different types of exceptions
+  - inspecting specific messages/details of the exception
+  - distinguishing different types of exceptions
+
+It ensures that your code not only throws an exception when expected but also fails the test when no exception is thrown, thereby alerting you to potential issues in your exception handling logic.
+它确保了您的代码不仅在预期时抛出异常，而且在没有抛出异常时也会使测试失败，从而提醒您可能存在的异常处理逻辑问题。
 
 ----
 
-#### 4.2 Testing Exceptions
-JUnit 5 provides the assertThrows method to assert that execution of a particular code snippet throws a specific exception.
+
 
 > - **Basic Exception Testing:**
+
+***Example 3***
+
 ```java
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -1336,6 +1333,9 @@ void whenDivideByZero_thenThrowArithmeticException() {
 ---
 
 > - **Asserting Exception Details:** Beyond simply testing for the presence of an exception, you can capture the exception and assert details about it.
+
+***Example 4***
+
 ```java
 @Test
 void whenDivideByZero_thenThrowExceptionWithSpecificMessage() {
@@ -1349,6 +1349,8 @@ void whenDivideByZero_thenThrowExceptionWithSpecificMessage() {
 ---
 
 > - **Timeout Assertions:** Ensure that your code completes within a specified time.
+
+***Example 5***
 
 ```java
 import static org.junit.jupiter.api.Assertions.assertTimeout;
@@ -2209,11 +2211,6 @@ class RegistrationControllerTest {
     }
 }
 ```
-
-
-
-
-
 
 
 
