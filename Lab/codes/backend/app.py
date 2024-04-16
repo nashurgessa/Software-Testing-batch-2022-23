@@ -52,6 +52,7 @@ def register():
             "name": name,
             "email": email
         }), 200
+        
     except KeyError as e:
         # Handling missing form data
         return jsonify({"error": f"Missing field: {str(e)}"}), 400
