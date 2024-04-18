@@ -455,7 +455,7 @@ import java.util.regex.Pattern;
 
 public class RegistrationController {
     
-     @FXML
+    @FXML
     private TextField nameField; // Input field for user's name - 用户名输入字段
     @FXML
     private TextField emailField; // Input field for user's email - 用户邮箱输入字段
