@@ -60,6 +60,9 @@ public class RegistrationController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
+        System.out.println("name : "+ name+ " email: "+email+ " password: "
+                +password+ " confirm password: " + confirmPassword);
+
 //        if (!password.equals(confirmPassword)) {
 //            // Password don't match
 //            // Show error message
@@ -91,14 +94,15 @@ public class RegistrationController {
         }
     }
 
-    // This we can use the Whitebox testing
+    // This we can use the White box testing
     // New method to encapsulate the registration logic
     protected RegistrationResult attemptRegistration(String name, String email, String password, String confirmPassword) {
         if (!password.equals(confirmPassword)) {
             return RegistrationResult.PASSWORD_MISMATCH;
         }
 
-        if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty() && userService.registerUser(name, email, password)) {
+        if (isValidEmail(email) && isValidPassword(password) && !name.isEmpty() &&
+                userService.registerUser(name, email, password)) {
             return RegistrationResult.SUCCESS;
         } else {
             return RegistrationResult.REGISTRATION_FAILED;

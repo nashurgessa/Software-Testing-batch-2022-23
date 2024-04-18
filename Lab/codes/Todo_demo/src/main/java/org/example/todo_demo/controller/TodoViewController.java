@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.example.todo_demo.common.HttpBackendConnector;
 import org.example.todo_demo.model.Todo;
 
 import java.io.IOException;
@@ -47,7 +48,8 @@ public class TodoViewController {
     @FXML
     private ListView<Todo> myListView;
 
-    OkHttpClient client = new OkHttpClient();
+
+    HttpBackendConnector http = HttpBackendConnector.getInstance();
 
 
     @FXML
@@ -124,18 +126,10 @@ public class TodoViewController {
 
         String jsonPayload = newTodo.getJson();
 
-        RequestBody body = RequestBody.create(
-                jsonPayload, MediaType.parse("application/json; charset=utf-8"));
-        Request request = new Request.Builder()
-                .url("http://localhost:5000/add_todo")
-                .post(body)
-                .build();
+        Response jsonResponse = http.sendPost(jsonPayload, "add_todo");
 
-        try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        assert jsonResponse.body() != null;
+        System.out.println(jsonResponse.body().toString());
     }
 
 
