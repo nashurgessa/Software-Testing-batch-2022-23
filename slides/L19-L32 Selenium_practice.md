@@ -561,7 +561,9 @@ Note: sometime a single parameter in xpath does not yield a unique element then 
 ```
 
 get the xPath
+```xml
 //*[@id="sb_form_q"]
+```
 
 
 ```java
@@ -588,6 +590,7 @@ public class SeleniumTest {
 
         // Set the desired value in the textarea
         textArea.sendKeys("Neusoft Institute Technology");
+		Thread.sleep(2000);
 
         // Simulate pressing the Enter key
         textArea.sendKeys(Keys.ENTER);

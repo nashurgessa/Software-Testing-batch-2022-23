@@ -35,6 +35,7 @@ public class SeleniumTest {
 
         // Set the desired value in the textarea
         textArea.sendKeys("Neusoft Institute Technology");
+        Thread.sleep(2000);
 
         // Simulate pressing the Enter key
         textArea.sendKeys(Keys.ENTER);
