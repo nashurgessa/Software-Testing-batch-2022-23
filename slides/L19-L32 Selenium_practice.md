@@ -631,3 +631,285 @@ void testSteps() throws InterruptedException {
 ```
 
 ---
+
+
+
+#### Creating a TestNg classs
+
+```java
+package org.example;
+
+import org.testng.annotations.Test;
+
+public class TesNGDemo {
+    @Test
+    public void f() {
+    
+    }
+}
+```
+
+![1713670987308](image/L19-L32Selenium_practice/1713670987308.png)
+
+Similaritites and difference annotation of JUnit and TestNG.
+
+
+|JUnit 4|	JUnit 5|	TestNG	|Description|
+|-------|----------|------------|-----------|
+|@Before|	@BeforeEach|	@BeforeMethod|	Executed before each test method.|
+|@After	|@AfterEach|	@AfterMethod|	Executed after each test method.|
+|@BeforeClass|	@BeforeAll|	@BeforeClass|	Executed once before all test methods in a class.|
+|@AfterClass|	@AfterAll|	@AfterClass|	Executed once after all test methods in a class.|
+|@Ignore|	@Disabled|	@Ignore|	Marks a test method as ignored/skipped.|
+|@Test|	@Test|	@Test|	Marks a method as a test method.|
+|@Test(expected)|	@Test with assertThrows|	@Test(expectedExceptions)|	Specifies that a test method should throw an exception.|
+|@RunWith|	@ExtendWith|	Not directly equivalent |	Used to customize the test execution (like using different runners or extensions). TestNG uses listeners and factories instead.|
+|N/A|	@DisplayName|	Not directly equivalent|	Provides a custom name for the test display.|
+|N/A|	@Nested	| Not directly equivalent|	Allows declaring nested test classes.|
+|N/A|	@Tag|	@Groups	|Allows filtering tests for selective execution.|
+|N/A|	N/A|	@DataProvider|	Provides data for parameterized tests.|
+|N/A|	N/A|	@Parameters|	Allows passing parameters from XML files.|
+|@Parameterized|	@ParameterizedTest|	@Test with @DataProvider|	For executing parameterized tests.|
+|@Rule|	@ExtendWith with custom extensions|	Not directly equivalent	| Allows adding or overriding test behavior.|
+|N/A|	@RepeatedTest|	Not directly equivalent	|Specifies that a test should be run multiple times.|
+
+```java
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.testng.annotations.*;
+
+public class DemoTestNG {
+
+    private static WebDriver driver;
+    private static EdgeOptions options;
+
+    @BeforeClass
+    static void setUp() throws InterruptedException {
+        options = new EdgeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        // System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "/src/test/resources/msedgedriver.exe");
+        driver = new EdgeDriver(options);
+        String appUrl = "https://www.bing.com";
+        driver.get(appUrl);
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    void fo() {
+
+    }
+
+    @AfterClass
+    static void tearDown(){
+        driver.quit();;
+    }
+
+}
+```
+
+---
+##### Home
+
+For this homework, you are expected to delve into the practical usage of the ***TestNG*** framework within software testing. Begin by reading about ***TestNG*** to understand its key features and functionalities. Your primary task will be to ***not*** only study the theoretical aspects but to actively engage with the framework by setting up a real testing environment.
+
+**Requirements:**
+**Setup:** Adding testNG dependecies.
+**Experimentation:** Create at least one sample project that includes multiple test cases using TestNG annotations such as @Test, @BeforeClass, @AfterClass, @DataProvider, and others you find pertinent.
+**Documentation:**
+1. Write a comprehensive report that includes:
+2. Description of the test cases you developed, including the purpose of each test and how TestNG features were utilized.
+3. Screenshots of your IDE showing the test execution results.
+4. Reflection on the learning experience and how TestNG can be utilized in future projects.
+5. Submission: Prepare your report and code samples for submission by [insert due date here]. Ensure your report is clear, informative, and well-organized.
+
+***Examples***
+In JUnit 5, you can control the execution order of test methods using the `@TestMethodOrder` annotation along with specific ordering methods.
+
+For the Junit code 
+```java
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+@TestMethodOrder(OrderAnnotation.class) // Enable method ordering based on @Order
+public class OrderedTests {
+
+    @Test
+    @Order(3)
+    void testA() {
+        System.out.println("Running testA");
+    }
+
+    @Test
+    @Order(1)
+    void testB() {
+        System.out.println("Running testB");
+    }
+
+    @Test
+    @Order(2)
+    void testC() {
+        System.out.println("Running testC");
+    }
+}
+```
+
+The TestNG code will be:
+```java
+import org.testng.annotations.Test;
+
+public class PrioritizedTests {
+
+    @Test(priority = 3)
+    public void testA() {
+        System.out.println("Running testA");
+    }
+
+    @Test(priority = 1)
+    public void testB() {
+        System.out.println("Running testB");
+    }
+
+    @Test(priority = 2)
+    public void testC() {
+        System.out.println("Running testC");
+    }
+}
+```
+---
+###### ... more
+
+---
+
+```java
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class FactorialTest {
+
+    @DataProvider(name = "factorialData")
+    public Object[][] createFactorialTestData() {
+        return new Object[][] {
+            {0, 1L},   // factorial(0) should be 1
+            {1, 1L},   // factorial(1) should be 1
+            {2, 2L},   // factorial(2) should be 2
+            {3, 6L},   // factorial(3) should be 6
+            {4, 24L},  // factorial(4) should be 24
+            {5, 120L}, // factorial(5) should be 120
+            {6, 720L}  // factorial(6) should be 720
+        };
+    }
+
+    @Test(dataProvider = "factorialData")
+    public void testFactorial(int input, long expected) {
+        long actual = MathUtils.factorial(input);
+        Assert.assertEquals(actual, expected, "Factorial of " + input + " should be " + expected);
+    }
+}
+```
+---
+
+```java
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import java.time.Duration;
+
+public class TimeoutExampleJUnit {
+
+    @Test
+    public void testMethodWithTimeout() {
+        Assertions.assertTimeout(Duration.ofSeconds(2), () -> {
+            // Code block that must complete within the specified time
+            try {
+                Thread.sleep(3000); // This will cause the test to fail
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Thread was interrupted, Failed to complete operation");
+            }
+        });
+    }
+}
+```
+
+
+```java
+import org.testng.annotations.Test;
+
+public class TimeoutExampleTestNG {
+
+    @Test(timeOut = 2000) // timeout in milliseconds
+    public void testMethodWithTimeout() {
+        try {
+            // Simulating a long running process
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Thread was interrupted, Failed to complete operation");
+        }
+    }
+}
+```
+
+---
+
+##### Usage of Selenium Select Class for Handling Dropdown Elements on a Web 
+Page – Selenium Tutorial #13
+
+Lab/code/frontend/index.tst.html
+
+```html
+<!DOCtYPE html>
+<html>
+	<head>
+		<title>Testing Select Class</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<ul id="linkTabs">
+				<li>
+					<a href="https://www.bing.com">Bing</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="header_spacer"></div>
+
+		<div id="container">
+			<div id="content" style="padding-left: 185px;">
+				<table id="selectTable">
+					<tbody>
+						<tr>
+							<td>
+								<div>
+									<select id="SelectId_One">
+										<option value="redValue">Red</option>
+										<option value="greenValue">Green</option>
+										<option value="yellowValue">Yellow</option>
+										<option value="greyValue">Grey</option>
+									</select>
+								</div>
+							</td>
+
+							<td>
+								<div>
+									<select id="SelectID_Two">
+										<option value="applevalue">Apple</option>
+										<option value="orangevalue">Orange</option>
+										<option value="mangovalue">Mango</option>
+										<option value="limevalue">Lime</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
+```
