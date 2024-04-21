@@ -3,9 +3,14 @@ package com.example.demo_gui.controller;
 import com.example.demo_gui.common.RegistrationResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class RegistrationController {
     @FXML
@@ -20,9 +25,29 @@ public class RegistrationController {
     @FXML
     private Button backButton; // Button to navigate back - 返回按钮
 
+
     // Event handler for back button to return to login page - 返回按钮的事件处理，返回登录页面
-    public void onBackClickButton(ActionEvent actionEvent)  {
-        // Implementation
+    public void onBackClickButton(ActionEvent actionEvent)  throws IOException {
+
+        try {// Implementation
+            // get the stage
+            Stage thisStage = (Stage) nameField.getScene().getWindow();
+            thisStage.close();
+
+            // load the loginPage
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo_gui/login_view.fxml"));
+            Scene scene = new Scene(loader.load(), 800, 650);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Todo App");
+
+            stage.show();
+        } catch (IOException err) {
+            System.out.println(err.getMessage());
+        }
+
+
     }
 
     // Handles registration form submission - 处理注册表单提交
