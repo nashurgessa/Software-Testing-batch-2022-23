@@ -589,7 +589,7 @@ public class SeleniumTest {
         Thread.sleep(2000);
 
         // Set the desired value in the textarea
-        textArea.sendKeys("Neusoft Institute Technology");
+        textArea.sendKeys("Neusoft institute guangdong");
 		Thread.sleep(2000);
 
         // Simulate pressing the Enter key
@@ -604,3 +604,30 @@ public class SeleniumTest {
 
 }
 ```
+
+> @Timeout(//second)
+
+```java
+@Timeout(2)  // 2 seconds
+@Test
+void testSteps() throws InterruptedException {
+	// Implement test steps here
+	WebElement textArea = driver.findElement(By.xpath("//*[@id=\"sb_form_q\"]"));
+	Thread.sleep(2000);
+
+	// Set the desired value in the textarea
+	textArea.sendKeys("Neusoft institute guangdong");
+	Thread.sleep(2000);
+
+	// Simulate pressing the Enter key
+	textArea.sendKeys(Keys.ENTER);
+}
+```
+
+***Is the test passed  / failed?***
+```
+
+
+```
+
+---
