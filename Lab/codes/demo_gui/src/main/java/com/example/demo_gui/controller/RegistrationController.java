@@ -77,6 +77,8 @@ public class RegistrationController {
            $: End of the string.
          */
 
+        String emailRegex = "^[A-Za-z0-9+-_.]+@[A-Za-z0-9.-]+[]"
+
         return true;
     }
 

@@ -496,6 +496,7 @@ public class RegistrationController {
            [A-Za-z0-9+_.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), plus (+), underscore (_), dot (.), or hyphen (-). This part is intended to match the user name part of the email address before the @ symbol.
            @: Matches the @ symbol itself, which is a required character in email addresses.
            [A-Za-z0-9.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), dot (.), or hyphen (-). This part is intended to match the domain part of the email address after the @ symbol. It can match domains like example.com or subdomains like sub.example.com.
+           \\.[A-Za-z]{2,}. This is for the domain, like .cn/.com/.org & minimum of 2 letters
            $: End of the string.
          */
      }
@@ -855,7 +856,7 @@ public class RegistrationController {
 
     // Validate email format - 验证电子邮件格式
     protected boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        String emailRegex = "^[A-Za-z0-9_+.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         Pattern emailPart = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPart.matcher(email);
 
