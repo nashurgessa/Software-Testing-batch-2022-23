@@ -2018,6 +2018,15 @@ The `@CsvSource` annotation allows you to define your test data directly within 
 
 Here's how you could refactor the previous example to use `@CsvSource`:
 
+```xml
+ <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
+        <version>5.7.0</version>
+        <scope>test</scope>
+    </dependency>
+```
+
 
 ![1712500650449](image/L15-L18Junitpractices/1712500650449.png)
 
@@ -2085,6 +2094,58 @@ public class UserServiceTest {
 
 ---
 
+###### Class Activity
+
+Let's say we have a method that we want to test, which calculates the factorial of a number. Use parameterized tests to validate this method against multiple sets of inputs and expected results.
+
+
+Step 1: Create the Factorial Class
+```java
+public class Factorial {
+    public static int compute(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Number must not be negative.");
+        }
+        int result = 1;
+        for (int i = 1; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+}
+```
+
+Step 2: Write a Parameterized Test
+Create a test class that uses the `@ParameterizedTest` annotation along with`@ValueSource`, `@CsvSource`, `@MethodSource`, or `@CsvFileSource` to provide inputs and expected outputs. Here, I’ll use `@MethodSource` for demonstration:
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.stream.Stream;
+
+class FactorialTest {
+    
+    static Stream<Object[]> data() {
+        return Stream.of(
+            new Object[] {0, 1},
+            new Object[] {1, 1},
+            new Object[] {2, 2},
+            new Object[] {3, 6},
+            new Object[] {4, 24},
+            new Object[] {5, 120}
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("data")
+    void testFactorial(int input, int expected) {
+        assertEquals(expected, Factorial.compute(input));
+    }
+}
+```
+
 ---
 
 ###### 6.2.4.2. Using `@CsvFileSource`
@@ -2143,7 +2204,7 @@ public class RegistrationControllerTest {
 **Step 5: Writing Test Cases for the Registration Logic**
 Now, let's focus on how to test the registration logic using JUnit 5. The registerUser method checks that none of the fields are empty and that the password is at least 8 characters long.
 
-3.2.1 Unit Testing registerUser Method
+3.2.1 JUnit Testing registerUser Method
 
 `RegistrationControllerTest.java`
 
