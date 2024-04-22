@@ -47,23 +47,5 @@ public class TodoViewController {
     @FXML
     public void onLogout(ActionEvent actionEvent) throws IOException {
 
-        try {
-            // getCurrent Stage
-            Stage currentStage =  (Stage) txtTitleField.getScene().getWindow();
-            currentStage.close();
-
-            // Load
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo_gui/login_view.fxml"));
-            // Scene(parent, double, double)
-            Scene scene = new Scene(loader.load(), 800, 650);
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Todo App");
-            stage.show();
-        } catch (IOException err) {
-            System.out.println(err.getMessage());
-        }
-
     }
 }

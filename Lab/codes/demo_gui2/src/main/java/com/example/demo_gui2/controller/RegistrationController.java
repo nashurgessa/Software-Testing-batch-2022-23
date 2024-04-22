@@ -22,27 +22,31 @@ public class RegistrationController {
 
     @FXML
     public void handleRegistrationAction(ActionEvent actionEvent) {
+
     }
 
     @FXML
     public void onBackClickButton(ActionEvent actionEvent) throws IOException {
 
-//        try {
-            Stage currentStage = (Stage) emailField.getScene().getWindow();
+        try {
+            // close the current window
+            Stage currentStage = (Stage) nameField.getScene().getWindow();
             currentStage.close();
 
-            // Loader
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo_gui/login_view.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(RegistrationController.class.getResource("/com/example/demo_gui2/login_view.fxml"));
+
             Scene scene = new Scene(loader.load(), 800, 650);
-            // Creating a stage
+
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setTitle("Todo LoginPage");
+            stage.setTitle("Login Page");
+
             stage.show();
 
-//        } catch (IOException err) {
-//            System.out.println(err.getMessage());
-//        }
+        } catch (IOException err){
+            System.out.println(err.getMessage());
+        }
 
     }
 }

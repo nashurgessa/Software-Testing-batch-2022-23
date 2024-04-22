@@ -26,13 +26,29 @@ public class LoginController {
 
         if (!authenticateUser(email, password)) {
             // 如果不正确，显示错误信息 (If incorrect, display an error message)
-            System.out.println("The username or password is mismatch");
+            System.out.println("The username or password is incorrect");
             return;
         }
         // 如果正确，进入待办事项应用 (If correct, proceed to the Todo app)
-        // navigateToTodoApp();
+        navigateToTodoApp();
     }
 
+    private void navigateToTodoApp() {
+        try {
+            // close the current window
+            Stage currentStage = (Stage) txtUsername.getScene().getWindow();
+            currentStage.close();
+
+            FXMLLoader loader = new FXMLLoader(RegistrationController.class.getResource("/com/example/demo_gui2/todo_view.fxml"));
+            Scene scene = new Scene(loader.load(), 800, 650);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Login Page");
+            stage.show();
+        } catch (IOException err){
+            System.out.println(err.getMessage());
+        }
+    }
     private boolean authenticateUser(String email, String password) {
         // return userService.login(email, password);
         return true;
@@ -40,6 +56,28 @@ public class LoginController {
 
     @FXML
     public void goToRegistrationPage(ActionEvent actionEvent) throws IOException {
+        try {
+            // close the current window
+            Stage currentStage = (Stage) txtUsername.getScene().getWindow();
+            currentStage.close();
+
+
+            FXMLLoader loader = new FXMLLoader(RegistrationController.class.getResource("/com/example/demo_gui2/registartion_view.fxml"));
+
+            Scene scene = new Scene(loader.load(), 800, 650);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Registartion Page");
+
+            stage.show();
+
+        } catch (IOException err){
+            System.out.println(err.getMessage());
+        }
+
+
     }
+
     // 用于检查登录凭据的辅助方法 (Helper method to check login credentials)
 }
