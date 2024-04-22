@@ -10,9 +10,7 @@ public class EmailPasswordValidator {
         Pattern emailPart = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPart.matcher(email);
         boolean result = matcher.matches();
-        System.out.println("email matcher : " + result);
-        // return result;
-        return true;
+        return result;
 
     }
 
@@ -21,9 +19,7 @@ public class EmailPasswordValidator {
         Pattern passwordPattern = Pattern.compile(passwordRegex);
         Matcher matcher = passwordPattern.matcher(password);
         boolean result = matcher.matches();
-        System.out.println("password matcher : " + result);
-        // return result; //matcher.matches();
-        return true;
+        return result;
     }
 
 }

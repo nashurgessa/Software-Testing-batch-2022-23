@@ -1,13 +1,9 @@
-package com.example.demo_gui.controller;
+package com.example.demo_gui2.controller;
 
-import com.example.demo_gui.common.EmailPasswordValidator;
-import com.example.demo_gui.common.RegistrationResult;
-import com.example.demo_gui.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
