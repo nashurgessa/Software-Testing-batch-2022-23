@@ -46,7 +46,11 @@ public class RegistrationController {
             boolean registrationResult = userService.registerUser(
                     name, email, password
             );
+            if (registrationResult) {
+                return RegistrationResult.SUCCESS;
+            }
         }
+        return RegistrationResult.REGISTRATION_FAILED;
 
     }
 
