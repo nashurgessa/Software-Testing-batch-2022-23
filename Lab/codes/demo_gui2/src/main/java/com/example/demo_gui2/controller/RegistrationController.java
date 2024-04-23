@@ -13,7 +13,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class RegistrationController {
-    private UserService userService = new UserService();
+    UserService userService = new UserService();
+
     @FXML
     private TextField nameField; // Input field for user's name - 用户名输入字段
     @FXML
