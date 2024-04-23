@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class EmailPasswordValidator {
 
-    public boolean isEmail(String email) {
+    public boolean isEmailValid(String email) {
         String emailRegex = "^[A-Za-z0-9_+.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         Pattern emailPart = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPart.matcher(email);

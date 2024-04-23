@@ -1,6 +1,7 @@
 package com.example.demo_gui2.controller;
 
 import com.example.demo_gui2.Service.UserService;
+import com.example.demo_gui2.common.EmailPasswordValidator;
 import com.example.demo_gui2.common.RegistrationResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
