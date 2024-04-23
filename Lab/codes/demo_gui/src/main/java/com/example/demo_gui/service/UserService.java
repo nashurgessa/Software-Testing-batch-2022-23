@@ -4,31 +4,26 @@ import com.example.demo_gui.common.EmailPasswordValidator;
 
 public class UserService {
 
-    EmailPasswordValidator emailPasswordValidator = new EmailPasswordValidator();
+    // Constructor
 
-    // contructor
     public UserService() {
-
     }
+
+    EmailPasswordValidator validator = new EmailPasswordValidator();
 
     public boolean login(String email, String password) {
-        // TODO validate
-        boolean isValid = isValidEmailPassword(email, password);
-        if (isValid) {
-            return "user@gmail.com".equals(email) && "Password123@".equals(password);
-        }
-        else {
-            return false;
-        }
-
+        return "user".equals(email) && "password".equals(password);
     }
 
-    private boolean isValidEmailPassword(String email, String password){
-        boolean isValidEmail = emailPasswordValidator.isEmailValid(email);
-        boolean isValidPassword = emailPasswordValidator.isPasswordValid(password);
-        System.out.println(isValidEmail + " " +isValidPassword);
+    public boolean registerUser(String name, String email, String password) {
+        boolean validatorResult = validateEmailPassword(email, password);
+        // Todo
         return true;
-        // return emailPasswordValidator.isEmailValid(email) && emailPasswordValidator.isPasswordValid(password);
     }
 
+    private boolean validateEmailPassword(String email, String password) {
+        boolean isEmailValid = validator.isEmailValid(email);
+        boolean isPasswordValid = validator.isPasswordValid(password);
+        return isEmailValid && isPasswordValid;
+    }
 }

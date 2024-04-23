@@ -1,12 +1,10 @@
-package com.example.demo_gui.controller;
+package com.example.demo_gui2.controller;
 
-import com.example.demo_gui.TodoApplication;
-import com.example.demo_gui.service.UserService;
-import com.example.demo_gui.utils.AlertMessage;
+
+import com.example.demo_gui2.Service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -26,74 +24,59 @@ public class LoginController {
     @FXML
     protected void onSignIn(ActionEvent actionEvent) {
         // 验证用户名和密码是否正确 (Check if the username and password are correct)
-        String email = txtUsername.getText();
-        String password = txtPassword.getText();
-
-        if (!authenticateUser(email, password)) {
+        if (!authenticateUser(txtUsername.getText(), txtPassword.getText())) {
             // 如果不正确，显示错误信息 (If incorrect, display an error message)
-            System.out.println("The username or password is mismatch");
+            System.out.println("The username or password is incorrect");
             return;
         }
-
         // 如果正确，进入待办事项应用 (If correct, proceed to the Todo app)
         navigateToTodoApp();
     }
 
+    private void navigateToTodoApp() {
+        try {
+            // close the current window
+            Stage currentStage = (Stage) txtUsername.getScene().getWindow();
+            currentStage.close();
+
+            FXMLLoader loader = new FXMLLoader(RegistrationController.class.getResource("/com/example/demo_gui2/todo_view.fxml"));
+            Scene scene = new Scene(loader.load(), 800, 650);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Login Page");
+            stage.show();
+        } catch (IOException err){
+            System.out.println(err.getMessage());
+        }
+    }
     private boolean authenticateUser(String email, String password) {
         return userService.login(email, password);
     }
 
-    private void navigateToTodoApp() {
-        try {
-            Stage currentStage = getCurrentStage();
-            currentStage.close();
-
-            // Scene
-            FXMLLoader loader = new FXMLLoader(RegistrationController.class.getResource("/com/example/demo_gui/todo_view.fxml"));
-            Scene scene = new Scene(loader.load(), 800, 650);
-
-            // Stage
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Todo Page");
-
-            stage.show();
-
-
-        } catch (IOException err) {
-            System.out.println(err.getMessage());
-        }
-    }
-
-
-    public Stage getCurrentStage() {
-        return (Stage) txtUsername.getScene().getWindow();
-    }
-
     @FXML
     public void goToRegistrationPage(ActionEvent actionEvent) throws IOException {
-
         try {
-            Stage currentStage = getCurrentStage();
+            // close the current window
+            Stage currentStage = (Stage) txtUsername.getScene().getWindow();
             currentStage.close();
 
-            // Scene
-            FXMLLoader loader = new FXMLLoader(RegistrationController.class.getResource("/com/example/demo_gui/registartion_view.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(RegistrationController.class.getResource("/com/example/demo_gui2/registartion_view.fxml"));
+
             Scene scene = new Scene(loader.load(), 800, 650);
 
-            // Stage
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setTitle("Registration Page");
+            stage.setTitle("Registartion Page");
 
             stage.show();
 
-        } catch (IOException err) {
+        } catch (IOException err){
             System.out.println(err.getMessage());
         }
+
+
     }
 
-
     // 用于检查登录凭据的辅助方法 (Helper method to check login credentials)
-
 }

@@ -1,12 +1,28 @@
 package com.example.demo_gui.service;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
+
     UserService userService = new UserService();
 
+    @Test
+    void testLogin() {
+        assertAll("Testing for login",
+                () -> assertTrue(userService.login("user", "password")),
+                () -> assertFalse(userService.login("admin", "password")),
+                () -> assertFalse(userService.login("user", "Pass"))
+                );
+    }
+
+
+//    UserService userService = new UserService();
+//    // UserService userService = UserService.getInstance();
+//
 //    @Test
-//    void testLogin() {
+//    @Disabled
+//    void testLogin1() {
 //        assertAll("Multiple assertions",
 //                () ->assertTrue(userService.login("user@example.com", "password")),
 //                () -> assertFalse(userService.login("user@example1.com", "password")),
@@ -14,8 +30,9 @@ public class UserServiceTest {
 //                () -> assertFalse(userService.login("user@example1.com", "password1"))
 //        );
 //    }
-
+//
 //    @Test
+//    @Disabled
 //    void testLogin() {
 //        assertAll("Multiple assertions",
 //                () ->assertTrue(userService.login("user@gmail.com", "Password123@"), "Case 1"),
@@ -24,12 +41,12 @@ public class UserServiceTest {
 //                () -> assertFalse(userService.login("usergmailcom", "password1"), "Case 4")
 //        );
 //    }
-
-    @Test
-    void testEmail() {
-        boolean isValidate  = userService.login("user@gmail.com", "Password123@");
-        assertTrue(isValidate, "Case 11");
-    }
+//
+//    @Test
+//    void testEmail() {
+//        boolean isValidate  = userService.login("user@gmail.com", "Password123@");
+//        assertTrue(isValidate, "Case 11");
+//    }
 
 
 }

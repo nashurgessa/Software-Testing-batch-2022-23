@@ -1,6 +1,8 @@
 package com.example.demo_gui.controller;
 
+import com.example.demo_gui.common.EmailPasswordValidator;
 import com.example.demo_gui.common.RegistrationResult;
+import com.example.demo_gui.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class RegistrationController {
     @FXML
@@ -22,77 +25,51 @@ public class RegistrationController {
     @FXML
     private PasswordField confirmPasswordField; // Input field for confirming user's password - 确认密码输入字段
 
+    UserService userService = new UserService();
+
     @FXML
-    private Button backButton; // Button to navigate back - 返回按钮
-
-
-    // Event handler for back button to return to login page - 返回按钮的事件处理，返回登录页面
-    public void onBackClickButton(ActionEvent actionEvent)  throws IOException {
-
-        try {// Implementation
-            // get the stage
-            Stage thisStage = (Stage) nameField.getScene().getWindow();
-            thisStage.close();
-
-            // load the loginPage
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo_gui/login_view.fxml"));
-            Scene scene = new Scene(loader.load(), 800, 650);
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Todo App");
-
-            stage.show();
-        } catch (IOException err) {
-            System.out.println(err.getMessage());
-        }
-
-
-    }
-
-    // Handles registration form submission - 处理注册表单提交
-    @FXML
-    protected void handleRegistrationAction(ActionEvent event) {
+    public void handleRegistrationAction(ActionEvent actionEvent) {
         String name = nameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        // RegistrationResult result = attemptRegistration(name, email, password, confirmPassword);
-
+        RegistrationResult result  = attemptRegistration(
+                name, email, password, confirmPassword);
+    }
+    private RegistrationResult attemptRegistration(
+            String name, String email, String password, String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            return RegistrationResult.PASSWORD_MISMATCH;
+        }
+        if ((name != null)  && (email!=null) && (password!=null)) {
+            boolean result = userService.registerUser(name, email, password);
+            if (result) {
+                return RegistrationResult.SUCCESS;
+            }
+        }
+        return RegistrationResult.REGISTRATION_FAILED;
     }
 
-    // Encapsulates the registration logic - 封装注册逻辑
-//    protected RegistrationResult attemptRegistration(String name, String email, String password, String confirmPassword) {
-//
-//    }
+    @FXML
+    public void onBackClickButton(ActionEvent actionEvent) throws IOException {
 
-    // Validates the email format - 验证电子邮件格式
-    private boolean isValidEmail(String email) {
-        /*
-        ^: Start of the string.
-           [A-Za-z0-9+_.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), plus (+), underscore (_), dot (.), or hyphen (-). This part is intended to match the user name part of the email address before the @ symbol.
-           @: Matches the @ symbol itself, which is a required character in email addresses.
-           [A-Za-z0-9.-]+: Matches one or more characters that are alphanumeric (A-Za-z0-9), dot (.), or hyphen (-). This part is intended to match the domain part of the email address after the @ symbol. It can match domains like example.com or subdomains like sub.example.com.
-           $: End of the string.
-         */
+//        try {
+            Stage currentStage = (Stage) emailField.getScene().getWindow();
+            currentStage.close();
 
-        String emailRegex = "^[A-Za-z0-9+-_.]+@[A-Za-z0-9.-]+[]"
+            // Loader
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo_gui/login_view.fxml"));
+            Scene scene = new Scene(loader.load(), 800, 650);
+            // Creating a stage
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Todo LoginPage");
+            stage.show();
 
-        return true;
-    }
+//        } catch (IOException err) {
+//            System.out.println(err.getMessage());
+//        }
 
-    // Validates the password complexity - 验证密码复杂度
-    private boolean isValidPassword(String password) {
-        /*
-        ^: Start of string.
-        (?=.*[0-9]): At least one digit.
-        (?=.*[a-z]): Ensures that there is at least one lowercase letter (not explicitly required by your rules but generally considered a good practice for password security).
-        (?=.*[A-Z]): At least one uppercase letter.
-        (?=.*[@#$%^&+=]): At least one special character from the set specified.
-        (?=\\S+$): No whitespace allowed in the entire string.
-        .{8,24}$: Between 8 to 24 characters.
-         */
-        return true;
     }
 }
