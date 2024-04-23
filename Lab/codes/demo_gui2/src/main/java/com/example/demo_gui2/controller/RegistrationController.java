@@ -1,5 +1,7 @@
 package com.example.demo_gui2.controller;
 
+import com.example.demo_gui2.Service.UserService;
+import com.example.demo_gui2.common.RegistrationResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class RegistrationController {
+    private UserService userService = new UserService();
     @FXML
     private TextField nameField; // Input field for user's name - 用户名输入字段
     @FXML
@@ -27,7 +30,24 @@ public class RegistrationController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        System.out.println("name: "+ name+ " email"+ email);
+        RegistrationResult result = attemptRegistration(name, email, password,
+                confirmPassword);
+
+    }
+
+    private RegistrationResult attemptRegistration(String name, String email,
+                                                   String password,
+                                                   String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            return RegistrationResult.PASSWORD_MISMATCH;
+        }
+
+        if (name !=null){
+            boolean registrationResult = userService.registerUser(
+                    name, email, password
+            );
+        }
+
     }
 
     @FXML

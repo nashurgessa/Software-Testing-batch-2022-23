@@ -8,7 +8,7 @@ public class UserService {
         return "user@example.com".equals(email) && "password".equals(password);
     }
 
-    public boolean registerUser() {
+    public boolean registerUser(String name, String email, String password) {
         return true;
     }
 }
