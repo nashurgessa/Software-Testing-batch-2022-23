@@ -1,8 +1,6 @@
 package com.example.demo_gui.controller;
 
-import com.example.demo_gui.common.RegistrationResult;
 import com.example.demo_gui.service.UserService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -11,8 +9,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class RegistrationControllerTest {
 

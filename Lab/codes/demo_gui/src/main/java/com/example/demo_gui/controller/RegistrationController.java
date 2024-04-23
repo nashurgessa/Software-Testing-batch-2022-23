@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class RegistrationController {
     @FXML
@@ -24,8 +25,30 @@ public class RegistrationController {
     @FXML
     private PasswordField confirmPasswordField; // Input field for confirming user's password - 确认密码输入字段
 
+    UserService userService = new UserService();
+
     @FXML
     public void handleRegistrationAction(ActionEvent actionEvent) {
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+
+        RegistrationResult result  = attemptRegistration(
+                name, email, password, confirmPassword);
+    }
+    private RegistrationResult attemptRegistration(
+            String name, String email, String password, String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            return RegistrationResult.PASSWORD_MISMATCH;
+        }
+        if ((name != null)  && (email!=null) && (password!=null)) {
+            boolean result = userService.registerUser(name, email, password);
+            if (result) {
+                return RegistrationResult.SUCCESS;
+            }
+        }
+        return RegistrationResult.REGISTRATION_FAILED;
     }
 
     @FXML

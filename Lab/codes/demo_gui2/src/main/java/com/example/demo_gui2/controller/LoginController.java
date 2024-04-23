@@ -1,6 +1,7 @@
 package com.example.demo_gui2.controller;
 
 
+import com.example.demo_gui2.Service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,14 +18,13 @@ public class LoginController {
     @FXML
     private TextField txtPassword; // 密码输入字段 (Input field for the password)
 
+    UserService userService = new UserService();
+
     // 点击登录按钮时处理登录的方法 (Method to handle login when the Sign In button is clicked)
     @FXML
     protected void onSignIn(ActionEvent actionEvent) {
         // 验证用户名和密码是否正确 (Check if the username and password are correct)
-        String email = txtUsername.getText();
-        String password = txtPassword.getText();
-
-        if (!authenticateUser(email, password)) {
+        if (!authenticateUser(txtUsername.getText(), txtPassword.getText())) {
             // 如果不正确，显示错误信息 (If incorrect, display an error message)
             System.out.println("The username or password is incorrect");
             return;
@@ -50,8 +50,7 @@ public class LoginController {
         }
     }
     private boolean authenticateUser(String email, String password) {
-        // return userService.login(email, password);
-        return true;
+        return userService.login(email, password);
     }
 
     @FXML
