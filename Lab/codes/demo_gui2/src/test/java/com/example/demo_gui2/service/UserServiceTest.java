@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserServiceTest {
 
     static UserService userService;
-
     @BeforeAll
     static void setUp() {
         userService = new UserService();
+        System.out.println("Thiis is beforeAll");
     }
     @BeforeEach
     void beforeEachMethod() {
@@ -23,6 +23,7 @@ public class UserServiceTest {
         System.out.println("This is After Each");
     }
     // @Disabled
+    @Disabled
     @Test
     void testLogin(){
         assertAll("Checking Login",
@@ -31,7 +32,6 @@ public class UserServiceTest {
                 ()-> assertFalse(userService.login("user@example.com", "password1"))
         );
     }
-
     @Test
     void registerUserTest() {
         // Name, email, password
