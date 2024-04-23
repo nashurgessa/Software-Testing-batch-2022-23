@@ -905,6 +905,17 @@ Lab/code/frontend/index.tst.html
 									</select>
 								</div>
 							</td>
+
+							<td>
+								<div>
+									<select id="SelectID_Three">
+										<option value="selectvalue">Select</option>
+										<option value="elephantvalue">Elephant</option>
+										<option value="mousevalue">Mouse</option>
+										<option value="dogvalue">Dog</option>
+									</select>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -912,4 +923,204 @@ Lab/code/frontend/index.tst.html
 		</div>
 	</body>
 </html>
+```
+
+##### WebDriver Code using Selenium Select Class 
+Please take a note that, for script creation, we would be using “Learning_Selenium” project created in the former tutorial.
+
+**Step 1**: Create a new java class named as “HandlingDropDown” under the “Learning_Selenium” project.
+**Step 2**: Copy and paste the below code in the “HandlingDropDown.java” class.
+
+```java
+package org.example;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class HandlingDropDown {
+    static WebDriver driver;
+    @BeforeAll
+    static void setUp() {
+        driver = new EdgeDriver();  // Ensure EdgeDriver is imported
+
+        driver.get("http://127.0.0.1:3000/Lab/codes/frontend/index_test.html");
+
+        // maximize the window
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    void testComboBox() throws InterruptedException {
+        // Go to Bing
+        driver.findElement(By.linkText("Bing")).click();
+
+        // navigate back to previous page
+        driver.navigate().back();
+        Thread.sleep(3000);
+
+        // Select the first operator using "select by value"
+        Select selectByValue = new Select(driver.findElement(By.id("SelectId_One")));
+        selectByValue.selectByValue("greenValue");
+        Thread.sleep(3000);
+
+        // Select the second operator using "select by visible text"
+        Select visibleText = new Select(driver.findElement(By.id("SelectID_Two")));
+        visibleText.selectByVisibleText("Lime");
+        Thread.sleep(3000);
+
+        // Select third dropDown using "select by index"
+        Select selectedIndex = new Select(driver.findElement(By.id("SelectID_Three")));
+        selectedIndex.selectByIndex(2);
+        Thread.sleep(3000);
+    }
+
+    @AfterAll
+    static void tearDown() {
+        driver.quit();
+    }
+}
+```
+
+
+---
+
+#### Example HTML Code for a Table
+
+Handling HTML tables with Selenium WebDriver is crucial for testing applications that display data in tabular formats. Tables are commonly used to represent information succinctly, and interacting with them can be necessary to verify content, perform CRUD operations, or just read data from the table.
+
+Here's a simple HTML setup for a table which we will use to demonstrate how to interact with it using Selenium:
+
+```java
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Table Interaction Testing</title>
+    </head>
+    <body>
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>30</td>
+                    <td>New York</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>25</td>
+                    <td>Los Angeles</td>
+                </tr>
+                <tr>
+                    <td>Emily Johnson</td>
+                    <td>35</td>
+                    <td>Chicago</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+```
+
+---
+
+Selenium WebDriver Code (Java using TestNG)
+Java class to handle table elements:
+
+```java
+package org.example;
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import java.util.List;
+
+public class TableHandling {
+    private WebDriver driver;
+
+    @BeforeClass
+    public void setUp() {
+        System.setProperty("webdriver.edge.driver", "path_to_edgedriver");
+        driver = new EdgeDriver();
+        driver.get("file:///path_to_your_html_file.html");
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    public void testReadTable() {
+        // Locate the table
+        WebElement table = driver.findElement(By.id("data-table"));
+
+        // Fetch all rows of the table
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+
+        // Print data from each row
+        for (WebElement row : rows) {
+            List<WebElement> cols = row.findElements(By.tagName("td"));
+            for (WebElement col : cols) {
+                System.out.print(col.getText() + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
+    }
+}
+```
+
+---
+
+Selenium WebDriver Code (Python using unittest)
+Python class to handle table elements:
+
+```java
+import unittest
+from selenium import webdriver
+
+class TableHandlingTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.driver = webdriver.Edge('path_to_edgedriver')
+        cls.driver.get('file:///path_to_your_html_file.html')
+        cls.driver.maximize_window()
+
+    def test_read_table(self):
+        driver = self.driver
+
+        # Locate the table
+        table = driver.find_element_by_id('data-table')
+
+        # Fetch all rows of the table
+        rows = table.find_elements_by_tag_name('tr')
+
+        # Print data from each row
+        for row in rows:
+            cols = row.find_elements_by_tag_name('td')  # Get columns for each row
+            for col in cols:
+                print(col.text, end='\t')
+            print()  # for new line after each row
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+
+if __name__ == "__main__":
+    unittest.main()
 ```
