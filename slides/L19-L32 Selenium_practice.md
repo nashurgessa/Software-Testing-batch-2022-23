@@ -856,8 +856,157 @@ public class TimeoutExampleTestNG {
 
 ---
 
-##### Usage of Selenium Select Class for Handling Dropdown Elements on a Web 
-Page – Selenium Tutorial #13
+##### Usage of Selenium Select Class for Handling Dropdown Elements on a Web and other Webdrive elements
+
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Web Elements Testing</title>
+    </head>
+    <body>
+        <!-- Navigation Links -->
+        <nav id="mainNav">
+            <ul>
+                <li><a href="https://www.bing.com">Bing</a></li>
+            </ul>
+        </nav>
+
+        <!-- Dropdowns for Testing -->
+        <select id="colorSelector">
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select>
+
+        <select id="fruitSelector">
+            <option value="apple">Apple</option>
+            <option value="orange">Orange</option>
+            <option value="banana">Banana</option>
+        </select>
+
+        <!-- Input Field -->
+        <input type="text" id="nameInput" placeholder="Enter your name"/>
+
+        
+
+		 <!-- Radio Buttons for Gender Selection -->
+		 <fieldset>
+            <legend>Gender:</legend>
+            <label><input type="radio" name="gender" value="male"> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+        </fieldset>
+
+        <!-- Checkboxes for Selection of Hobbies -->
+        <fieldset>
+            <legend>Hobbies:</legend>
+            <label><input type="checkbox" name="hobby" value="sports"> Sports</label>
+            <label><input type="checkbox" name="hobby" value="reading"> Reading</label>
+        </fieldset>
+
+        <!-- Simple Dropdown Menu for Country Selection -->
+        <label for="countrySelect">Choose a country:</label>
+        <select id="countrySelect">
+			<option value="india">China</option>
+			<option value="india">Ethiopia</option>
+            <option value="usa">United States</option>
+            <option value="uk">United Kingdom</option>
+        </select>
+
+        <br><br>
+		<!-- Button -->
+        <button id="submitBtn">Submit</button>
+    </body>
+</html>
+```
+
+
+```java
+public class HandlingWebElementsTest {
+
+    private static WebDriver driver;
+
+    @BeforeAll
+    static void setUp() {
+        EdgeOptions options = new EdgeOptions();
+         options.addArguments("--remote-allow-origins=*");
+         System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "/src/main/resources/msedgedriver.exe");
+         driver = new EdgeDriver(options);
+
+        if (driver == null) {
+            throw new IllegalStateException("Driver did not initialize. Please check your WebDriver executable path and configurations.");
+        }
+
+        String appUrl = "http://127.0.0.1:3000/Lab/codes/frontend/web_elements.html";
+        driver.get(appUrl);
+
+        // maximize the window
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    void foo() {
+
+    }
+
+    @Test
+    public void testDropDowns() throws InterruptedException{
+
+        // Go to Bing
+        driver.findElement(By.linkText("Bing")).click();
+        Thread.sleep(2000);
+        // navigate back to previous page
+        driver.navigate().back();
+        Thread.sleep(2000);
+
+
+        // Select by visible text
+        Select colorDropdown = new Select(driver.findElement(By.id("colorSelector")));
+        colorDropdown.selectByVisibleText("Green");
+        Thread.sleep(1000);
+
+        // Select by value
+        Select fruitDropDown = new Select(driver.findElement(By.id("fruitSelector")));
+        fruitDropDown.selectByValue("banana");
+        Thread.sleep(1000);
+
+        // Fill then name Field
+        WebElement nameInput = driver.findElement(By.id("nameInput"));
+        nameInput.sendKeys("Neusoft Institute Guangdong");
+
+
+        // Handling radio buttons
+        WebElement maleRadio = driver.findElement(By.xpath("//input[@name='gender'][@value='male']"));
+        maleRadio.click();
+        Thread.sleep(1000);
+
+        // Handling checkboxes
+        WebElement sportsCheckbox = driver.findElement(By.xpath("//input[@name='hobby'][@value='sports']"));
+        if (!sportsCheckbox.isSelected()) {
+            sportsCheckbox.click();
+        }
+        Thread.sleep(1000);
+
+        // select by index
+        Select countryDropdown = new Select(driver.findElement(By.id("countrySelect")));
+        countryDropdown.selectByIndex(1);
+        Thread.sleep(1000);
+
+        // Submitting the form
+        driver.findElement(By.id("submitBtn")).click();
+        Thread.sleep(1000);
+    }
+
+    @AfterAll
+    static void tearDown(){
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+}
+```
 
 Lab/code/frontend/index.tst.html
 

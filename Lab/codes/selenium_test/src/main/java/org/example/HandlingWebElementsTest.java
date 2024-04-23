@@ -2,16 +2,16 @@ package org.example;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
 
-public class HandlingWebElements {
+public class HandlingWebElementsTest {
 
     private static WebDriver driver;
 
@@ -34,14 +34,19 @@ public class HandlingWebElements {
     }
 
     @Test
+    void foo() {
+
+    }
+
+    @Test
     public void testDropDowns() throws InterruptedException{
 
         // Go to Bing
         driver.findElement(By.linkText("Bing")).click();
-
+        Thread.sleep(2000);
         // navigate back to previous page
         driver.navigate().back();
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
 
         // Select by visible text
@@ -54,9 +59,30 @@ public class HandlingWebElements {
         fruitDropDown.selectByValue("banana");
         Thread.sleep(1000);
 
+        // Fill then name Field
+        WebElement nameInput = driver.findElement(By.id("nameInput"));
+        nameInput.sendKeys("Neusoft Institute Guangdong");
+
+
+        // Handling radio buttons
+        WebElement maleRadio = driver.findElement(By.xpath("//input[@name='gender'][@value='male']"));
+        maleRadio.click();
+        Thread.sleep(1000);
+
+        // Handling checkboxes
+        WebElement sportsCheckbox = driver.findElement(By.xpath("//input[@name='hobby'][@value='sports']"));
+        if (!sportsCheckbox.isSelected()) {
+            sportsCheckbox.click();
+        }
+        Thread.sleep(1000);
+
         // select by index
         Select countryDropdown = new Select(driver.findElement(By.id("countrySelect")));
         countryDropdown.selectByIndex(1);
+        Thread.sleep(1000);
+
+        // Submitting the form
+        driver.findElement(By.id("submitBtn")).click();
         Thread.sleep(1000);
     }
 
