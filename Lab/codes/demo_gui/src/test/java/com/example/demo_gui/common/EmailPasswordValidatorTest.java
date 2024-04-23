@@ -19,6 +19,6 @@ public class EmailPasswordValidatorTest {
     @Test
     void testPasswordBVAApproach() {
         // {6, 24}, [5, 6, 7, 23, 24, 25]
-        
+
     }
 }

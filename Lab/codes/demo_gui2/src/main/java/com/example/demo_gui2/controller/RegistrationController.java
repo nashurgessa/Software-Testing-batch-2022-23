@@ -22,12 +22,16 @@ public class RegistrationController {
 
     @FXML
     public void handleRegistrationAction(ActionEvent actionEvent) {
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
 
+        System.out.println("name: "+ name+ " email"+ email);
     }
 
     @FXML
     public void onBackClickButton(ActionEvent actionEvent) throws IOException {
-
         try {
             // close the current window
             Stage currentStage = (Stage) nameField.getScene().getWindow();
