@@ -1,8 +1,15 @@
 package com.example.demo_gui2.service;
 
 import com.example.demo_gui2.Service.UserService;
+import com.sun.jdi.connect.Connector;
+import kotlin.ParameterName;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +19,7 @@ public class UserServiceTest {
     @BeforeAll
     static void setUp() {
         userService = new UserService();
-        System.out.println("Thiis is beforeAll");
+        System.out.println("This is beforeAll");
     }
     @BeforeEach
     void beforeEachMethod() {
@@ -37,4 +44,6 @@ public class UserServiceTest {
         // Name, email, password
         assertTrue(userService.registerUser("Alex", "abcd@example.com", "Password123@"));
     }
+
+
 }

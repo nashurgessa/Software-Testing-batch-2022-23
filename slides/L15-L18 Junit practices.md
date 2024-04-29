@@ -1990,35 +1990,18 @@ public class UserServiceTest {
 ***Output***
 ![1712554719156](image/L15-L18Junitpractices/1712554719156.png)
 
----
-
-
-##### 6.2.4. Parameterized Tests
-
-- Repeat a test case multiple times with different data 
-- Define a parameterized test
-    - Declared just like regular `@Test` methods but use the `@ParameterizedTest` annotation instead
-    - Must declare at least one **source** that will provide the arguments for each invocation 
-    - Consume the arguments in the test method
-    - It's used in conjunction with sources like `@ValueSource`, `@CsvSource`, or `@MethodSource` to run the same test with different parameters.
-
-***Example***
-```java
-@ParameterizedTest
-@ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
-void palindromes(String candidate) {
-    assertTrue(StringUtils.isPalindrome(candidate));
-}
-```
 
 ---
 
-For a more advanced and efficient approach, we utilize JUnit's parameterized tests to run the same test logic with multiple inputs, significantly reducing code duplication.
+### 7. Data-Driven Testing (DDT) in JUnit
+Data-Driven Testing (DDT) is a testing paradigm where the test logic is separated from the input and output data. It enables the execution of test cases with sets of data values that are externalized from the test itself. JUnit 5 supports DDT through its @ParameterizedTest annotation and various sources of input data, facilitating the execution of a single test method with different inputs. This approach enhances test coverage and efficiency, particularly for validating a range of conditions and inputs.
 
-###### 6.2.4.1. Using `@CsvSource`
-The `@CsvSource` annotation allows you to define your test data directly within your test class as an array of strings. Each string represents a row of CSV data, and each comma separates the columns in that row.
+#### 7.1 Introduction to DDT
+DDT is particularly useful in scenarios where the logic under test behaves differently based on various inputs. By externalizing input values (and possibly expected outcomes), tests can be made more readable and maintainable. Additionally, adding new test cases often doesn't require changes to the test code but merely the addition of new data sets.
 
-Here's how you could refactor the previous example to use `@CsvSource`:
+#### 7.2 Parameterized Tests with JUnit 5
+JUnit 5 introduces several annotations to support parameterized tests, allowing a single test method to be executed multiple times with different parameters. Here’s how to use some of the most common sources:
+
 
 ```xml
  <dependency>
@@ -2031,6 +2014,91 @@ Here's how you could refactor the previous example to use `@CsvSource`:
 
 
 ![1712500650449](image/L15-L18Junitpractices/1712500650449.png)
+
+
+- Using `@ValueSource`: Provides a simple way to specify a single array of literal values.
+```java
+@ParameterizedTest
+@ValueSource(strings = {"Hello", "JUnit"})
+void withValueSource(String argument) {
+    assertNotNull(argument);
+}
+```
+
+- Using @CsvSource and @CsvFileSource: Allows specifying parameter sets as comma-separated values. @CsvSource takes strings directly, while @CsvFileSource reads from CSV files.
+
+```java
+@ParameterizedTest
+@CsvSource({"1, true", "2, true", "3, false"})
+void withCsvSource(int number, boolean expected) {
+    assertEquals(expected, number < 3);
+}
+```
+
+```java
+@ParameterizedTest
+@CsvFileSource(resources = "/input.csv", numLinesToSkip = 1)
+void withCsvFileSource(int number, boolean expected) {
+    assertEquals(expected, number < 3);
+}
+```
+
+- Using @MethodSource: Enables you to specify a method that provides the parameters, allowing for more complex scenarios and data types.
+
+```java
+@ParameterizedTest
+@MethodSource("stringProvider")
+void withMethodSource(String argument) {
+    assertNotNull(argument);
+}
+
+static Stream<String> stringProvider() {
+    return Stream.of("apple", "banana");
+}
+```
+
+#### 7.3 Advantages of Data-Driven Testing
+DDT offers several benefits:
+
+Efficiency: Write once, test multiple times. DDT reduces the amount of code needed for multiple test cases.
+Coverage: Easily achieve high test coverage by covering a wide range of input combinations.
+Maintenance: Adding new test cases usually involves just adding new data sets without modifying the test code.
+Readability: Tests can be simpler and focus on the logic being tested rather than the intricacies of generating test data.
+
+
+---
+
+***Homework***
+```java
+@ParameterizedTest
+@ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
+void palindromes(String candidate) {
+    assertTrue(StringUtils.isPalindrome(candidate));
+}
+```
+
+
+##### Hands on Practice
+
+- Repeat a test case multiple times with different data 
+- Define a parameterized test
+    - Declared just like regular `@Test` methods but use the `@ParameterizedTest` annotation instead
+    - Must declare at least one **source** that will provide the arguments for each invocation 
+    - Consume the arguments in the test method
+    - It's used in conjunction with sources like `@ValueSource`, `@CsvSource`, or `@MethodSource` to run the same test with different parameters.
+
+
+
+---
+
+For a more advanced and efficient approach, we utilize JUnit's parameterized tests to run the same test logic with multiple inputs, significantly reducing code duplication.
+
+###### Using `@CsvSource`
+The `@CsvSource` annotation allows you to define your test data directly within your test class as an array of strings. Each string represents a row of CSV data, and each comma separates the columns in that row.
+
+Here's how you could refactor the previous example to use `@CsvSource`:
+
+
 
 
 ```java
@@ -2150,7 +2218,7 @@ class FactorialTest {
 
 ---
 
-###### 6.2.4.2. Using `@CsvFileSource`
+###### Using `@CsvFileSource`
 Alternatively, if you have a large number of test cases or prefer to keep your test data separate from your test code, ``@CsvFileSource` allows you to load test data from a ***CSV*** file located in your resources folder.
 
 First, create a CSV file in `src/test/resources` (assuming a standard Maven or Gradle project structure). Let's call it passwordTestData.csv, with the following content:
@@ -2399,65 +2467,9 @@ class TodoControllerTest {
 
 
 
+---
 
-
-### 7. Data-Driven Testing (DDT) in JUnit
-Data-Driven Testing (DDT) is a testing paradigm where the test logic is separated from the input and output data. It enables the execution of test cases with sets of data values that are externalized from the test itself. JUnit 5 supports DDT through its @ParameterizedTest annotation and various sources of input data, facilitating the execution of a single test method with different inputs. This approach enhances test coverage and efficiency, particularly for validating a range of conditions and inputs.
-
-#### 7.1 Introduction to DDT
-DDT is particularly useful in scenarios where the logic under test behaves differently based on various inputs. By externalizing input values (and possibly expected outcomes), tests can be made more readable and maintainable. Additionally, adding new test cases often doesn't require changes to the test code but merely the addition of new data sets.
-
-#### 7.2 Parameterized Tests with JUnit 5
-JUnit 5 introduces several annotations to support parameterized tests, allowing a single test method to be executed multiple times with different parameters. Here’s how to use some of the most common sources:
-
-- Using `@ValueSource`: Provides a simple way to specify a single array of literal values.
-```java
-@ParameterizedTest
-@ValueSource(strings = {"Hello", "JUnit"})
-void withValueSource(String argument) {
-    assertNotNull(argument);
-}
-```
-
-- Using @CsvSource and @CsvFileSource: Allows specifying parameter sets as comma-separated values. @CsvSource takes strings directly, while @CsvFileSource reads from CSV files.
-
-```java
-@ParameterizedTest
-@CsvSource({"1, true", "2, true", "3, false"})
-void withCsvSource(int number, boolean expected) {
-    assertEquals(expected, number < 3);
-}
-```
-
-```java
-@ParameterizedTest
-@CsvFileSource(resources = "/input.csv", numLinesToSkip = 1)
-void withCsvFileSource(int number, boolean expected) {
-    assertEquals(expected, number < 3);
-}
-```
-
-- Using @MethodSource: Enables you to specify a method that provides the parameters, allowing for more complex scenarios and data types.
-
-```java
-@ParameterizedTest
-@MethodSource("stringProvider")
-void withMethodSource(String argument) {
-    assertNotNull(argument);
-}
-
-static Stream<String> stringProvider() {
-    return Stream.of("apple", "banana");
-}
-```
-
-#### 7.3 Advantages of Data-Driven Testing
-DDT offers several benefits:
-
-Efficiency: Write once, test multiple times. DDT reduces the amount of code needed for multiple test cases.
-Coverage: Easily achieve high test coverage by covering a wide range of input combinations.
-Maintenance: Adding new test cases usually involves just adding new data sets without modifying the test code.
-Readability: Tests can be simpler and focus on the logic being tested rather than the intricacies of generating test data.
+#### Advanced Topics
 
 Adding okhttp & gson dependencies
 
