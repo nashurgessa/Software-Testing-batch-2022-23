@@ -1,17 +1,75 @@
 package com.example.demo_gui.controller;
 
 import com.example.demo_gui.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
+import com.example.demo_gui.common.RegistrationResult;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RegistrationControllerTest {
+    static RegistrationController regController;
+    @BeforeAll
+    static void setUp() {
+        regController = new RegistrationController();
+        System.out.println("BeforeAll is called");
+    }
+    @BeforeEach
+    void setUp2() {
+        System.out.println("BeforeEach is called");
+    }
 
+    @AfterEach
+    void tearDown2() {
+        System.out.println("AfterEach is called");
+    }
+
+    @Test
+    void TC1(){
+        RegistrationResult regResult =
+                regController.attemptRegistration("Allen",
+                        "example@gmail.com",
+                        "Password123$",
+                        "Password123$"
+                );
+
+        assertEquals(RegistrationResult.SUCCESS, regResult);
+    }
+    @Test
+    void TC2(){
+        RegistrationResult regResult =
+                regController.attemptRegistration("Allen",
+                        "example@gmail.com",
+                        "Password123$",
+                        "Password123@"
+                );
+
+        assertEquals(RegistrationResult.PASSWORD_MISMATCH, regResult);
+    }
+    @Test
+    @Disabled
+    void TC3(){
+
+    }
+    @Test
+    void TC4(){
+
+    }
+    @Test
+    void TC5(){
+
+    }
+
+    @AfterAll
+    static void tearDown() {
+        System.out.println("Afterall is Called");
+    }
+
+    /*
      UserService userService = new UserService();
     // UserService userService = UserService.getInstance();
     private RegistrationController regController;
@@ -52,5 +110,5 @@ public class RegistrationControllerTest {
 //        // assertEquals(regController.attemptRegistration(name, email, password, confirmPassword), result, "Failed");
 //    }
 
-
+*/
 }

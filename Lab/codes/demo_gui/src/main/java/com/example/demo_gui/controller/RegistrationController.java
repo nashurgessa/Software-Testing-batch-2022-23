@@ -37,8 +37,9 @@ public class RegistrationController {
         RegistrationResult result  = attemptRegistration(
                 name, email, password, confirmPassword);
     }
-    private RegistrationResult attemptRegistration(
-            String name, String email, String password, String confirmPassword) {
+    public RegistrationResult attemptRegistration(
+            String name, String email,
+            String password, String confirmPassword) {
         if (!password.equals(confirmPassword)) {
             return RegistrationResult.PASSWORD_MISMATCH;
         }
