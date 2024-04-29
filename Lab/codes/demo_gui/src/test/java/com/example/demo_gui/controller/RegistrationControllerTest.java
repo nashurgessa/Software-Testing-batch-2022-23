@@ -51,17 +51,49 @@ public class RegistrationControllerTest {
         assertEquals(RegistrationResult.PASSWORD_MISMATCH, regResult);
     }
     @Test
-    @Disabled
     void TC3(){
+        RegistrationResult regResult =
+                regController.attemptRegistration("Allen",
+                        "examplegmail.com",
+                        "Password123$",
+                        "Password123$"
+                );
 
+        assertEquals(RegistrationResult.REGISTRATION_FAILED, regResult);
     }
     @Test
     void TC4(){
+        RegistrationResult regResult =
+                regController.attemptRegistration("Allen",
+                        "example@gmailcom",
+                        "Password123$",
+                        "Password123$"
+                );
 
+        assertEquals(RegistrationResult.REGISTRATION_FAILED, regResult);
     }
     @Test
     void TC5(){
+        RegistrationResult regResult =
+                regController.attemptRegistration("Allen",
+                        "example@gmail.com",
+                        "Password123",
+                        "Password123"
+                );
 
+        assertEquals(RegistrationResult.REGISTRATION_FAILED, regResult);
+    }
+
+    @Test
+    void TC6(){
+        RegistrationResult regResult =
+                regController.attemptRegistration(null,
+                        "example@gmail.com",
+                        "Password123",
+                        "Password123"
+                );
+
+        assertEquals(RegistrationResult.REGISTRATION_FAILED, regResult);
     }
 
     @AfterAll
@@ -92,11 +124,13 @@ public class RegistrationControllerTest {
         // assertEquals(RegistrationResult.SUCCESS, result, "The result is not equal");
     }
 
+
+
 //    private static Stream<Arguments> provideRegistrationCases() {
 //        return Stream.of(
 //                Arguments.of("nashu", "naurgessa@gmail.com", "Password123@", "Password123@",RegistrationResult.SUCCESS),
 //                Arguments.of("nashu", "naurgessa@gmail.com", "password123@", "Password12@3", RegistrationResult.PASSWORD_MISMATCH),
-//                Arguments.of("", "naurgessa@gmail.com" ,"Password123@" ,"Password123@", RegistrationResult.REGISTRATION_FAILED),
+//                Arguments.of(null, "naurgessa@gmail.com" ,"Password123@" ,"Password123@", RegistrationResult.REGISTRATION_FAILED),
 //                Arguments.of("nashu", "naurgessagmail.com", "Password123@", "Password123@", RegistrationResult.REGISTRATION_FAILED),
 //                Arguments.of("nashu", "naurgessa@gmail.com","password12","password12", RegistrationResult.REGISTRATION_FAILED),
 //                Arguments.of("nashu","" ,"Password123@","Password123@", RegistrationResult.REGISTRATION_FAILED),

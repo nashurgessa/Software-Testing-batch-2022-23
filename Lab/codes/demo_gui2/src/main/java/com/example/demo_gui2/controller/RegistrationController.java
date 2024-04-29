@@ -37,7 +37,7 @@ public class RegistrationController {
 
     }
 
-    private RegistrationResult attemptRegistration(String name, String email,
+    protected RegistrationResult attemptRegistration(String name, String email,
                                                    String password,
                                                    String confirmPassword) {
         if (!password.equals(confirmPassword)) {

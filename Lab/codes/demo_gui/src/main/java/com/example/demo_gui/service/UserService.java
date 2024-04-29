@@ -18,7 +18,7 @@ public class UserService {
     public boolean registerUser(String name, String email, String password) {
         boolean validatorResult = validateEmailPassword(email, password);
         // Todo
-        return true;
+        return validatorResult;
     }
 
     private boolean validateEmailPassword(String email, String password) {
