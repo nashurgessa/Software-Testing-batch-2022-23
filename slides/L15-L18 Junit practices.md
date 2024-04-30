@@ -1698,12 +1698,12 @@ For input validation, like ensuring a password contains at least one uppercase l
 
 **Homework**
 
-Finish implementing the jUnit vode for the remaining methods.
+Finish implementing the JUnit code for the remaining methods (Todo App).
 
 ---
 
 ***Conclusion***
-Adopting strategic testing techniques such as BVA, white box testing, and decision tables provides a structured approach to ensuring the robustness and reliability of a Todo application. By carefully designing test cases around these strategies, you can achieve comprehensive coverage, effectively catching potential issues before they impact users. Implementing these tests in JUnit, especially with the support for parameterized tests, allows for thorough and efficient validation of application logic.
+Adopting strategic testing techniques such as **BVA**, **White box testing**, and **Decision tables** provides a structured approach to ensuring the robustness and reliability of a `Todo` application. By carefully designing test cases around these strategies, you can achieve comprehensive coverage, effectively catching potential issues before they impact users. 
 
 ---
 
@@ -2536,11 +2536,14 @@ public class FakeAccountRepository implements AccountRepository {
 ---
 
 
-Apart from testing, fake implementation can come handy for prototyping and spikes.
- - We can quickly implement and run our system with in-memory store, deferring decisions about database design. 
+Apart from testing, fake implementation can come handy for **prototyping** and **spikes**.
+ - We can quickly implement and run our system with `in-memory store`, deferring decisions about database design. 
     - Another example can be also a ***fake payment system***, that will always return ***successful payments***.
 
 ---
+
+Example on Todo App
+
 ```java
 public class UserService {
     private final Map<String, User> users = new HashMap<>();

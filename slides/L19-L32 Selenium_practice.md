@@ -1236,7 +1236,7 @@ public class TableHandling {
 
 ---
 
-Selenium WebDriver Code (Python using unittest)
+**Selenium WebDriver Code (Python using unittest)**
 Python class to handle table elements:
 
 ```java
