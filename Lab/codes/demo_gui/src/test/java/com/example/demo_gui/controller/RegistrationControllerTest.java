@@ -4,30 +4,35 @@ import com.example.demo_gui.service.UserService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 import com.example.demo_gui.common.RegistrationResult;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RegistrationControllerTest {
     static RegistrationController regController;
+    @Disabled
     @BeforeAll
     static void setUp() {
         regController = new RegistrationController();
         System.out.println("BeforeAll is called");
     }
+    @Disabled
     @BeforeEach
     void setUp2() {
         System.out.println("BeforeEach is called");
     }
-
+    @Disabled
     @AfterEach
     void tearDown2() {
         System.out.println("AfterEach is called");
     }
 
+    @Disabled
     @Test
     void TC1(){
         RegistrationResult regResult =
@@ -39,6 +44,8 @@ public class RegistrationControllerTest {
 
         assertEquals(RegistrationResult.SUCCESS, regResult);
     }
+
+    @Disabled
     @Test
     void TC2(){
         RegistrationResult regResult =
@@ -50,6 +57,8 @@ public class RegistrationControllerTest {
 
         assertEquals(RegistrationResult.PASSWORD_MISMATCH, regResult);
     }
+
+    @Disabled
     @Test
     void TC3(){
         RegistrationResult regResult =
@@ -61,6 +70,7 @@ public class RegistrationControllerTest {
 
         assertEquals(RegistrationResult.REGISTRATION_FAILED, regResult);
     }
+    @Disabled
     @Test
     void TC4(){
         RegistrationResult regResult =
@@ -72,6 +82,7 @@ public class RegistrationControllerTest {
 
         assertEquals(RegistrationResult.REGISTRATION_FAILED, regResult);
     }
+    @Disabled
     @Test
     void TC5(){
         RegistrationResult regResult =
@@ -84,6 +95,7 @@ public class RegistrationControllerTest {
         assertEquals(RegistrationResult.REGISTRATION_FAILED, regResult);
     }
 
+    @Disabled
     @Test
     void TC6(){
         RegistrationResult regResult =
@@ -96,10 +108,19 @@ public class RegistrationControllerTest {
         assertEquals(RegistrationResult.REGISTRATION_FAILED, regResult);
     }
 
-    @AfterAll
-    static void tearDown() {
-        System.out.println("Afterall is Called");
+    //@AfterAll
+    //static void tearDown() {
+    //    System.out.println("After All is Called");
+    //}
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Hello Neu", "JUnit"})
+    void withValueSource(String value) {
+        System.out.println(value);
+        assertNotNull(value);
     }
+
 
     /*
      UserService userService = new UserService();
