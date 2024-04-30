@@ -5,8 +5,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -71,9 +76,38 @@ public class RegistrationControllerTest {
 
     @ParameterizedTest
     @CsvSource({"1, true", "2, true", "3, false"})
-    void withoutCSVFile (int a, boolean b) {
+    void withoutCSVFile(int a, boolean b) {
         assertEquals(b, a < 3);
     }
 
+    @ParameterizedTest
+    @CsvFileSource(resources="/input.csv",numLinesToSkip=1)
+    void withCSResourceFile(int number, boolean expected){
+        assertEquals(expected, number < 3);
+    }
+
+    static Stream<String> methodProvider() {
+        return Stream.of("apple", "banana");
+    }
+
+    @ParameterizedTest
+    @MethodSource("methodProvider")
+    void testCase(String fruits) {
+        System.out.println("Fruits: " + fruits);
+        assertNotNull(fruits);
+    }
+
+    static Stream<Object[]> data() {
+        return Stream.of(
+             new Object[] {1, 2},
+                new Object[]{2, 3}
+        );
+    }
+    @ParameterizedTest
+    @MethodSource("data")
+    void testArray(int a, int b) {
+        System.out.println(a);
+        assertNotNull(a);
+    }
 
 }
