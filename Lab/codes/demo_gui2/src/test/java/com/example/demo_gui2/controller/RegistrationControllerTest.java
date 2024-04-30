@@ -5,10 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -16,6 +13,28 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RegistrationControllerTest {
+    static RegistrationController regCon;
+    @BeforeAll
+    static void setUp() {
+        // Initialize the object
+        regCon = new RegistrationController();
+    }
+    static Stream<Arguments> testCasesGenerator() {
+        return Stream.of(
+                Arguments.of("Allen", "example@gmail.com",
+                        "Password123@", "Password123@", RegistrationResult.SUCCESS),
+                Arguments.of("Allen", "example@gmail.com",
+                        "Password123@", "Password123$", RegistrationResult.PASSWORD_MISMATCH)
+        );
+    }
+    @ParameterizedTest
+    @MethodSource("testCasesGenerator")
+    void attemptRegistrationTest(String name, String email, String password,
+                                 String confirmPassword, RegistrationResult expected) {
+        assertEquals(expected, regCon.attemptRegistration(name, email, password, confirmPassword));
+    }
+
+    /*
     static RegistrationController regController;
     @Disabled
     @BeforeAll
@@ -28,9 +47,8 @@ public class RegistrationControllerTest {
         RegistrationResult result = regController.attemptRegistration(
                 "Allen", "example@gmail.com",
                 "Password123@", "Password123@");
-        /*
-        result = SUCCESS, REGISTRATION_FAILED, PASSWORD_MISMATCH
-         */
+
+
         assertEquals(RegistrationResult.SUCCESS, result);
     }
     @Disabled
@@ -39,9 +57,9 @@ public class RegistrationControllerTest {
         RegistrationResult result = regController.attemptRegistration(
                 "Allen", "example@gmail.com",
                 "Password123@", "Password123$");
-        /*
-        result = SUCCESS, REGISTRATION_FAILED, PASSWORD_MISMATCH
-         */
+
+        //result = SUCCESS, REGISTRATION_FAILED, PASSWORD_MISMATCH
+
         assertEquals(RegistrationResult.PASSWORD_MISMATCH, result);
     }
     @Disabled
@@ -50,9 +68,7 @@ public class RegistrationControllerTest {
         RegistrationResult result = regController.attemptRegistration(
                 "Allen", "examplegmail.com",
                 "Password123@", "Password123@");
-        /*
-        result = SUCCESS, REGISTRATION_FAILED, PASSWORD_MISMATCH
-         */
+
         assertEquals(RegistrationResult.REGISTRATION_FAILED, result);
     }
     @Disabled
@@ -65,7 +81,7 @@ public class RegistrationControllerTest {
     void test5() {
 
     }
-
+*/
 
     //@ParameterizedTest
     //@ValueSource(strings = {"Neusoft", "JUnit"})
@@ -74,6 +90,7 @@ public class RegistrationControllerTest {
     //    assertNotNull(argument);
     //}
 
+    /*
     @ParameterizedTest
     @CsvSource({"1, true", "2, true", "3, false"})
     void withoutCSVFile(int a, boolean b) {
@@ -109,5 +126,8 @@ public class RegistrationControllerTest {
         System.out.println(a);
         assertNotNull(a);
     }
+
+
+     */
 
 }
