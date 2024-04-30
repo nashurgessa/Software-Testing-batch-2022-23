@@ -1,13 +1,10 @@
-
-
 ## Selenium Training Tutorials
 
 ### Introduction
-Selenium is one of the most popular automated testing suites. Selenium is designed in a way to support and encourage automation testing of functional aspects of web based applications and a wide range of browsers and platforms. 
+
+Selenium is one of the most popular automated testing suites. Selenium is designed in a way to support and encourage automation testing of functional aspects of web based applications and a wide range of browsers and platforms.
 
 - Due to its existence in the open source community, it has become one of the most accepted tools amongst the testing professionals.
-
-
 
 **Why Selenium?**
 
@@ -28,7 +25,7 @@ The benefits of implementing automation test are many; let us take a look at the
 
 **Selenium Components**
 
-Selenium is not just a single tool or a utility, rather a package of several testing tools and for the same reason it is referred to as a Suite. 
+Selenium is not just a single tool or a utility, rather a package of several testing tools and for the same reason it is referred to as a Suite.
 
 Each of these tools is designed to cater different testing and test environment requirements.
 
@@ -37,14 +34,13 @@ Each of these tools is designed to cater different testing and test environment 
 * Selenium Integrated Development Environment (IDE)
 * Selenium Remote Control (RC)
 * Selenium WebDriver
-*  Selenium Grid
+* Selenium Grid
 
 Selenium RC and WebDriver, in a combination are popularly known as Selenium 2. Selenium RC alone is also referred as Selenium 1.
 
-
 ![1713498266728](image/L19-L32Selenium_practice/1713498266728.png)
 
-Fig 1:- 
+Fig 1:-
 
 ###### 1. Selenium IDE (Integrated Development Environment)
 
@@ -54,16 +50,17 @@ Fig 1:-
 
 ![1713499134474](image/L19-L32Selenium_practice/1713499134474.png)
 
-Fig 2:- 
+Fig 2:-
 
 ###### 2. Selenium Remote Control (RC)
+
 * **Overview** : Selenium RC was one of the first tools in the Selenium project that allowed testers to write automated web application UI tests in any programming language against any HTTP website using any mainstream JavaScript-enabled browser.
 * **Features** : Selenium RC worked by using a server that automatically launches and kills browsers, and acts as a proxy for web requests from them.
 * **Usage** : It has largely been deprecated and replaced by WebDriver due to its more modern and stable architecture.
 
 ![1713499086335](image/L19-L32Selenium_practice/1713499086335.png)
 
-Fig 3:- 
+Fig 3:-
 
 There are a few pre-requisites to be in place before creating Selenium RC scripts:
  A Programming Language – Java, C#, Python etc.
@@ -73,16 +70,17 @@ There are a few pre-requisites to be in place before creating Selenium RC script
 
 ![1713499182807](image/L19-L32Selenium_practice/1713499182807.png)
 
-Fig 4:- 
+Fig 4:-
 
 ###### 3. Selenium WebDriver
+
 * **Overview** : Selenium WebDriver is the successor to Selenium RC and provides all the capabilities of RC but with better support for modern web testing needs. It does this by making direct calls to the browser using each browser’s native support for automation.
 * **Features** : More realistic interaction with web pages than Selenium RC, as it does not rely on JavaScript for automation. It supports programming in various languages like Java, C#, Python, Ruby, and JavaScript.
 * **Usage** : WebDriver can handle more complex and advanced web automation tasks. It is widely used in industry for creating robust, browser-based regression automation suites and tests.
 
 ![1713499271108](image/L19-L32Selenium_practice/1713499271108.png)
 
-Fig 5:- 
+Fig 5:-
 
 ###### 4. Selenium Grid
 
@@ -90,8 +88,8 @@ Fig 5:-
 * **Features** : It supports distributed test execution. A central hub distributes the tests to multiple nodes (machines), allowing tests to run in parallel, reducing the time for test execution and providing cross-browser, cross-platform testing capabilities.
 * **Usage** : Ideal for large test suites that need to be executed in multiple environments. It helps in speeding up the execution of a test suite by using multiple machines.
 
-
 #### Selenium 3
+
 Selenium 3 is an advance version of Selenium 2. It is a tool focused for automation of mobile and web applications. Stating that it supports mobile testing, we mean to say that the WebDriver API has been extended  to address the needs of mobile application testing.
 
 ![1713499481144](image/L19-L32Selenium_practice/1713499481144.png)
@@ -99,50 +97,50 @@ Selenium 3 is an advance version of Selenium 2. It is a tool focused for automat
 Fig 6:- Selenium 3 Architecture
 
 #### Selenium 4
-Selenium 4 was introduced by Simon Stewart in 2018. However the stable version of Selenium 4 was released in October 2021. One of the major changes made in Selenium 4 was the introduction of W3C Webdriver protocol which replaced the previously used JSON wire protocol in Selenium 3. This article highlights the major differences between Selenium 3 and Selenium 4. 
+
+Selenium 4 was introduced by Simon Stewart in 2018. However the stable version of Selenium 4 was released in October 2021. One of the major changes made in Selenium 4 was the introduction of W3C Webdriver protocol which replaced the previously used JSON wire protocol in Selenium 3. This article highlights the major differences between Selenium 3 and Selenium 4.
 
 ![1713499489780](image/L19-L32Selenium_practice/1713499489780.png)
 
 Fig 7:- Selenium 4 Architecture
 
-
 ###### Environment and Technology Stack
 
-|Category |	Supported Technologies|
-|---------|-----------------------|
-|Operating Systems|	Windows, macOS, Linux, Unix-like systems
-|Browsers (Selenium 4)|	Google Chrome, Mozilla Firefox, Internet Explorer, Safari, Microsoft Edge|
-|Browser Drivers|	ChromeDriver, GeckoDriver (Firefox), IEDriverServer (IE), SafariDriver, EdgeDriver|
-|Programming Languages|	Java, C#, Python, Ruby, JavaScript (Node.js), Kotlin, PHP|
-|Testing Frameworks|	JUnit, TestNG, PyTest, RSpec, NUnit, Mocha, Jasmine|
-|CI/CD Tools|	Jenkins, Travis CI, CircleCI, GitLab CI, Bamboo|
-|Cloud Platforms|	Sauce Labs, BrowserStack, CrossBrowserTesting|
-|IDEs|	Eclipse, IntelliJ IDEA, Visual Studio, PyCharm, WebStorm, RubyMine|
+| Category              | Supported Technologies                                                             |
+| --------------------- | ---------------------------------------------------------------------------------- |
+| Operating Systems     | Windows, macOS, Linux, Unix-like systems                                           |
+| Browsers (Selenium 4) | Google Chrome, Mozilla Firefox, Internet Explorer, Safari, Microsoft Edge          |
+| Browser Drivers       | ChromeDriver, GeckoDriver (Firefox), IEDriverServer (IE), SafariDriver, EdgeDriver |
+| Programming Languages | Java, C#, Python, Ruby, JavaScript (Node.js), Kotlin, PHP                          |
+| Testing Frameworks    | JUnit, TestNG, PyTest, RSpec, NUnit, Mocha, Jasmine                                |
+| CI/CD Tools           | Jenkins, Travis CI, CircleCI, GitLab CI, Bamboo                                    |
+| Cloud Platforms       | Sauce Labs, BrowserStack, CrossBrowserTesting                                      |
+| IDEs                  | Eclipse, IntelliJ IDEA, Visual Studio, PyCharm, WebStorm, RubyMine                 |
 
 > Selenium 4 further enhances support for the latest browser-specific drivers, ensuring compatibility and optimized performance across the most commonly used web browsers. This includes:
+
 - Google Chrome: Via ChromeDriver.
 - Mozilla Firefox: Via GeckoDriver.
 - Microsoft Edge: Via EdgeDriver.
 - Safari: Integrated directly into the browser with SafariDriver.
 - Internet Explorer: Though less commonly used now, still supported via IEDriverServer.
 
-
 ### Getting Started with Selenium IDE (Installation and its Features)
-
 
 ###### Selenium IDE Download and Installation
 
 ###### Configuring WebDriver
+
 As we would be using Java as the programming language for this series and in order to create test scripts in java, we would have to introduce language- specific client drivers. Thus, let us begin with the downloading of Selenium Java Client Libraries.
 
 ***Download the Selenium Java Client Libraries***
 ***Step 1:*** Go to Selenium’s official website and navigate to its download page –
-“http://docs.seleniumhq.org/download/”. 
+“http://docs.seleniumhq.org/download/”.
 Refer the section in the below illustration where you can find Client Libraries listed for distinct programming languages. Click on the download link for Java Client Library.
 
 ![1713501102544](image/L19-L32Selenium_practice/1713501102544.png)
 
-Fig 8:- 
+Fig 8:-
 
 ***Step 2:*** Once downloaded, copy the folder and place it in the desired location on your file system.
 
@@ -155,7 +153,7 @@ Thus these libraries can be configured in Intellij IDE
 Fig 9:-
 
 ***Configuring Libraries with Intellij IDE***
-Step 1: Navigate towards Intellij IDE. Create a new java based project following File -> New -> Java Project. 
+Step 1: Navigate towards Intellij IDE. Create a new java based project following File -> New -> Java Project.
 
 ![1713503296718](image/L19-L32Selenium_practice/1713503296718.png)
 
@@ -198,11 +196,12 @@ https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java/4.19.1
 
 ---
 
-![1713503804642](image/L19-L32Selenium_practice/1713503804642.png) 
+![1713503804642](image/L19-L32Selenium_practice/1713503804642.png)
 
 **Rename Main.java to SeleniumTest.Java**
 
 ---
+
 Now, time to doawnload the driver
 
 first check your browser version
@@ -250,7 +249,6 @@ copy the drive into the resource folder
 
 ![1713507573902](image/L19-L32Selenium_practice/1713507573902.png)
 
-
 ---
 
 ```java
@@ -269,13 +267,17 @@ public class SeleniumTest {
 ```
 
 ***Explanation:***
+
 1. `System.setProperty(String key, String value)`:
+
 > This method is used to set a system property, and in this case, it is setting the path to the Microsoft Edge driver executable.
 
 2. `System.getProperty("user.dir")`:
+
 > This method returns the current working directory of the user's project. It's a useful way to build paths that are relative to the project directory, making your code more portable.
 
 3. `EdgeDriver`:
+
 > This initializes a new instance of EdgeDriver, which will control the Edge browser. Make sure that the `msedgedriver.exe` matches the version of your Microsoft Edge browser and that it's located in the specified directory within your project.
 
 ```java
@@ -304,7 +306,7 @@ void setUp() {
 
 	// Initialize the WebDriver instance using EdgeDriver
 	WebDriver driver = new EdgeDriver(); // if allow origins, then EdgeDriver(allow)
-	
+
 
 	driver.get("https://www.baidu.com");
 }
@@ -355,20 +357,21 @@ public class SeleniumTest {
 
 #### Time to test searching functionality of the Bing
 
-
 ##### What is Document Object Model (Dom)?
 
 ![1713514029991](image/L19-L32Selenium_practice/1713514029991.png)
 
 ##### Locators
-Identification of the correct `GUI` element on a web page is pre-requisite for creating any successful automation script. It is where locators come into the picture. 
+
+Identification of the correct `GUI` element on a web page is pre-requisite for creating any successful automation script. It is where locators come into the picture.
+
 - Locators are one of the essential components of Selenium infrastructure, which help Selenium scripts in uniquely identifying the WebElements(such as `TextBox`, `Button`, etc.)
 
 ![1713513977052](image/L19-L32Selenium_practice/1713513977052.png)
 
-
 > **Attributes-based locators:**
-Attributes-based locators utilize the attributes of HTML elements to identify them on a web page. Common attributes include:
+> Attributes-based locators utilize the attributes of HTML elements to identify them on a web page. Common attributes include:
+>
 > - Identifier: Combines the id and name attributes for a broad match.
 > - Id: Targets the unique identifier of an element.
 > - Name: Selects the **first** element with a specified `name` attribute.
@@ -376,13 +379,15 @@ Attributes-based locators utilize the attributes of HTML elements to identify th
 > - CSS: Uses CSS selectors to define elements' styles and identify them.
 
 > **Structure-based locators:**
-These locators depend on the web page's structural elements to locate HTML elements:
-It rely on the structure of the page to find elements.
+> These locators depend on the web page's structural elements to locate HTML elements:
+> It rely on the structure of the page to find elements.
+>
 > - DOM: Accesses elements based on their hierarchical relationship in the page structure.
 > - XPATH:  Navigates through elements and attributes in an XML-like structure.
 > - CSS: Identifies elements using style selectors which are both fast and versatile.
 
 ###### Location Techniques
+
 ```html
 <html>
 	<body>
@@ -399,36 +404,43 @@ It rely on the structure of the page to find elements.
 ```
 
 **Identifier:**
+
 - Example: `identifier=loginForm`, `identifier=password`
 
 **Id:**
+
 - Example: `id=loginForm`
 
-**Name:** 
+**Name:**
+
 - Example: `name=username`, `name=continue`.
 
 **Link:**
+
 - Example: `link=Continue`, `link=Cancel`
 
-**DOM:** 
-- Example: `dom = document.getElementByld('loginForm')`, </br> `dom = document.forms['loginForm']`
+**DOM:**
 
-**CSS:** 
+- Example: `dom = document.getElementByld('loginForm')`, `</br>` `dom = document.forms['loginForm']`
+
+**CSS:**
+
 - Example: `css=form#loginForm > input[name='email']`..
+
 > There are three important special characters in css selectors:
+
 1. ‘^’: Matches elements whose attribute starts with the specified value.
 2. ‘$’: Matches elements whose attribute ends with the specified value.
 3. ‘*’: Matches elements containing the specified value in the attribute.
-Example: `css=input[id$='mail']`, `css=input[id*='mail']`
+   Example: `css=input[id$='mail']`, `css=input[id*='mail']`
 
 **XPath Locator in Selenium:**
 XPath allows navigation through the HTML structure of a page using path expressions:
 
-
 - XPath is defined as XML path. It is a syntax or language for finding any element on the web page using the XML path expression.
 
-
 Syntax XPath
+
 ```xml
 XPath = //tag_name[@Attribute_name ="Value of attribute"]
 ```
@@ -443,32 +455,33 @@ Value of attribute -> Value of the attribute.
 ```
 
 ***Types of XPath:***
-> **Absolute Xpath** 
-Absolute XPath is the direct way of finding the element. Moreover, it starts from the first/root node of the XM4HTML document and goes all the way to the required node following one node at a time
+
+> **Absolute Xpath**
+> Absolute XPath is the direct way of finding the element. Moreover, it starts from the first/root node of the XM4HTML document and goes all the way to the required node following one node at a time
 >
 > Example:
-`/html/body/div/header/a/img`
+> `/html/body/div/header/a/img`
 
-
-> **Relative Xpath** 
-Relative XPath starts from any node inside the HTML DOM; it need not start from the root node. It beings with a double forward slash.
+> **Relative Xpath**
+> Relative XPath starts from any node inside the HTML DOM; it need not start from the root node. It beings with a double forward slash.
 >
 > Example:
-`//img[@src= "/images/Testerszone.jpg"]`
-
+> `//img[@src= "/images/Testerszone.jpg"]`
 
 **Pre-defined XPath Syntax for Locators:**
+
 > Using `text()`       : `//*[text()='testers zone']`
-Using `name()`    : `//input[@name='username']`
-Using `id()`         : `//input[@id= user-message]`
-Using `class()`     : `//input[@class='user-message]`
-`LinkText()`         : `//a[@href='http://testerszone.com/"] `
+> Using `name()`    : `//input[@name='username']`
+> Using `id()`         : `//input[@id= user-message]`
+> Using `class()`     : `//input[@class='user-message]`
+> `LinkText()`         : `//a[@href='http://testerszone.com/"] `
 
 Note: We can use * in place of input, it will also work fine. Input is specific tag name but * is generic (point out all the available tags in the DOM) we can use for any tag name.
 
 ![1713516197781](image/L19-L32Selenium_practice/1713516197781.png)
 
 ---
+
 Use of `contains()` in Xpath
 
 The contains() function is utilized in XPath to match elements that include partial text or attribute values. This approach is particularly useful when dealing with elements that have long or dynamic text.
@@ -476,18 +489,23 @@ The contains() function is utilized in XPath to match elements that include part
 Examples:
 
 > ***Using text():***
+>
 > - Syntax: `//*[contains(text(), 'testers')]`
 
 > **Using name attribute:**
+>
 > - Syntax: `//input[contains(@name, 'Mith')]`
 
 > **Using id attribute:**
+>
 > - Syntax: `//input[contains(@id, 'user-message')]`
 
 > **Using class attribute:**
+>
 > - Syntax: `//input[contains(@class, 'user-message')]`
 
 > **Using href attribute (similar to Partial-LinkText()):**
+>
 > - Syntax: `//a[contains(@href, 'testerszone.com')]`
 
 ---
@@ -500,8 +518,8 @@ Example: `//a[starts-with(@id, 'link-testers_')]`
 
 **Note:** inside the '' you have to mention the partial text value, make sure you are getting unique matching element with your xpath. Simillar way we have ends with also. We use end partial part of text.
 
-
 ---
+
 Logical Operators in XPath
 
 XPath supports logical operators such as `OR` and `AND` to combine multiple conditions:
@@ -509,11 +527,13 @@ XPath supports logical operators such as `OR` and `AND` to combine multiple cond
 `OR:` This operator is used when at least one of the conditions must be true. It helps in selecting elements that meet any of the specified criteria.
 
 Syntax:
+
 > Example: //*[@type='submit' or @name='btnReset']
 
 `AND:` This operator is used when all specified conditions must be true. It is useful for more specific element targeting.
 
 Syntax:
+
 > Example: //input[@type='submit' and @name='btnLogin']
 
 Note: sometime a single parameter in xpath does not yield a unique element then we follow these approaches.
@@ -561,10 +581,10 @@ Note: sometime a single parameter in xpath does not yield a unique element then 
 ```
 
 get the xPath
+
 ```xml
 //*[@id="sb_form_q"]
 ```
-
 
 ```java
 public class SeleniumTest {
@@ -625,14 +645,13 @@ void testSteps() throws InterruptedException {
 ```
 
 ***Is the test passed  / failed?***
+
 ```
 
 
 ```
 
 ---
-
-
 
 #### Creating a TestNg classs
 
@@ -644,7 +663,7 @@ import org.testng.annotations.Test;
 public class TesNGDemo {
     @Test
     public void f() {
-    
+  
     }
 }
 ```
@@ -653,25 +672,24 @@ public class TesNGDemo {
 
 Similaritites and difference annotation of JUnit and TestNG.
 
-
-|JUnit 4|	JUnit 5|	TestNG	|Description|
-|-------|----------|------------|-----------|
-|@Before|	@BeforeEach|	@BeforeMethod|	Executed before each test method.|
-|@After	|@AfterEach|	@AfterMethod|	Executed after each test method.|
-|@BeforeClass|	@BeforeAll|	@BeforeClass|	Executed once before all test methods in a class.|
-|@AfterClass|	@AfterAll|	@AfterClass|	Executed once after all test methods in a class.|
-|@Ignore|	@Disabled|	@Ignore|	Marks a test method as ignored/skipped.|
-|@Test|	@Test|	@Test|	Marks a method as a test method.|
-|@Test(expected)|	@Test with assertThrows|	@Test(expectedExceptions)|	Specifies that a test method should throw an exception.|
-|@RunWith|	@ExtendWith|	Not directly equivalent |	Used to customize the test execution (like using different runners or extensions). TestNG uses listeners and factories instead.|
-|N/A|	@DisplayName|	Not directly equivalent|	Provides a custom name for the test display.|
-|N/A|	@Nested	| Not directly equivalent|	Allows declaring nested test classes.|
-|N/A|	@Tag|	@Groups	|Allows filtering tests for selective execution.|
-|N/A|	N/A|	@DataProvider|	Provides data for parameterized tests.|
-|N/A|	N/A|	@Parameters|	Allows passing parameters from XML files.|
-|@Parameterized|	@ParameterizedTest|	@Test with @DataProvider|	For executing parameterized tests.|
-|@Rule|	@ExtendWith with custom extensions|	Not directly equivalent	| Allows adding or overriding test behavior.|
-|N/A|	@RepeatedTest|	Not directly equivalent	|Specifies that a test should be run multiple times.|
+| JUnit 4         | JUnit 5                            | TestNG                    | Description                                                                                                                     |
+| --------------- | ---------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| @Before         | @BeforeEach                        | @BeforeMethod             | Executed before each test method.                                                                                               |
+| @After          | @AfterEach                         | @AfterMethod              | Executed after each test method.                                                                                                |
+| @BeforeClass    | @BeforeAll                         | @BeforeClass              | Executed once before all test methods in a class.                                                                               |
+| @AfterClass     | @AfterAll                          | @AfterClass               | Executed once after all test methods in a class.                                                                                |
+| @Ignore         | @Disabled                          | @Ignore                   | Marks a test method as ignored/skipped.                                                                                         |
+| @Test           | @Test                              | @Test                     | Marks a method as a test method.                                                                                                |
+| @Test(expected) | @Test with assertThrows            | @Test(expectedExceptions) | Specifies that a test method should throw an exception.                                                                         |
+| @RunWith        | @ExtendWith                        | Not directly equivalent   | Used to customize the test execution (like using different runners or extensions). TestNG uses listeners and factories instead. |
+| N/A             | @DisplayName                       | Not directly equivalent   | Provides a custom name for the test display.                                                                                    |
+| N/A             | @Nested                            | Not directly equivalent   | Allows declaring nested test classes.                                                                                           |
+| N/A             | @Tag                               | @Groups                   | Allows filtering tests for selective execution.                                                                                 |
+| N/A             | N/A                                | @DataProvider             | Provides data for parameterized tests.                                                                                          |
+| N/A             | N/A                                | @Parameters               | Allows passing parameters from XML files.                                                                                       |
+| @Parameterized  | @ParameterizedTest                 | @Test with @DataProvider  | For executing parameterized tests.                                                                                              |
+| @Rule           | @ExtendWith with custom extensions | Not directly equivalent   | Allows adding or overriding test behavior.                                                                                      |
+| N/A             | @RepeatedTest                      | Not directly equivalent   | Specifies that a test should be run multiple times.                                                                             |
 
 ```java
 import org.openqa.selenium.WebDriver;
@@ -710,6 +728,7 @@ public class DemoTestNG {
 ```
 
 ---
+
 ##### Home
 
 For this homework, you are expected to delve into the practical usage of the ***TestNG*** framework within software testing. Begin by reading about ***TestNG*** to understand its key features and functionalities. Your primary task will be to ***not*** only study the theoretical aspects but to actively engage with the framework by setting up a real testing environment.
@@ -718,6 +737,7 @@ For this homework, you are expected to delve into the practical usage of the ***
 **Setup:** Adding testNG dependecies.
 **Experimentation:** Create at least one sample project that includes multiple test cases using TestNG annotations such as @Test, @BeforeClass, @AfterClass, @DataProvider, and others you find pertinent.
 **Documentation:**
+
 1. Write a comprehensive report that includes:
 2. Description of the test cases you developed, including the purpose of each test and how TestNG features were utilized.
 3. Screenshots of your IDE showing the test execution results.
@@ -727,7 +747,8 @@ For this homework, you are expected to delve into the practical usage of the ***
 ***Examples***
 In JUnit 5, you can control the execution order of test methods using the `@TestMethodOrder` annotation along with specific ordering methods.
 
-For the Junit code 
+For the Junit code
+
 ```java
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -758,6 +779,7 @@ public class OrderedTests {
 ```
 
 The TestNG code will be:
+
 ```java
 import org.testng.annotations.Test;
 
@@ -779,7 +801,9 @@ public class PrioritizedTests {
     }
 }
 ```
+
 ---
+
 ###### ... more
 
 ---
@@ -811,6 +835,7 @@ public class FactorialTest {
     }
 }
 ```
+
 ---
 
 ```java
@@ -835,7 +860,6 @@ public class TimeoutExampleJUnit {
 }
 ```
 
-
 ```java
 import org.testng.annotations.Test;
 
@@ -857,7 +881,6 @@ public class TimeoutExampleTestNG {
 ---
 
 ##### Usage of Selenium Select Class for Handling Dropdown Elements on a Web and other Webdrive elements
-
 
 ```html
 <!DOCTYPE html>
@@ -889,7 +912,7 @@ public class TimeoutExampleTestNG {
         <!-- Input Field -->
         <input type="text" id="nameInput" placeholder="Enter your name"/>
 
-        
+      
 
 		 <!-- Radio Buttons for Gender Selection -->
 		 <fieldset>
@@ -920,7 +943,6 @@ public class TimeoutExampleTestNG {
     </body>
 </html>
 ```
-
 
 ```java
 public class HandlingWebElementsTest {
@@ -1074,7 +1096,8 @@ Lab/code/frontend/index.tst.html
 </html>
 ```
 
-##### WebDriver Code using Selenium Select Class 
+##### WebDriver Code using Selenium Select Class
+
 Please take a note that, for script creation, we would be using “Learning_Selenium” project created in the former tutorial.
 
 **Step 1**: Create a new java class named as “HandlingDropDown” under the “Learning_Selenium” project.
@@ -1134,7 +1157,6 @@ public class HandlingDropDown {
     }
 }
 ```
-
 
 ---
 
@@ -1272,4 +1294,1600 @@ class TableHandlingTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+```
+
+
+
+
+
+#### Wait Commands
+
+Synchronization
+
+Waits
+
+```java
+public class WaitsDemo {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS); // implicit wait
+		
+		driver.get("http://newtours.demoaut.com/");
+		
+		//Thread.sleep(5000);
+		
+		driver.findElement(By.name("userName")).sendKeys("mercury");
+	}
+
+}
+```
+
+Threas.sleep(mili seconds)
+
+Implicit wait   -> Enter first and wait 5 seconds unlike the Thread.Sleep
+
+driver.manage().timeouts().implicityWait(5, TimeUnit.SECONDS)
+
+##### Explicit Wait -CONDITION BASED
+
+```java
+public class ExplicitwaitDemo {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		WebDriverWait mywait=new WebDriverWait(driver,10000);
+				
+		driver.get("http://newtours.demoaut.com/");
+				
+		WebElement username=mywait.until(ExpectedConditions.visibilityOfElementLocated(By.name("userName")));
+		username.sendKeys("mercury");
+		
+		
+		WebElement password=mywait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
+		password.sendKeys("mercury");
+		
+		
+
+	}
+
+}
+```
+
+
+Find out total links present in a web page:
+
+```java
+List <WebElement> links = driver.findElemennts(By.tagName("a"));
+System.out.println(links.size());
+
+// Reading all the Link from the Web page and Display their names
+for (WebElements  e: links) {
+    System.out.println(e.getText());
+}
+```
+
+---
+case1: locator matches multiple elements, findElement() ----> this can be located single element
+case2: locator mathces multiple elements, findElements() --> this can be located multiple elements
+case3: locator matches single elemetn, findElements() ---> this can be located single element
+
+Difference between findElement() & findElements()
+
+
+---
+
+Alerts/popus (switch between alerts)
+
+https://testautomationpractice.blogspot.com/
+https://mail.rediff.com/cgi-bin/login.cgi
+
+driver.switchTo().alert().accept();//closes popup by using OK button
+driver.switchTo().alert().dismiss();//closes popup by using Cancel button
+
+```java
+
+public class AlertsDemo {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("https://testautomationpractice.blogspot.com/");
+		
+		driver.manage().window().maximize();// maximize the page
+		
+		driver.findElement(By.xpath("//*[@id=\"HTML9\"]/div[1]/button")).click(); //ClickMe button
+		
+		Thread.sleep(5000);
+		
+		//driver.switchTo().alert().accept();//closes popup by using OK button
+		driver.switchTo().alert().dismiss();//closes popup by using Cancel button
+		
+	}
+
+}
+```
+
+
+---
+
+Frames/iFrames(switch between frames)
+------------------------------------
+https://seleniumhq.github.io/selenium/docs/api/java/index.html
+
+
+driver.switchTo().frame(name)
+driver.switchTo().frame(index)
+driver.switchTo().frame(WebElement)
+
+driver.switchTo().defaultContent();
+
+packageListFrame
+packageFrame
+classFrame
+
+driver.switchTo().frame(0);
+
+```java
+public class FramesDemo {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("https://seleniumhq.github.io/selenium/docs/api/java/index.html");
+		
+		driver.manage().window().maximize();
+				
+		driver.switchTo().frame("packageListFrame");
+		driver.findElement(By.linkText("org.openqa.selenium")).click(); //1 frame 
+		
+		driver.switchTo().defaultContent(); // go back to page/focus on the page
+		
+		driver.switchTo().frame("packageFrame");
+		driver.findElement(By.linkText("WebDriver")).click(); //2 frame
+		
+		driver.switchTo().defaultContent(); // go back to page/focus on the page
+		
+		driver.switchTo().frame("classFrame");
+		driver.findElement(By.xpath("/html/body/div[1]/ul/li[5]")).click(); // 3rd frame
+	}
+
+}
+```
+
+---
+
+##### NestedIframe
+
+```java
+public class NestedIframe {
+
+	public static void main(String[] args) {
+	
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("http://demo.automationtesting.in/Frames.html");
+		
+		driver.findElement(By.xpath("/html/body/section/div[1]/div/div/div/div[1]/div/ul/li[2]/a")).click();//button
+		
+		WebElement outerframe=driver.findElement(By.xpath("//*[@id=\"Multiple\"]/iframe"));
+		driver.switchTo().frame(outerframe);//swicth to outer frame
+		
+		
+		WebElement innerframe=driver.findElement(By.xpath("/html/body/section/div/div/iframe"));
+		driver.switchTo().frame(innerframe);
+		
+		
+		driver.findElement(By.xpath("/html/body/section/div/div/div/input")).sendKeys("Testing");
+		
+
+	}
+
+}
+```
+
+
+```java
+public class NestedIframe {
+
+	public static void main(String[] args) {
+	
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("http://demo.automationtesting.in/Frames.html");
+		
+		driver.findElement(By.xpath("/html/body/section/div[1]/div/div/div/div[1]/div/ul/li[2]/a")).click();//button
+		
+		WebElement outerframe=driver.findElement(By.xpath("//*[@id=\"Multiple\"]/iframe"));
+		driver.switchTo().frame(outerframe);//swicth to outer frame
+		
+		
+		WebElement innerframe=driver.findElement(By.xpath("/html/body/section/div/div/iframe"));
+		driver.switchTo().frame(innerframe);
+		
+		
+		driver.findElement(By.xpath("/html/body/section/div/div/div/input")).sendKeys("Testing");
+		
+
+	}
+
+}
+```
+
+
+
+###### Class Activity
+
+
+--answer-- 
+```java
+public class Wikipedia {
+
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("https://testautomationpractice.blogspot.com/");
+		
+		driver.findElement(By.id("Wikipedia1_wikipedia-search-input")).sendKeys("Selenium");
+		
+		driver.findElement(By.className("wikipedia-search-button")).click();
+		
+		Thread.sleep(3000);
+		
+		List <WebElement>search_results=driver.findElements(By.xpath("//*[@id='wikipedia-search-result-link']/a"));
+				
+		System.out.println(search_results.size());
+		
+		for(WebElement e:search_results)
+		{
+		String link=e.getText();
+		driver.findElement(By.linkText(link)).click();
+		}
+		
+		driver.quit();
+		
+	}
+
+}
+```
+
+
+---
+
+##### Handle Windows
+
+```java
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HandleWindows {
+
+	public static void main(String[] args) {
+	
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("http://demo.automationtesting.in/Windows.html");
+		
+		//String handleValue=driver.getWindowHandle();
+		//System.out.println(handleValue); //CDwindow-45FEE686DED3D844347AB3AC2E7F5E41
+		
+		driver.findElement(By.xpath("//*[@id=\"Tabbed\"]/a/button")).click();
+		
+		Set <String> handlevalues=driver.getWindowHandles();
+		
+		for(String h:handlevalues)
+		{
+			//System.out.println(h);
+			String title=driver.switchTo().window(h).getTitle();
+			//System.out.println(title);
+			
+			if(title.equals("Sakinalium | Home") )
+			{
+				driver.findElement(By.xpath("//*[@id=\"container\"]/header/div/div/div[2]/ul/li[4]/a")).click(); //contact menu
+			}
+		}
+	
+	}
+
+}
+```
+
+
+---
+
+
+###### Date Picker
+```java
+import java.util.Calendar;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DatePicker {
+
+	public static WebDriver driver;
+	
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		driver=new ChromeDriver();
+		
+		driver.get("https://goo.gl/RVdKM9");
+		
+		driver.manage().window().maximize();
+		
+		//String year="2018";
+		String month="June";
+		String date="25";
+		
+		driver.findElement(By.xpath("//*[@id=\"q20\"]/img")).click();//Click on date picker element
+		
+		//selectCurrentDate();
+		//selectFutureDate(date,month);
+		selectPastDate(date,month);
+	}
+
+	
+	static void selectCurrentDate()
+	{
+		Calendar cal=Calendar.getInstance();
+		
+		int d=cal.get(Calendar.DATE); // return the current date in int format
+		String date=String.valueOf(d); //convert int to string
+		
+		driver.findElement(By.linkText(date)).click();
+	}
+	
+		
+	static void selectFutureDate(String d,String m)
+	{
+		
+		Calendar cal=Calendar.getInstance();
+		
+		int currentmonth=cal.get(Calendar.MONTH)+1; // return the current date in int format
+		
+		for(int i=currentmonth;i>=1;i++)
+		{
+			
+			driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/a[2]/span")).click();//Next arrow
+			
+			String mon=driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/div/span")).getText();
+			
+			if(mon.equals(m))
+			{
+				driver.findElement(By.linkText(d)).click();
+				break;
+			}
+		}
+	}
+	
+	
+	static void selectPastDate(String d,String m)
+	{
+		
+		Calendar cal=Calendar.getInstance();
+		
+		int currentmonth=cal.get(Calendar.MONTH)+1; // return the current date in int format
+		
+		for(int i=currentmonth;i>=1;i--)
+		{
+			
+			driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/a[1]/span")).click();//Prev arrow
+			
+			String mon=driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/div/span")).getText();
+			
+			if(mon.equals(m))
+			{
+				driver.findElement(By.linkText(d)).click();
+				break;
+			}
+		}
+	}
+	
+	
+}
+```
+
+
+---
+
+
+WebTable
+
+```java
+public class Webtable1 {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("file:///C:/SeleniumPractice/sample.html");
+		
+		//int rows=driver.findElements(By.tagName("tr")).size();
+		
+		int rows=driver.findElements(By.xpath("/html/body/table/tbody/tr")).size();
+		System.out.println(rows);
+				
+		int columns=driver.findElements(By.xpath("/html/body/table/tbody/tr[1]/th")).size();
+		System.out.println(columns);
+		
+		System.out.println("Product"+"    "+"Article"+"    "+"Price");
+		
+		for(int r=2;r<=rows;r++)
+		{
+			for(int c=1;c<=columns;c++)
+			{
+				
+	String value=driver.findElement(By.xpath("/html/body/table/tbody/tr["+r+"]/td["+c+"]")).getText();
+				System.out.print(value+"    ");
+				
+			}
+			System.out.println();
+		}
+		
+	}
+}
+```
+
+---
+
+```java
+public class WebTable2 {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("https://opensource-demo.orangehrmlive.com/");
+		
+		driver.manage().window().maximize();
+		
+		//login
+		
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("admin123");
+		driver.findElement(By.id("btnLogin")).click();
+		
+		Thread.sleep(3000);
+		
+		//Admin-->Usermanagement-->Users
+		
+		driver.findElement(By.xpath("//*[@id=\"menu_admin_viewAdminModule\"]")).click();
+		driver.findElement(By.xpath("//*[@id=\"menu_admin_UserManagement\"]")).click();
+		driver.findElement(By.xpath("//*[@id=\"menu_admin_viewSystemUsers\"]")).click();
+		
+		//Table
+		
+		int rows=driver.findElements(By.xpath("//*[@id='resultTable']/tbody/tr")).size();
+		System.out.println(rows);
+		
+		int count=0;
+		
+		for(int r=1;r<=rows;r++)
+		{
+	String status=driver.findElement(By.xpath("//*[@id=\"resultTable\"]/tbody/tr["+r+"]/td[5]")).getText();
+			
+			if(status.equals("Enabled"))
+			{
+				count++; //1 2 3........
+			}		
+		}
+		
+		System.out.println("Number of enabled employees:"+ count);
+		System.out.println("Number of disabled employees:"+ (rows-count));
+		
+		driver.quit();
+	}
+}
+```
+
+---
+
+webpagination 
+
+```java
+public class WebTable3_Pagination {
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+		driver.get("http://www.seleniumeasy.com/test/table-pagination-demo.html");
+		
+		driver.manage().window().maximize();
+		
+		Thread.sleep(3000);
+		
+		WebElement Paging_Element=driver.findElement(By.xpath("//*[@id=\"myPager\"]"));
+		
+		
+		List <WebElement> sub_links=Paging_Element.findElements(By.tagName("a"));
+		
+		System.out.println("Total number of paging links:"+ sub_links.size());
+		
+		if(sub_links.size()>0)
+		{
+			System.out.println("Links are present");
+			
+			for(int i=1;i<sub_links.size()-1;i++)
+			{
+				WebElement link=driver.findElement(By.xpath("//a[contains(text(),'"+i+"')]"));
+							
+				link.click();
+				
+				Thread.sleep(3000);
+				
+				int rows=driver.findElements(By.xpath("//*[@id=\"myTable\"]/tr")).size();
+				
+				for(int r=1;r<=rows;r++)
+				{
+					
+					String col1=driver.findElement(By.xpath("//*[@id=\"myTable\"]/tr["+r+"]/td[1]")).getText();
+					String col2=driver.findElement(By.xpath("//*[@id=\"myTable\"]/tr["+r+"]/td[2]")).getText();
+					String col3=driver.findElement(By.xpath("//*[@id=\"myTable\"]/tr["+r+"]/td[3]")).getText();
+					String col4=driver.findElement(By.xpath("//*[@id=\"myTable\"]/tr["+r+"]/td[4]")).getText();
+					String col5=driver.findElement(By.xpath("//*[@id=\"myTable\"]/tr["+r+"]/td[5]")).getText();
+					String col6=driver.findElement(By.xpath("//*[@id=\"myTable\"]/tr["+r+"]/td[6]")).getText();
+					String col7=driver.findElement(By.xpath("//*[@id=\"myTable\"]/tr["+r+"]/td[7]")).getText();
+					
+					System.out.println(col1+"  "+col2+"  "+col3+"  "+col4+"  "+col5+"  "+col6+"  "+col7);
+				}
+			}
+			
+		}
+		
+		else
+		{
+			System.out.println("Links not Present");
+		}
+	}
+
+}
+```
+
+
+***Check Day15 Files***
+
+
+```java
+public class DoubleClickDemo2 {
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("http://api.jquery.com/dblclick/");
+		
+		driver.manage().window().maximize();
+		
+		driver.switchTo().frame(0); //switch to frame
+		
+		WebElement ele=driver.findElement(By.xpath("/html/body/div"));
+		
+		Thread.sleep(5000);
+		
+		Actions act=new Actions(driver);
+		
+		act.doubleClick(ele).build().perform(); // Double click on element
+		
+		Thread.sleep(3000);
+		
+		act.doubleClick(ele).build().perform(); // Double click on element
+		
+		Thread.sleep(3000);
+		
+		act.doubleClick(ele).build().perform(); // Double click on element	
+	}
+}
+```
+
+---
+
+###### Drag and Drop
+
+```java
+public class DragAndDrop {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("http://www.dhtmlgoodies.com/scripts/drag-drop-custom/demo-drag-drop-3.html");
+		
+		driver.manage().window().maximize();
+		
+		WebElement source_element=driver.findElement(By.id("box6")); //Italy - source element
+		
+		WebElement target_element=driver.findElement(By.id("box106"));//Rome -target element
+		
+		Actions act=new Actions(driver);
+		
+		Thread.sleep(5000);
+		
+		act.dragAndDrop(source_element, target_element).build().perform(); //Drag and drop
+
+	}
+
+}
+```
+
+---
+
+
+###### KeyboardActions
+
+```java
+public class KeyboardActions {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("http://the-internet.herokuapp.com/key_presses");
+		
+		driver.manage().window().maximize();
+		
+		Thread.sleep(5000);
+		
+		Actions act=new Actions(driver);
+		
+		act.sendKeys(Keys.ENTER).build().perform();
+		
+		Thread.sleep(3000);
+
+		act.sendKeys(Keys.ESCAPE).build().perform();
+		
+		Thread.sleep(3000);
+		
+		act.sendKeys(Keys.SPACE).build().perform();
+		
+		Thread.sleep(3000);
+		
+		act.sendKeys(Keys.DELETE).build().perform();
+	}
+
+}
+```
+
+
+---
+
+
+###### MouseHover
+
+```java
+public class MouseHover {
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("https://opensource-demo.orangehrmlive.com/");
+		
+		driver.manage().window().maximize();
+		
+		//login
+		
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("admin123");
+		driver.findElement(By.id("btnLogin")).click();
+		
+		Thread.sleep(3000);
+		
+		//Admin-->Usermanagement-->Users
+		
+		WebElement admin=driver.findElement(By.xpath("//*[@id=\"menu_admin_viewAdminModule\"]"));
+		WebElement usermgnt=driver.findElement(By.xpath("//*[@id=\"menu_admin_UserManagement\"]"));
+		WebElement users=driver.findElement(By.xpath("//*[@id=\"menu_admin_viewSystemUsers\"]"));
+		
+		Actions act=new Actions(driver);
+		
+		
+		act.moveToElement(admin).moveToElement(usermgnt).moveToElement(users).click().build().perform();
+		
+		
+
+	}
+
+}
+```
+
+---
+
+
+###### MultipleKeyPressDemo
+
+```java
+public class MultipleKeyPressDemo {
+
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver_win32/chromedriver.exe");
+    	WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("http://newtours.demoaut.com/");
+
+		driver.manage().window().maximize();
+		
+		Thread.sleep(5000);
+		
+		Actions act=new Actions(driver);
+		
+		act.sendKeys(Keys.CONTROL+"a").build().perform();
+
+	}
+
+}
+```
+
+
+---
+
+###### ResizingDemo
+
+```java
+public class ResizingDemo {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+		driver.get("https://jqueryui.com/resizable/");
+		
+		driver.manage().window().maximize();
+		
+		driver.switchTo().frame(0); //switch to frame
+		
+		WebElement element=driver.findElement(By.xpath("//*[@id=\"resizable\"]/div[3]"));
+		
+		Thread.sleep(3000);
+		
+		Actions act=new Actions(driver);
+		
+		act.moveToElement(element).dragAndDropBy(element,200, 150).build().perform(); //resizing
+		
+	}
+
+}
+```
+
+---
+
+###### RightClickDemo
+
+```java
+public class RightClickDemo {
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
+		
+		driver.manage().window().maximize();
+		
+		Actions act=new Actions(driver);
+		
+		WebElement button=driver.findElement(By.xpath("/html/body/div/section/div/div/div/p/span"));
+
+		act.contextClick(button).build().perform(); //Right click on button
+		
+			
+		driver.findElement(By.xpath("/html/body/ul/li[3]/span")).click();
+		
+		Thread.sleep(5000);
+		
+		Alert alert=driver.switchTo().alert();
+		
+		System.out.println("Text present on alert window is:" +alert.getText());
+		alert.accept(); // this closes alert window
+		
+	}
+
+}
+```
+
+
+
+---
+
+###### ScrollingDemo
+
+```java
+public class ScrollingDemo {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("https://www.countries-ofthe-world.com/flags-of-the-world.html");
+		
+		driver.manage().window().maximize();
+		
+		Thread.sleep(5000);
+		
+		
+		//Create JavascriptExecor variable
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		
+		//Approach1 - number of pixels
+			//	js.executeScript("window.scrollBy(0,2000)","");
+		
+		//Approach2 - till we found certain element on the web page
+		
+			//WebElement flag=driver.findElement(By.xpath("//*[@id=\"content\"]/div[2]/div[2]/table[1]/tbody/tr[86]/td[1]/img"));
+			//js.executeScript("arguments[0].scrollIntoView();",flag);
+		
+		//Appraoch3 - till end of the page
+		
+			js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+		
+	}
+
+}
+```
+
+
+---
+
+###### SliderDemo
+
+```java
+public class SliderDemo {
+
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(); 
+		
+		driver.get("https://jqueryui.com/slider/");
+		
+		driver.manage().window().maximize();
+		
+		driver.switchTo().frame(0);
+		
+		WebElement slider=driver.findElement(By.xpath("//*[@id=\"slider\"]/span"));
+		
+		Thread.sleep(3000);
+		
+		Actions act=new Actions(driver);
+		
+		act.moveToElement(slider).dragAndDropBy(slider,400, 0).build().perform(); //moving the slider
+
+	}
+
+}
+```
+
+
+---
+
+###### TooltipDemo
+
+```java
+public class TooltipDemo {
+
+	public static void main(String[] args) {
+	
+		System.setProperty("webdriver.chrome.driver", "C://Drivers//chromedriver_win32//chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("https://jqueryui.com/tooltip/");
+		
+		driver.manage().window().maximize();
+		
+		driver.switchTo().frame(0);
+		
+		WebElement agebox=driver.findElement(By.id("age"));
+		String tooltiptext=agebox.getAttribute("title");
+		
+		System.out.println(tooltiptext);
+		
+		if(tooltiptext.equals("We ask for your age only for statistical purposes."))
+		{
+			System.out.println("Tooltip test passed");
+		}
+		else
+		{
+			System.out.println("Tooltip test failed");
+		}
+		
+		
+	}
+
+}
+```
+
+
+---
+
+##### Data Driver Testing (DDT) Using csv format (excel)
+
+Agenda
+
+- Read data from CSV
+- Write data into CSV
+- Data Driven Testing
+
+
+---
+
+Apache POI API
+
+```java
+public class XLUtils {
+	
+	public static FileInputStream fi;
+	public static FileOutputStream fo;
+	public static XSSFWorkbook wb;
+	public static XSSFSheet ws;
+	public static XSSFRow row;
+	public static XSSFCell cell;
+
+	
+	public static void setExcelFile(String xlfile,String xlsheet) throws Exception {
+		 
+			try {
+
+   			FileInputStream ExcelFile = new FileInputStream(xlfile);
+			wb = new XSSFWorkbook(ExcelFile);
+			ws = wb.getSheet(xlsheet);
+			} catch (Exception e){
+				throw (e);
+			}
+	}
+
+	public static int getRowCount(String xlfile,String xlsheet) throws IOException 
+	{
+		fi=new FileInputStream(xlfile);
+		wb=new XSSFWorkbook(fi);
+		ws=wb.getSheet(xlsheet);
+		int rowcount=ws.getLastRowNum();
+		wb.close();
+		fi.close();
+		return rowcount;		
+	}
+	
+	
+	public static int getCellCount(String xlfile,String xlsheet,int rownum) throws IOException
+	{
+		fi=new FileInputStream(xlfile);
+		wb=new XSSFWorkbook(fi);
+		ws=wb.getSheet(xlsheet);
+		row=ws.getRow(rownum);
+		int cellcount=row.getLastCellNum();
+		wb.close();
+		fi.close();
+		return cellcount;
+	}
+	
+	
+	public static String getCellData(String xlfile,String xlsheet,int rownum,int colnum) throws IOException
+	{
+		fi=new FileInputStream(xlfile);
+		wb=new XSSFWorkbook(fi);
+		ws=wb.getSheet(xlsheet);
+		row=ws.getRow(rownum);
+		cell=row.getCell(colnum);
+		String data;
+		try 
+		{
+			DataFormatter formatter = new DataFormatter();
+            String cellData = formatter.formatCellValue(cell);
+            return cellData;
+		}
+		catch (Exception e) 
+		{
+			data="";
+		}
+		wb.close();
+		fi.close();
+		return data;
+	}
+	
+	public static void setCellData(String xlfile,String xlsheet,int rownum,int colnum,String data) throws IOException
+	{
+		fi=new FileInputStream(xlfile);
+		wb=new XSSFWorkbook(fi);
+		ws=wb.getSheet(xlsheet);
+		row=ws.getRow(rownum);
+		cell=row.createCell(colnum);
+		cell.setCellValue(data);
+		fo=new FileOutputStream(xlfile);
+		wb.write(fo);		
+		wb.close();
+		fi.close();
+		fo.close();
+	}
+	
+	
+}
+```
+
+---
+
+
+```java
+public class ReadingExcel {
+
+	public static void main(String[] args) throws IOException {
+		
+		FileInputStream file=new FileInputStream("C://SeleniumPractice/data3.xlsx");
+		
+		XSSFWorkbook workbook=new XSSFWorkbook(file);
+		
+		XSSFSheet sheet=workbook.getSheet("Sheet1");
+		
+		//Counting rows
+		int rownum=sheet.getLastRowNum();// retuns number of rows
+		int colcount=sheet.getRow(0).getLastCellNum(); // returns number of cells present in a row
+		
+		System.out.println(rownum);
+		System.out.println(colcount);
+		
+		for(int r=0;r<=rownum;r++)
+		{
+			
+			XSSFRow row=sheet.getRow(r);
+			
+			for(int c=0;c<colcount;c++)
+			{
+				//XSSFCell cell=row.getCell(c);
+				// value=cell.toString();
+				String value=row.getCell(c).toString();
+				System.out.print(value+"   ");
+			}
+			
+			System.out.println();
+			
+		}
+		
+
+	}
+
+}
+```
+
+---
+
+```java
+public class WritingExcel {
+
+	public static void main(String[] args) throws IOException {
+		
+		FileOutputStream file=new FileOutputStream("C://SeleniumPractice/testdata123.xlsx");
+
+		XSSFWorkbook workbook=new XSSFWorkbook();
+		
+		XSSFSheet sheet=workbook.createSheet("data");
+		
+		for(int i=0;i<=5;i++)
+		{
+			XSSFRow row=sheet.createRow(i);
+			
+			for(int j=0;j<3;j++)
+			{
+				row.createCell(j).setCellValue("welcome");
+			}
+		}
+		
+		workbook.write(file);
+		
+		System.out.println("Writing excel is completed");
+		
+	}
+
+}
+```
+
+
+---
+
+```java
+public class UserRegistration {
+
+	public static void main(String[] args) throws Exception {
+		
+		System.setProperty("webdriver.gecko.driver","C://Drivers/geckodriver-v0.19.1-win64/geckodriver.exe");
+		WebDriver driver=new FirefoxDriver(); /// opens the browser
+		
+		driver.get("http://newtours.demoaut.com/mercuryregister.php");
+		
+		String path="C://SeleniumPractice/Registration.xlsx";
+		
+		XLUtils.setExcelFile(path,"Sheet1");
+		
+		int noofrows=XLUtils.getRowCount(path, "Sheet1");
+		
+		for(int row=1;row<=noofrows;row++)
+		{
+			String First_name=XLUtils.getCellData(path, "Sheet1", row, 0);
+			String Last_name= XLUtils.getCellData(path, "Sheet1", row, 1);
+			String phone=XLUtils.getCellData(path, "Sheet1", row, 2);
+			String email=XLUtils.getCellData(path, "Sheet1", row, 3);
+			String address=XLUtils.getCellData(path, "Sheet1", row, 4);
+			String city=XLUtils.getCellData(path, "Sheet1", row, 5);
+			String state=XLUtils.getCellData(path, "Sheet1", row, 6);
+			String pincode=XLUtils.getCellData(path, "Sheet1", row, 7);
+			String country=XLUtils.getCellData(path, "Sheet1", row, 8);
+			String username=XLUtils.getCellData(path, "Sheet1", row, 9);
+			String password=XLUtils.getCellData(path, "Sheet1", row, 10);
+						
+			driver.findElement(By.linkText("REGISTER")).click();
+					
+			//registration process start
+			driver.findElement(By.linkText("REGISTER")).click();
+			
+			//contact information
+			driver.findElement(By.name("firstName")).sendKeys(First_name);
+			driver.findElement(By.name("lastName")).sendKeys(Last_name);
+			driver.findElement(By.name("phone")).sendKeys(phone);
+			driver.findElement(By.name("userName")).sendKeys(email);
+						
+			//mailing information
+			driver.findElement(By.name("address1")).sendKeys(address);
+			driver.findElement(By.name("address2")).sendKeys(address);
+			driver.findElement(By.name("city")).sendKeys(city);
+			driver.findElement(By.name("state")).sendKeys(state);
+			driver.findElement(By.name("postalCode")).sendKeys(pincode);
+			Select dropcountry=new Select(driver.findElement(By.name("country")));
+			dropcountry.selectByVisibleText(country);
+			
+			//user information
+			driver.findElement(By.name("email")).sendKeys(username);
+			driver.findElement(By.name("password")).sendKeys(password);
+			driver.findElement(By.name("confirmPassword")).sendKeys(password);
+			
+			driver.findElement(By.name("register")).click(); //submit
+			
+			Thread.sleep(2000);
+			
+			//validation
+			
+			if (driver.getPageSource().contains("Thank you for registering")) {
+				System.out.println(" Registration Completed for  " + row + " record");
+
+			}
+
+			else
+			{
+				System.out.println(" Registration Failed for " + row + " record");
+
+			}
+			
+			
+		}
+		
+	
+	
+	
+	}
+
+}
+```
+
+
+---
+
+
+```java
+public class FixedDepositCalculator {
+
+	public static void main(String[] args) throws Exception {
+		
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("https://www.moneycontrol.com/fixed-income/calculator/state-bank-of-india-sbi/fixed-deposit-calculator-SBI-BSB001.html");
+
+		driver.manage().window().maximize();
+		
+		String path="C://SeleniumPractice/caldata.xlsx";
+		
+		XLUtils.setExcelFile(path, "Sheet1");
+		
+		int rowcount=XLUtils.getRowCount(path, "Sheet1");
+		
+		
+		for(int i=1;i<=rowcount;i++)
+		{
+			
+			int princ=Integer.parseInt(XLUtils.getCellData(path, "Sheet1", i, 0));
+			int rateofinterest= Integer.parseInt(XLUtils.getCellData(path,"Sheet1",i, 1));
+			int per= Integer.parseInt(XLUtils.getCellData(path,"Sheet1",i, 2));
+			String fre=XLUtils.getCellData(path, "Sheet1", i,3);
+			double exp_mvalue=Double.parseDouble(XLUtils.getCellData(path,"Sheet1",i,4));
+			
+			driver.findElement(By.id("principal")).sendKeys(String.valueOf(princ));
+			driver.findElement(By.id("interest")).sendKeys(String.valueOf(rateofinterest));
+			driver.findElement(By.id("tenure")).sendKeys(String.valueOf(per));
+			
+			Select perioddrp=new Select(driver.findElement(By.id("tenurePeriod")));
+			perioddrp.selectByVisibleText("year(s)");
+			
+			Select frequency=new Select(driver.findElement(By.id("frequency")));
+			frequency.selectByVisibleText(fre);
+			
+			driver.findElement(By.xpath("//*[@id='fdMatVal']/div[2]/a[1]/img")).click();
+			
+			String act_mvalue=driver.findElement(By.xpath("//*[@id='resp_matval']/strong")).getText();
+			
+			if(exp_mvalue==Double.parseDouble(act_mvalue))
+			{
+				System.out.println("test passed");
+			}
+			else
+			{
+				System.out.println("test failed");
+			}
+			
+			driver.findElement(By.xpath("//*[@id='fdMatVal']/div[2]/a[2]/img")).click(); // clear button
+			
+			Thread.sleep(3000);
+		}
+		
+	}
+
+}
+```
+
+
+---
+
+
+### Hands on Practice
+
+
+
+---
+
+---
+
+```java
+public class AutomationTestingPracticeForm {
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+	    
+		driver.get("https://testautomationpractice.blogspot.com/");
+	    
+	    driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+	    
+	    driver.switchTo().frame(0);//Switch to frame
+	   
+	    driver.manage().window().maximize();
+	    driver.findElement(By.xpath("//*[@id='RESULT_TextField-1']")).sendKeys("Oliver");//Enter FirstName
+	    driver.findElement(By.xpath("//*[@id='RESULT_TextField-2']")).sendKeys("Twist");//Enter LName
+	    driver.findElement(By.id("RESULT_TextField-3")).sendKeys("12345678");//Enter Phone Number
+	    driver.findElement(By.id("RESULT_TextField-4")).sendKeys("Canada");//Enter Country
+	    driver.findElement(By.id("RESULT_TextField-5")).sendKeys("Toronto");//Enter City
+	    driver.findElement(By.id("RESULT_TextField-6")).sendKeys("Oliver@gmail.com");//Enter Email
+	    
+	    Select Options = new Select(driver.findElement(By.id("RESULT_RadioButton-7")));//Select dropdown
+	   
+	    List <WebElement> list = Options.getOptions();//Print all options
+	    	for(WebElement e:list) {
+	    		System.out.println(e.getText());
+		   
+	    	}
+	    System.out.println(Options.getOptions().size());// Get the number of options of dropdown
+	    Options.selectByVisibleText("Morning"); // Select an option 
+	    
+   	    driver.findElement(By.id("RESULT_RadioButton-8_1")).click();//Select Gender Radio button 
+	        	    
+	    driver.findElement(By.xpath("//*[@id='RESULT_CheckBox-9_2']")).click();//Select Check box
+	    driver.findElement(By.xpath("//*[@id='RESULT_CheckBox-9_4']")).click();// Select another Check box
+	   
+	    driver.switchTo().defaultContent(); //Here You have to come out of first frame to continue rest of the elements
+	    
+	  	    
+		driver.findElement(By.xpath("//div[@id='HTML4']/div/div/fieldset/label[3]/span")).click();//Radio button, Location => London
+		
+		driver.findElement(By.xpath("//*[@id=\"HTML4\"]/div[1]/div/fieldset[2]/label[4]/span[1]")).click(); //Check box Hotel Ratings: 5 star
+		
+		driver.findElement(By.xpath("//*[@id=\"HTML4\"]/div[1]/div/fieldset[3]/label[4]/span[1]")).click(); //Check box Bed Type=> King
+		
+		
+		//Tool Tip Capture
+		
+		String tooltip1=driver.findElement(By.xpath("//*[@id=\"HTML8\"]/div[1]/p[1]/a")).getAttribute("title");
+		System.out.println(tooltip1);
+		
+		String tooltip2=driver.findElement(By.xpath("//*[@id=\"HTML8\"]/div[1]/p[2]/a")).getAttribute("title");
+		System.out.println(tooltip2);
+		
+		//Alert
+		
+		driver.findElement(By.xpath("//*[@id=\"HTML9\"]/div[1]/button")).click();
+		driver.switchTo().alert().accept(); //close alert by using OK button
+		//driver.switchTo().alert().dismiss(); //close alert by using cancel button
+		
+		
+		//Date Picker - Current Date
+		driver.findElement(By.id("datepicker")).click();
+		driver.findElement(By.linkText("19")).click();
+		
+				
+		//Select menu
+			
+			//Select class wont work here
+			//Select speed=new Select(driver.findElement(By.id("speed")));
+			//speed.selectByVisibleText("Fast");
+		
+		driver.findElement(By.xpath("//*[@id=\"speed-button\"]/span[1]")).click(); //Click on Combo =>Select a speed
+		driver.findElement(By.xpath("//*[@id=\"ui-id-4\"]")).click(); //Click on Fast option
+				
+		driver.findElement(By.xpath("//*[@id=\"files-button\"]/span[1]")).click(); //click on Combo => Select a file
+		driver.findElement(By.xpath("//*[@id=\"ui-id-8\"]")).click(); //click on option 'Doc file'
+		
+		driver.findElement(By.xpath("//*[@id=\"number-button\"]/span[1]")).click();//Click on combo => Select a number
+		driver.findElement(By.xpath("//*[@id=\"ui-id-14\"]")).click(); //click on option 5
+		
+		//HTML Table
+		
+		int rows=driver.findElements(By.xpath("//*[@id=\"HTML1\"]/div[1]/table/tbody/tr")).size();
+		
+		System.out.println("BookName"+"       "+"Author"+"       "+"Subject"+"      "+"Price"); //Header
+		System.out.println("-------------------------------------------"); //Header
+		
+		for(int r=2;r<=rows;r++)
+		{
+			String bookname=driver.findElement(By.xpath("//*[@id=\"HTML1\"]/div[1]/table/tbody/tr["+r+"]/td[1]")).getText(); //Book Name
+			String author=driver.findElement(By.xpath("//*[@id=\"HTML1\"]/div[1]/table/tbody/tr["+r+"]/td[2]")).getText(); //Book Name
+			String subject=driver.findElement(By.xpath("//*[@id=\"HTML1\"]/div[1]/table/tbody/tr["+r+"]/td[3]")).getText(); //Book Name
+			String price=driver.findElement(By.xpath("//*[@id=\"HTML1\"]/div[1]/table/tbody/tr["+r+"]/td[4]")).getText(); //Book Price
+			System.out.println(bookname+"     "+author+"        "+subject+"      "+price);
+		}
+		
+	 //Drag and Drop	
+		
+		WebElement source=driver.findElement(By.xpath("//*[@id=\"draggable\"]"));
+		WebElement target=driver.findElement(By.xpath("//*[@id=\"droppable\"]"));
+		
+		Actions act=new Actions(driver);
+		act.dragAndDrop(source, target).build().perform();;
+	
+	//Resizable
+	
+		WebElement resize=driver.findElement(By.xpath("//*[@id=\"resizable\"]/div[3]"));
+		act.dragAndDropBy(resize, 300, 300).build().perform();
+	
+	//Slider
+		WebElement slider=driver.findElement(By.xpath("//*[@id=\"slider\"]/span"));
+		act.dragAndDropBy(slider, 400, 0).build().perform();
+		
+	}
+	
+}
+```
+
+
+---
+
+---
+
+```java
+public class DownloadFilesusingchrome {
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		
+		//download files in required location using chrome
+		
+		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+
+		chromePrefs.put("profile.default_content_settings.popups", 0);
+		chromePrefs.put("download.prompt_for_download", "false");
+		chromePrefs.put("download.default_directory","C:\\Downloadedfiles"); //configure path
+
+		ChromeOptions options = new ChromeOptions();
+		options.setExperimentalOption("prefs", chromePrefs);
+
+		DesiredCapabilities cap = DesiredCapabilities.chrome();
+		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		cap.setCapability(ChromeOptions.CAPABILITY, options);  // end of code
+		
+			
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver(cap);
+		
+		driver.get("http://demo.automationtesting.in/FileDownload.html");
+		
+		driver.manage().window().maximize();
+		
+		//download text file
+		driver.findElement(By.id("textbox")).sendKeys("testing txt file download");
+		driver.findElement(By.id("createTxt")).click();
+		driver.findElement(By.id("link-to-download")).click();
+		
+		Thread.sleep(5000);
+		
+		if(isFileExist("C://Downloadedfiles/info.txt"))
+		{
+			System.out.println(" file exists");
+		}
+		else
+		{
+			System.out.println("file not exists");
+		}
+		
+		//download pdf file
+		driver.findElement(By.id("pdfbox")).sendKeys("testing pdf downlaod");
+		driver.findElement(By.id("createPdf")).click();
+		driver.findElement(By.id("pdf-link-to-download")).click();
+		
+		Thread.sleep(5000);
+		
+		if(isFileExist("C://Downloadedfiles/info.pdf"))
+		{
+			System.out.println(" file exists");
+		}
+		else
+		{
+			System.out.println("file not exists");
+		}
+		
+	}
+
+	
+	static boolean isFileExist(String path)
+	{
+		File f=new File(path);
+		
+		if(f.exists())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	
+}
+```
+
+
+---
+
+
+```java
+public class DownloadFilesusingfirefox {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		FirefoxProfile profile=new FirefoxProfile();
+		
+		profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/plain,application/pdf"); // set Mime type according to your file format
+		profile.setPreference("browser.download.manager.showWhenStarting", false);
+				
+		//download files in desired location
+		profile.setPreference("browser.download.dir","C:\\Downloadedfiles");
+		profile.setPreference("browser.download.folderList", 2); 
+		profile.setPreference("pdfjs.disabled", true); // only for pdf file
+		
+		FirefoxOptions option=new FirefoxOptions();
+		option.setProfile(profile);
+				
+		
+		System.setProperty("webdriver.gecko.driver","C://Drivers/geckodriver-v0.19.1-win64/geckodriver.exe");
+		WebDriver driver=new FirefoxDriver(option);
+		
+		driver.get("http://demo.automationtesting.in/FileDownload.html");
+		
+		driver.manage().window().maximize();
+		
+		//download text file
+		driver.findElement(By.id("textbox")).sendKeys("testing txt file download");
+		driver.findElement(By.id("createTxt")).click();
+		driver.findElement(By.id("link-to-download")).click();
+		
+		Thread.sleep(5000);
+		
+		if(isFileExist("C://Downloadedfiles/info.txt"))
+		{
+			System.out.println(" file exists");
+		}
+		else
+		{
+			System.out.println("file not exists");
+		}
+		
+		//download pdf file
+		driver.findElement(By.id("pdfbox")).sendKeys("testing pdf downlaod");
+		driver.findElement(By.id("createPdf")).click();
+		driver.findElement(By.id("pdf-link-to-download")).click();
+		
+		Thread.sleep(5000);
+		
+		if(isFileExist("C://Downloadedfiles/info.pdf"))
+		{
+			System.out.println(" file exists");
+		}
+		else
+		{
+			System.out.println("file not exists");
+		}
+	}
+
+	static boolean isFileExist(String path)
+	{
+		File f=new File(path);
+		
+		if(f.exists())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	
+}
+```
+
+---
+
+```java
+public class FileUpload {
+
+	public static void main(String[] args) throws InterruptedException, FindFailed {
+		
+		System.setProperty("webdriver.chrome.driver","C://Drivers/chromedriver_win32/chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("http://demo.automationtesting.in/Register.html");
+		
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.xpath("//*[@id='imagesrc']")).click();
+		
+		String imagesFilepath="C:\\SeleniumPractice\\Fruites\\";
+		String inputFilepath="C:\\SeleniumPractice\\Fruites\\inputfiles\\";
+		
+		 Screen s = new Screen();
+		 
+	     Pattern fileInputTextBox = new Pattern(imagesFilepath + "FileTextBox.PNG");
+	     Pattern openButton = new Pattern(imagesFilepath + "OpenButton.PNG");
+		
+		Thread.sleep(5000);
+		
+		s.wait(fileInputTextBox, 20);
+		s.type(fileInputTextBox,inputFilepath+"apple.jpg");
+		s.click(openButton);
+		
+	}
+
+}
 ```
