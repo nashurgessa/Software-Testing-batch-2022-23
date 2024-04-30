@@ -14,6 +14,29 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RegistrationControllerTest {
+    static RegistrationController regCon;
+
+    @BeforeAll
+    static void setUp() {
+        regCon= new RegistrationController();
+    }
+
+    private static Stream<Arguments> regAttemp(){
+        return Stream.of(
+                Arguments.of("Allen", "example@gmail.com", "Password123$",
+                        "Password123$", RegistrationResult.SUCCESS),
+                Arguments.of("Allen", "example@gmail.com", "Password123$",
+                        "Password123@", RegistrationResult.PASSWORD_MISMATCH)
+        );
+    }
+    @ParameterizedTest
+    @MethodSource("regAttemp")
+    public void attemptRegistrationTest(String name, String email, String password,
+                                        String confPassword, RegistrationResult expected) {
+        assertEquals(expected, regCon.attemptRegistration(name, email, password, confPassword));
+    }
+
+    /*
     static RegistrationController regController;
     @Disabled
     @BeforeAll
@@ -144,6 +167,8 @@ public class RegistrationControllerTest {
         // RegistrationResult result = regController.attemptRegistration(name, email, password, confirmPassword);
         // assertEquals(RegistrationResult.SUCCESS, result, "The result is not equal");
     }
+
+
 
 
 
