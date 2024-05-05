@@ -1166,37 +1166,46 @@ Handling HTML tables with Selenium WebDriver is crucial for testing applications
 
 Here's a simple HTML setup for a table which we will use to demonstrate how to interact with it using Selenium:
 
+---
+
+![1714456722127](image/L19-L32Selenium_practice/1714456722127.png)
+Figure: Creating an `html` file inside the `resources` test folder.
+
+![1714456765088](image/L19-L32Selenium_practice/1714456765088.png)
+Figure: Created `taable_demo.html` file
+
 ```java
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
         <title>Table Interaction Testing</title>
     </head>
     <body>
-        <table id="data-table">
+        <table id="data-table" border="1px solid black">
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>City</th>
-                </tr>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>City</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>30</td>
-                    <td>New York</td>
-                </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>25</td>
-                    <td>Los Angeles</td>
-                </tr>
-                <tr>
-                    <td>Emily Johnson</td>
-                    <td>35</td>
-                    <td>Chicago</td>
-                </tr>
+            <tr>
+                <td>Carlos</td>
+                <td>20</td>
+                <td>Guangzhou</td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>25</td>
+                <td>Xian</td>
+            </tr>
+            <tr>
+                <td>Lee</td>
+                <td>35</td>
+                <td>Foshan</td>
+            </tr>
             </tbody>
         </table>
     </body>
@@ -1205,56 +1214,67 @@ Here's a simple HTML setup for a table which we will use to demonstrate how to i
 
 ---
 
-Selenium WebDriver Code (Java using TestNG)
-Java class to handle table elements:
+**Selenium WebDriver Code (Java using ***TestNG***)**
+**Java class** to handle table elements:
 
 ```java
 package org.example;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
 import java.util.List;
 
 public class TableHandling {
+
     private WebDriver driver;
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.edge.driver", "path_to_edgedriver");
+        // System.setProperty("webdriver.edge.driver", "path_to_edgedriver");
         driver = new EdgeDriver();
-        driver.get("file:///path_to_your_html_file.html");
+        driver.get("http://localhost:63342/selenium_test/Lab/codes/selenium_test/src/test/resources/table_demo.html?_ijt=acb4345dflv9fivlmand66qimj&_ij_reload=RELOAD_ON_SAVE");
         driver.manage().window().maximize();
     }
 
     @Test
-    public void testReadTable() {
+    public void testReadTTable() {
         // Locate the table
         WebElement table = driver.findElement(By.id("data-table"));
 
-        // Fetch all rows of the table
+        // Fetch all row of the elements
         List<WebElement> rows = table.findElements(By.tagName("tr"));
 
-        // Print data from each row
-        for (WebElement row : rows) {
+        // print data from eaach row
+        for (WebElement row: rows) {
             List<WebElement> cols = row.findElements(By.tagName("td"));
-            for (WebElement col : cols) {
-                System.out.print(col.getText() + "\t");
+
+            for (WebElement col: cols) {
+                System.out.print(col.getText() + "\t\t");
             }
             System.out.println();
         }
     }
 
-    @AfterClass
-    public void tearDown() {
-        driver.quit();
-    }
+//    @AfterClass
+//    public void tearDown() {
+//        driver.quit();
+//    }
+
 }
 ```
+
+---
+
+###### Output
+
+
+![1714457821495](image/L19-L32Selenium_practice/1714457821495.png)
 
 ---
 
