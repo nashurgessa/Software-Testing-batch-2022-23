@@ -53,7 +53,6 @@ public class RegistrationController {
             }
         }
         return RegistrationResult.REGISTRATION_FAILED;
-
     }
 
     @FXML
