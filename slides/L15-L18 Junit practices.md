@@ -1941,6 +1941,9 @@ public class RegistrationControllerTest {
 ```
 ---
 
+Test the `singleton` approach
+
+
 ```java
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -1955,8 +1958,8 @@ public class UserServiceTest {
 
     @BeforeAll
     static void setUp() {
-        // userService = UserService.getInstance();
-        userService = new UserService();
+        userService = UserService.getInstance();
+        // userService = new UserService();
         System.out.println("BeforeAll is called");
     }
 
@@ -2930,6 +2933,43 @@ public class HttpBackendConnector {
     }
 }
 ```
+
+---
+
+
+update the User model 
+
+`User.java` 
+
+
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+// ...
+public class User {
+
+    // ...
+
+    ObjectMapper mapper = new ObjectMapper();
+
+    //...
+
+    public String getJson() {
+        Map<String, String> payload = new HashMap<>();
+        payload.put("name", this.name);
+        payload.put("email", this.email);
+        payload.put("password", this.password);
+
+        try {
+            return mapper.writeValueAsString(payload);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+}
+```
+
 
 ---
 

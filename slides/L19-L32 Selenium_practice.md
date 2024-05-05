@@ -1289,6 +1289,7 @@ class TableHandlingTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.driver = webdriver.Edge('path_to_edgedriver')
+        #file:///E:/Source_code/NodeJs/Software-Testing-batch-2022-23/Lab/codes/#selenium_test/src/test/resources/table_demo.html
         cls.driver.get('file:///path_to_your_html_file.html')
         cls.driver.maximize_window()
 
