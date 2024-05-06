@@ -14,13 +14,27 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
-
     static UserService userService;
-    @BeforeAll
-    static void setUp() {
-        userService = new UserService();
-        System.out.println("This is beforeAll");
+    @BeforeEach // @BeforeEach
+    void setUp() {
+        userService = UserService.getInstance();
     }
+    @Test
+    void registerTest() {
+        boolean registResult = userService.registerUser(
+                "ABC", "example@gmail.com",
+                "Password123@"
+        );
+
+        assertTrue(registResult);
+    }
+    @Test
+    void testLogin() {
+        assertTrue(userService.login("example@gmail.com",
+                "Password123@"));
+    }
+
+    /*
     @BeforeEach
     void beforeEachMethod() {
         System.out.println("This is before Each");
@@ -45,5 +59,5 @@ public class UserServiceTest {
         assertTrue(userService.registerUser("Alex", "abcd@example.com", "Password123@"));
     }
 
-
+    */
 }

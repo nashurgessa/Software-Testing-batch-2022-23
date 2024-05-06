@@ -18,7 +18,7 @@ public class LoginController {
     @FXML
     private TextField txtPassword; // 密码输入字段 (Input field for the password)
 
-    UserService userService = new UserService();
+    UserService userService = UserService.getInstance();// new UserService();
 
     // 点击登录按钮时处理登录的方法 (Method to handle login when the Sign In button is clicked)
     @FXML
