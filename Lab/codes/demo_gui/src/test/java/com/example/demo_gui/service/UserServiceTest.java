@@ -1,11 +1,18 @@
 package com.example.demo_gui.service;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
 
-    UserService userService = new UserService();
+    private static UserService userService;
+    @AfterAll
+    static void setUp() {
+        userService = new UserService();
+    }
+   // Homework, I will give 10 marks for those students who do the homework.
+
 
     @Test
     void testLogin() {

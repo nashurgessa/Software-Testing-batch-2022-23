@@ -1,16 +1,18 @@
 package com.example.demo_gui.models;
 
-public class Users {
+public class User {
     private String name;
     private String email;
     private String password;
 
-    public Users(String name, String email, String password) {
+    // Constructor
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
+    // setter and getter
     public String getName() {
         return name;
     }
@@ -37,6 +39,6 @@ public class Users {
 
     @Override
     public String toString() {
-        return " name: " + this.name + " email :" + email + " password: "+ password;
+        return "name: "+ name + " email: " + email+ " password: "+ password ;
     }
 }
