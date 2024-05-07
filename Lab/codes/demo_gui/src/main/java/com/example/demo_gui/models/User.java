@@ -1,9 +1,13 @@
 package com.example.demo_gui.models;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class User {
     private String name;
     private String email;
     private String password;
+
+    ObjectMapper mapper = new ObjectMapper();
 
     // Constructor
     public User(String name, String email, String password) {
@@ -41,4 +45,6 @@ public class User {
     public String toString() {
         return "name: "+ name + " email: " + email+ " password: "+ password ;
     }
+
+
 }

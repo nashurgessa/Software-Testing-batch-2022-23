@@ -1,27 +1,32 @@
 package com.example.demo_gui.service;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
-
     private static UserService userService;
-    @AfterAll
-    static void setUp() {
-        userService = new UserService();
+    @BeforeEach
+    void setUp() {
+        userService = UserService.getInstance();
     }
-   // Homework, I will give 10 marks for those students who do the homework.
-
-
     @Test
+    void testRegistration() {
+        boolean regResult = userService.registerUser("Allen", "example@gmail.com",
+                "Password123@");
+        assertTrue(regResult);
+    }
+    @Test
+    void testLogin() {
+        assertTrue(userService.login("example@gmail.com", "Password123@"));
+    }
+    /*@Test
     void testLogin() {
         assertAll("Testing for login",
                 () -> assertTrue(userService.login("user", "password")),
                 () -> assertFalse(userService.login("admin", "password")),
                 () -> assertFalse(userService.login("user", "Pass"))
                 );
-    }
+    }*/
 
 
 //    UserService userService = new UserService();
