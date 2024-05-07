@@ -38,15 +38,15 @@ public class UserService {
             newUser = new User(name, email, password);
             // display the new User
             System.out.println("The new User Info, is: "+ newUser.toString());
-
             // Only a new User will register.
             if (!users.containsKey("email")) {
                 // Save the user
                 users.put("email", newUser);
+                return true;
             }
         }
 
-        return validatorResult;
+        return false;
     }
 
     private boolean validateEmailPassword(String email, String password) {
