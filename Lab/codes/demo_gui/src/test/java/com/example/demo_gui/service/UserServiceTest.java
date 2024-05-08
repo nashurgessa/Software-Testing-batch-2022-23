@@ -1,16 +1,66 @@
 package com.example.demo_gui.service;
+import com.example.demo_gui.common.HttpBackendConnector;
+import okhttp3.Response;
 import org.junit.jupiter.api.*;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 public class UserServiceTest {
+
+    @Mock
+    private HttpBackendConnector http;
+
+    @Mock
+    private Response response;
+
+    //
+    private UserService userService;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+        userService = UserService.getInstance();
+        // Stub
+        userService.http = http;
+    }
+
+    @Test
+    void testRegisterUserSuccess() throws IOException {
+
+        when(http.sendPost(anyString(),
+                eq("register"))).thenReturn(response);
+
+        when(response.code()).thenReturn(200);
+
+        // Act
+        boolean result = false;
+        try {
+            result = userService.registerUser("Alice",
+                    "alice@example.com", "Password123@");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Assert
+        assertTrue(result);
+    }
+
+    /*
     private static UserService userService;
     @BeforeEach
     void setUp() {
         userService = UserService.getInstance();
     }
     @Test
-    void testRegistration() {
+    void testRegistration() throws IOException {
         boolean regResult = userService.registerUser("Allen", "example@gmail.com",
                 "Password123@");
         assertTrue(regResult);

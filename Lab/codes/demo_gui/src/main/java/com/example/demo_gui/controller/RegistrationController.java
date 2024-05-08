@@ -30,7 +30,7 @@ public class RegistrationController {
     UserService userService = UserService.getInstance();
 
     @FXML
-    public void handleRegistrationAction(ActionEvent actionEvent) {
+    public void handleRegistrationAction(ActionEvent actionEvent) throws IOException {
         String name = nameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -41,7 +41,7 @@ public class RegistrationController {
     }
     public RegistrationResult attemptRegistration(
             String name, String email,
-            String password, String confirmPassword) {
+            String password, String confirmPassword) throws IOException {
         if (!password.equals(confirmPassword)) {
             return RegistrationResult.PASSWORD_MISMATCH;
         }

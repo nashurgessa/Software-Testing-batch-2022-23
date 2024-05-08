@@ -1,5 +1,7 @@
 package com.example.demo_gui2.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import java.io.IOException;
 import java.util.HashMap;

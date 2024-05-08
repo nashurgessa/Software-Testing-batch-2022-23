@@ -26,7 +26,7 @@ public class RegistrationController {
     private PasswordField confirmPasswordField; // Input field for confirming user's password - 确认密码输入字段
 
     @FXML
-    public void handleRegistrationAction(ActionEvent actionEvent) {
+    public void handleRegistrationAction(ActionEvent actionEvent) throws IOException {
         String name = nameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -39,7 +39,7 @@ public class RegistrationController {
 
     protected RegistrationResult attemptRegistration(String name, String email,
                                                    String password,
-                                                   String confirmPassword) {
+                                                   String confirmPassword) throws IOException {
         if (!password.equals(confirmPassword)) {
             return RegistrationResult.PASSWORD_MISMATCH;
         }
