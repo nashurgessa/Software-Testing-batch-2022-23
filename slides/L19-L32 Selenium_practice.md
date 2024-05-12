@@ -967,10 +967,6 @@ public class HandlingWebElementsTest {
         driver.manage().window().maximize();
     }
 
-    @Test
-    void foo() {
-
-    }
 
     @Test
     public void testDropDowns() throws InterruptedException{
