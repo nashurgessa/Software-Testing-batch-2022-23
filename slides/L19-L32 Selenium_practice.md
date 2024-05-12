@@ -880,7 +880,7 @@ public class TimeoutExampleTestNG {
 
 ---
 
-##### Usage of Selenium Select Class for Handling Dropdown Elements on a Web and other Webdrive elements
+##### Usage of Selenium `Select` Class for Handling `Dropdown` Elements on a Web and other Webdrive elements
 
 ```html
 <!DOCTYPE html>
@@ -914,8 +914,8 @@ public class TimeoutExampleTestNG {
 
       
 
-		 <!-- Radio Buttons for Gender Selection -->
-		 <fieldset>
+	<!-- Radio Buttons for Gender Selection -->
+	<fieldset>
             <legend>Gender:</legend>
             <label><input type="radio" name="gender" value="male"> Male</label>
             <label><input type="radio" name="gender" value="female"> Female</label>
@@ -952,9 +952,9 @@ public class HandlingWebElementsTest {
     @BeforeAll
     static void setUp() {
         EdgeOptions options = new EdgeOptions();
-         options.addArguments("--remote-allow-origins=*");
-         System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "/src/main/resources/msedgedriver.exe");
-         driver = new EdgeDriver(options);
+		options.addArguments("--remote-allow-origins=*");
+		System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "/src/main/resources/msedgedriver.exe");
+        driver = new EdgeDriver(options);
 
         if (driver == null) {
             throw new IllegalStateException("Driver did not initialize. Please check your WebDriver executable path and configurations.");
@@ -968,14 +968,9 @@ public class HandlingWebElementsTest {
     }
 
     @Test
-    void foo() {
-
-    }
-
-    @Test
     public void testDropDowns() throws InterruptedException{
 
-        // Go to Bing
+        // Go to Bing, find by link
         driver.findElement(By.linkText("Bing")).click();
         Thread.sleep(2000);
         // navigate back to previous page
@@ -1029,6 +1024,8 @@ public class HandlingWebElementsTest {
 
 }
 ```
+
+###### Class Activity
 
 Lab/code/frontend/index.tst.html
 
@@ -1096,9 +1093,7 @@ Lab/code/frontend/index.tst.html
 </html>
 ```
 
-##### WebDriver Code using Selenium Select Class
-
-Please take a note that, for script creation, we would be using “Learning_Selenium” project created in the former tutorial.
+##### Write the WebDriver Code using Selenium Select Class
 
 **Step 1**: Create a new java class named as “HandlingDropDown” under the “Learning_Selenium” project.
 **Step 2**: Copy and paste the below code in the “HandlingDropDown.java” class.
@@ -1162,7 +1157,7 @@ public class HandlingDropDown {
 
 #### Example HTML Code for a Table
 
-Handling HTML tables with Selenium WebDriver is crucial for testing applications that display data in tabular formats. Tables are commonly used to represent information succinctly, and interacting with them can be necessary to verify content, perform CRUD operations, or just read data from the table.
+Handling HTML tables with Selenium WebDriver is crucial for testing applications that display data in tabular formats. Tables are commonly used to represent information succinctly / summary, and interacting with them can be necessary to verify content, perform ***CRUD*** operations, or just read data from the table.
 
 Here's a simple HTML setup for a table which we will use to demonstrate how to interact with it using Selenium:
 
@@ -1184,28 +1179,28 @@ Figure: Created `taable_demo.html` file
     <body>
         <table id="data-table" border="1px solid black">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>City</th>
-            </tr>
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+					<th>City</th>
+				</tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Carlos</td>
-                <td>20</td>
-                <td>Guangzhou</td>
-            </tr>
-            <tr>
-                <td>Jane Smith</td>
-                <td>25</td>
-                <td>Xian</td>
-            </tr>
-            <tr>
-                <td>Lee</td>
-                <td>35</td>
-                <td>Foshan</td>
-            </tr>
+				<tr>
+					<td>Carlos</td>
+					<td>20</td>
+					<td>Guangzhou</td>
+				</tr>
+				<tr>
+					<td>Jane Smith</td>
+					<td>25</td>
+					<td>Xian</td>
+				</tr>
+				<tr>
+					<td>Lee</td>
+					<td>35</td>
+					<td>Foshan</td>
+				</tr>
             </tbody>
         </table>
     </body>
@@ -1318,73 +1313,111 @@ if __name__ == "__main__":
 ```
 
 
+---
+
+For Test Automation 
+https://ultimateqa.com/dummy-automation-websites/
+
+---
 
 
+#### Selenium Wait Commands
 
-#### Wait Commands
+In Selenium WebDriver, managing `synchronization` is crucial to ensure that web elements are fully loaded before operations are performed on them. This process is typically managed using different types of wait commands. The provided Java example demonstrates two common wait mechanisms: ***Implicit Wait*** and ***Thread.sleep()***.
 
-Synchronization
+> 1. Thread.sleep()
+- > ***What it does:*** Pauses the entire test execution for a specified duration (in milliseconds).
+- > ***Usage:*** `Thread.sleep(5000)`; // Halts for 5 seconds.
+- > ***Consideration:*** It waits for the full duration, regardless of whether the element is ready earlier, which may slow down test execution unnecessarily or may cause exceptions if the element is not available within the time.
 
-Waits
-
+Example Usage:
 ```java
-public class WaitsDemo {
-
-	public static void main(String[] args) throws InterruptedException {
-		
-		System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver_win32/chromedriver.exe");
-		WebDriver driver=new ChromeDriver(); 
-		
-		driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS); // implicit wait
-		
-		driver.get("http://newtours.demoaut.com/");
-		
-		//Thread.sleep(5000);
-		
-		driver.findElement(By.name("userName")).sendKeys("mercury");
-	}
-
-}
+Thread.sleep(5000); // Pauses the execution for 5000 milliseconds or 5 seconds.
 ```
 
-Threas.sleep(mili seconds)
+> 2. Implicit Wait
+- > ***What it does:*** Configures the WebDriver to wait up to a specified maximum duration for an element to appear before throwing an error, but will proceed as soon as the element is found.
+- > ***Usage:*** `driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS)`;
+- > ***Benefit:*** More efficient than Thread.sleep(), as it waits only as needed up to the maximum time set.
 
-Implicit wait   -> Enter first and wait 5 seconds unlike the Thread.Sleep
+Example Usage:
+```java
+driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+```
+> This line of code configures the WebDriver to wait up to 5 seconds before throwing a `NoSuchElementException` if it does not find the element to interact with immediately.
 
-driver.manage().timeouts().implicityWait(5, TimeUnit.SECONDS)
+***Difference from Thread.sleep():***
+- `Thread.sleep()` stops the ***thread's*** execution for the specified time irrespective of any condition. After the time is up, the script executes the next line of code.
+- Implicit wait tells the ***WebDriver to poll the DOM*** for a certain amount of time when trying to find any element not immediately available. This wait is not bound/restricted to any condition apart from the time.
 
-##### Explicit Wait -CONDITION BASED
+Practical Example: ***WaitsDemo.java*** 
+Here, Selenium waits up to 5 seconds when trying to find any element. This is helpful in cases where elements may take some time to appear due to page load times.
+
+```java
+WebDriver driver = new EdgeDriver(); 
+// Sets an implicit wait of 5 seconds
+driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+driver.get("https://www.saucedemo.com/");
+// Use of implicit wait
+driver.findElement(By.name("user-name")).sendKeys("mercury");
+```
+
+**Conclusion:** Effective use of wait commands in Selenium helps in creating reliable, robust tests by reducing the chances of encountering `exceptions` due to **missing elements**. 
+> `Implicit waits` offer a better approach in most cases compared to `Thread.sleep()`, as they make the tests less brittle and faster, by waiting only as long as necessary.
+
+
+
+##### Explicit Wait - Condition Based
+
+Explicit wait in Selenium WebDriver is a targeted `synchronization` approach that waits for a specific condition to occur before proceeding. Unlike implicit waits, explicit waits are applied for particular ***instances*** and can handle various conditions. Here’s how explicit waits are used:
+
+**Key Points of Explicit Wait:**
+- > ***Condition-Based:*** Waits for a specific condition to be met before proceeding.
+- > ***Customizable:*** Each wait can have different conditions and time settings.
+- > ***Efficient:*** Reduces unnecessary wait times by proceeding as soon as conditions are met.
+
+**Usage:**
+To use explicit waits, you instantiate `WebDriverWait` with a timeout value, then specify the condition you want to wait for using `ExpectedConditions`.
+
+***Example Code:***
+```java
+WebDriverWait myWait = new WebDriverWait(driver, 10); // Wait up to 10 seconds.
+WebElement username = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.name("userName")));
+username.sendKeys("mercury");
+```
+
+***Practical Example:*** `ExplicitwaitDemo.java`
+In the provided Java example, the WebDriver waits up to 10 seconds for specific elements to be visible before interacting with them:
 
 ```java
 public class ExplicitwaitDemo {
 
 	public static void main(String[] args) {
 		System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver_win32/chromedriver.exe");
-		WebDriver driver=new ChromeDriver(); 
+		WebDriver driver=new EdgeDriver(); 
 		
-		WebDriverWait mywait=new WebDriverWait(driver,10000);
+		WebDriverWait mywait=new WebDriverWait(driver,10); // Setup with a 10-second timeout.
 				
-		driver.get("http://newtours.demoaut.com/");
+		driver.get("https://www.saucedemo.com/");
 				
-		WebElement username=mywait.until(ExpectedConditions.visibilityOfElementLocated(By.name("userName")));
-		username.sendKeys("mercury");
+		// Wait until the username field is visible on the page before sending keys.
+		WebElement username = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.name("user-name")));
+		username.sendKeys("standard_user");
 		
-		
-		WebElement password=mywait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
-		password.sendKeys("mercury");
-		
-		
-
+		// Wait until the password field is visible on the page before sending keys.
+		WebElement password = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
+		password.sendKeys("secret_sauce");
 	}
-
 }
 ```
+
+Explicit waits are powerful tools in Selenium for handling elements that might have unpredictable timing and conditions for availability, providing a more reliable and precise way to manage dynamic content in web automation tasks.
 
 
 Find out total links present in a web page:
 
 ```java
-List <WebElement> links = driver.findElemennts(By.tagName("a"));
+List <WebElement> links = driver.findElements(By.tagName("a"));
 System.out.println(links.size());
 
 // Reading all the Link from the Web page and Display their names
@@ -1398,8 +1431,10 @@ case1: locator matches multiple elements, findElement() ----> this can be locate
 case2: locator mathces multiple elements, findElements() --> this can be located multiple elements
 case3: locator matches single elemetn, findElements() ---> this can be located single element
 
-Difference between findElement() & findElements()
+---
 
+###### Class Activity 
+Discuss the Difference between `findElement()` & `findElements()` and show case with the implementation
 
 ---
 
