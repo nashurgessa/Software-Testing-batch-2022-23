@@ -2,6 +2,7 @@ package com.example.demo_gui.controller;
 
 import com.example.demo_gui.common.EmailPasswordValidator;
 import com.example.demo_gui.common.RegistrationResult;
+import com.example.demo_gui.models.User;
 import com.example.demo_gui.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,10 +26,11 @@ public class RegistrationController {
     @FXML
     private PasswordField confirmPasswordField; // Input field for confirming user's password - 确认密码输入字段
 
-    UserService userService = new UserService();
+    // UserService userService = new UserService();
+    UserService userService = UserService.getInstance();
 
     @FXML
-    public void handleRegistrationAction(ActionEvent actionEvent) {
+    public void handleRegistrationAction(ActionEvent actionEvent) throws IOException {
         String name = nameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -39,7 +41,7 @@ public class RegistrationController {
     }
     public RegistrationResult attemptRegistration(
             String name, String email,
-            String password, String confirmPassword) {
+            String password, String confirmPassword) throws IOException {
         if (!password.equals(confirmPassword)) {
             return RegistrationResult.PASSWORD_MISMATCH;
         }

@@ -9,6 +9,8 @@ module com.example.demo_gui {
 
     opens com.example.demo_gui.controller to javafx.fxml; // Optional, if you use reflection
 
+    requires com.fasterxml.jackson.databind;
+    requires okhttp3;
 
     opens com.example.demo_gui to javafx.fxml;
     exports com.example.demo_gui;

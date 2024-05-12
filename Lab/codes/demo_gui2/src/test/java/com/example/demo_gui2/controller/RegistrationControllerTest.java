@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -30,7 +31,7 @@ public class RegistrationControllerTest {
     @ParameterizedTest
     @MethodSource("testCasesGenerator")
     void attemptRegistrationTest(String name, String email, String password,
-                                 String confirmPassword, RegistrationResult expected) {
+                                 String confirmPassword, RegistrationResult expected) throws IOException {
         assertEquals(expected, regCon.attemptRegistration(name, email, password, confirmPassword));
     }
 

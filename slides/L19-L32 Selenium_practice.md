@@ -1,4 +1,4 @@
-## Selenium Training Tutorials
+## Selenium
 
 ### Introduction
 

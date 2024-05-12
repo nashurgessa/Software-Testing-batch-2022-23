@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.IOException;
 import java.util.stream.Stream;
 import com.example.demo_gui.common.RegistrationResult;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -32,7 +33,7 @@ public class RegistrationControllerTest {
     @ParameterizedTest
     @MethodSource("regAttemp")
     public void attemptRegistrationTest(String name, String email, String password,
-                                        String confPassword, RegistrationResult expected) {
+                                        String confPassword, RegistrationResult expected) throws IOException {
         assertEquals(expected, regCon.attemptRegistration(name, email, password, confPassword));
     }
 
