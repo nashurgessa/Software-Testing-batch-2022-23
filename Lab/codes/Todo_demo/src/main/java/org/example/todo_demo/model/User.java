@@ -38,7 +38,7 @@ public class User {
     }
 
     public String getPassword() {
-        return p assword;
+        return password;
     }
 
     public void setPassword(String password) {
