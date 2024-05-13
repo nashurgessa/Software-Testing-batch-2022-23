@@ -1485,9 +1485,74 @@ void testSwagLabs() {
 ###### Class Activity
 Use the **TDD** approach and test for the remain test cases.
 
+---
+
+
 ```java
+public class SauceDemoTest {
+    
+    private WebDriver driver;
+    private WebDriverWait myWait;
+    @BeforeClass
+    void setUp() {
+        driver = new EdgeDriver();
+        myWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.get("https://www.saucedemo.com/");
+    }
 
+    @Test
+    void testSwagLabs() {
+        WebElement userName = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.name("user-name")));
+        userName.sendKeys("standard_user");
+        WebElement password = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
+        password.sendKeys("secret_sauce");
+        WebElement btnLogin = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-button")));
+        btnLogin.click();
 
+        // Verify that after login, the URL changes to the inventory page
+        Assert.assertTrue(driver.getCurrentUrl().contains("inventory"));
+    }
+    
+    @DataProvider(name="userCredentials")
+    public static Object[][] getUserCredentials() throws IOException, CsvException {
+        CSVReader reader = new CSVReader(new FileReader("/Users/nashu/Desktop/Source_code/software_testing/DB-practices/Code/jdbc_demo/Selenium_Test/src/test/resources/user_name_password.csv"));
+        List<String[]> allRows = reader.readAll();
+        // Remove the header, skip the first Line
+        allRows.remove(0);
+        // return the Array format new Object [# rows][]
+        return allRows.toArray(new Object[allRows.size()][]);
+    }
+
+    // @DataProvider(name="userCredentials")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/user_name_password.csv", numLinesToSkip = 1)
+    void testUserCredentials() {
+        //
+    }
+
+    @Test(dataProvider = "userCredentials")
+    public void testLogin(String username, String password) {
+        WebElement usernameField = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name")));
+        usernameField.sendKeys(username);
+
+        WebElement passwordField = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
+        passwordField.sendKeys(password);
+
+        WebElement loginBtn = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-button")));
+        loginBtn.click();
+
+        if ("locked_out_user".equals(username)) {
+            WebElement errorMessage = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".error-message-container.error")));
+            Assert.assertTrue(errorMessage.getText().contains("Sorry, this user has been locked out"),
+                    "Expect error message for locked out user is not displayed");
+        } else if () {
+            // ...
+        }
+        else {
+            // ...
+        }
+    }
+}
 ```
 
 ---
