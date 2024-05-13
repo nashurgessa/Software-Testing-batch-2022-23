@@ -1426,7 +1426,75 @@ for (WebElements  e: links) {
 }
 ```
 
+
 ---
+**More Practice** 
+
+```java
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.time.Duration;
+
+public class SauceDemoTest {
+    
+    private WebDriver driver;
+    private WebDriverWait myWait;
+    @BeforeClass
+    void setUp() {
+        driver = new EdgeDriver();
+        myWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.get("https://www.saucedemo.com/");
+    }
+
+    @Test
+    void testSwagLabs() {
+        WebElement userName = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.name("user-name")));
+        userName.sendKeys("standard_user");
+        WebElement password = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
+        password.sendKeys("secret_sauce");
+        WebElement btnLogin = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-button")));
+        btnLogin.click();
+    }
+}
+```
+
+---
+
+Add assertion to make sure the login is successful.
+
+```java
+ @Test
+void testSwagLabs() {
+	// ...
+	btnLogin.click();
+
+	// Verify that after login, the URL changes to the inventory page
+	Assert.assertTrue(driver.getCurrentUrl().contains("inventory"));
+}
+```
+
+---
+
+###### Class Activity
+Use the **TDD** approach and test for the remain test cases.
+
+```java
+
+
+```
+
+---
+
+
+
+
 case1: locator matches multiple elements, findElement() ----> this can be located single element
 case2: locator mathces multiple elements, findElements() --> this can be located multiple elements
 case3: locator matches single elemetn, findElements() ---> this can be located single element
