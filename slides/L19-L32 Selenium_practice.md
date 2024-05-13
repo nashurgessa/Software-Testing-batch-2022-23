@@ -1394,7 +1394,7 @@ public class ExplicitwaitDemo {
 
 	public static void main(String[] args) {
 		System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver_win32/chromedriver.exe");
-		WebDriver driver=new EdgeDriver(); 
+		WebDriver driver=new ChromeDriver(); 
 		
 		WebDriverWait mywait=new WebDriverWait(driver,10); // Setup with a 10-second timeout.
 				
@@ -1413,8 +1413,11 @@ public class ExplicitwaitDemo {
 
 Explicit waits are powerful tools in Selenium for handling elements that might have unpredictable timing and conditions for availability, providing a more reliable and precise way to manage dynamic content in web automation tasks.
 
+---
 
 Find out total links present in a web page:
+
+https://parabank.parasoft.com/parabank/index.htm
 
 ```java
 List <WebElement> links = driver.findElements(By.tagName("a"));
