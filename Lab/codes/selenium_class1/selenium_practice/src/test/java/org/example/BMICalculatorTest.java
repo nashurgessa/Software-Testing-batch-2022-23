@@ -33,7 +33,7 @@ public class BMICalculatorTest {
 
         btnCalculateBMI.click();
 
-        // WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[2]/input")));
+        WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[2]/input")));
         // WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input.result-input")));
         // double result_ = Double.parseDouble(result.getText()); // 23.18
         double  result_ = Double.parseDouble(result.getAttribute("value"));

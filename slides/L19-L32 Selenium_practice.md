@@ -1560,6 +1560,44 @@ public class SauceDemoTest {
 
 ---
 
+
+***When to Use `getText()`:***
+- > Textual Elements: Use `getText()` for elements that display text directly, such as `<div>`, `<span>`, `<p>`, etc.
+```java
+WebElement element = driver.findElement(By.id("example"));
+String text = element.getText();
+```
+
+***When to Use getAttribute("value"):***
+- > Form Elements: Use getAttribute("value") for elements like `<input>`, `<textarea>`, and sometimes `<select>` to get the current value of the element.
+
+```java
+WebElement inputElement = driver.findElement(By.id("input-example"));
+String value = inputElement.getAttribute("value");
+```
+
+Here is a more detailed example to illustrate the differences:
+
+Example:
+Consider the following HTML snippet:
+
+```html
+<div id="message">Hello, World!</div>
+<input id="username" value="JohnDoe">
+```
+To retrieve the text from the `<div>` and the value from the `<input>`, you would use:
+
+```java
+WebElement messageDiv = driver.findElement(By.id("message"));
+String messageText = messageDiv.getText(); // Returns "Hello, World!"
+
+WebElement usernameInput = driver.findElement(By.id("username"));
+String usernameValue = usernameInput.getAttribute("value"); // Returns "JohnDoe"
+```
+
+---
+
+
 ```java
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -1600,9 +1638,12 @@ class BmiCalculatorTest {
         "170, 65, 22.5"
     })
     void testBmiCalculator(int height, int weight, double expectedBmi) {
-        WebElement heightInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("heightInput")));
-        WebElement weightInput = driver.findElement(By.id("weightInput"));
-        WebElement calculateButton = driver.findElement(By.xpath("//input[@value='Calculate']"));
+        
+		WebElement heightInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("heightInput")));
+        
+		WebElement weightInput = driver.findElement(By.id("weightInput"));
+        
+		WebElement calculateButton = driver.findElement(By.xpath("//input[@value='Calculate']"));
 
         heightInput.clear();
         weightInput.clear();
@@ -1612,16 +1653,53 @@ class BmiCalculatorTest {
         calculateButton.click();
 
         WebElement bmiResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("bmiSpan")));
-        double result = Double.parseDouble(bmiResult.getText());
+
+        double result = Double.parseDouble(bmiResult.getAttribute("value"));
+
         assert Math.abs(result - expectedBmi) < 0.1 : "Expected BMI close to " + expectedBmi + ", but got " + result;
     }
 }
 ```
----
-
-**Element Value:** Used `getAttribute("value")` to retrieve the input field value instead of `getText()`.
 
 ---
+
+```java
+// myWait.until((WebDriver d) -> !result.getAttribute("value").isEmpty());
+```
+ 
+---
+
+###### Choosing WebElement Locators and Using `tearDown()`
+
+(a)
+
+ ```java
+WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[2]/input")));
+```
+
+> **Pros**: Precise
+**Cons**: Brittle (sensitive to changes), complex, errors if `tearDown()` runs too early
+
+(b)
+```java
+WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='result-input'")));
+```
+
+> **Pros**: Readable, flexible
+**Cons**: Potential ambiguity
+
+
+(c) 
+
+```java
+WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input.result-input")));
+```
+
+> **Pros**: Simple, fast
+**Cons**: Potential ambiguity
+
+---
+
 
 ###### Class Activity: More practice
 
