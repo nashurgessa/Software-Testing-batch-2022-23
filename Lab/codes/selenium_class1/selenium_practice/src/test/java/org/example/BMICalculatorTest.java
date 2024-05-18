@@ -14,14 +14,13 @@ import java.time.Duration;
 public class BMICalculatorTest {
     WebDriver driver;
     WebDriverWait myWait;
-    @BeforeAll
+    @BeforeEach
     void setUp(){
         driver = new EdgeDriver();
-        myWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        myWait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         driver.get("https://www.texasheart.org/heart-health/heart-information-center/topics/body-mass-index-bmi-calculator/");
     }
-
     @Test
     void testBMI() {
         WebElement height = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[1]/div[2]/div[2]/input")));
@@ -33,19 +32,17 @@ public class BMICalculatorTest {
         WebElement btnCalculateBMI =  myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[1]/div[2]/div[4]/input")));
 
         btnCalculateBMI.click();
-        WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[2]/input")));
 
-        double result_ = Double.parseDouble(result.getText()); // 23.18
-
+        // WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[2]/input")));
+        WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input.result-input")));
+        // double result_ = Double.parseDouble(result.getText()); // 23.18
+        double  result_ = Double.parseDouble(result.getAttribute("value"));
         Assertions.assertEquals(result_, 23.2, 0.2);
-
     }
-
-    @AfterAll
+    @AfterEach
      void tearDown(){
         if (driver != null) {
             driver.quit();
         }
     }
-
 }

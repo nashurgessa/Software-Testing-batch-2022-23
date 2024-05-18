@@ -1628,9 +1628,9 @@ https://practicetestautomation.com/practice-test-login/
 
 ---
 
-case1: locator matches multiple elements, findElement() ----> this can be located single element
-case2: locator mathces multiple elements, findElements() --> this can be located multiple elements
-case3: locator matches single elemetn, findElements() ---> this can be located single element
+case1: locator matches multiple elements, `findElement()` ----> this can be located single element
+case2: locator mathces multiple elements, `findElements()` --> this can be located multiple elements
+case3: locator matches single element, `findElements()` ---> this can be located single element
 
 ---
 
