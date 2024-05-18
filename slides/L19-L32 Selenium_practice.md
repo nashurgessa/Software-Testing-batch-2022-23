@@ -1616,9 +1616,10 @@ class BmiCalculatorTest {
         assert Math.abs(result - expectedBmi) < 0.1 : "Expected BMI close to " + expectedBmi + ", but got " + result;
     }
 }
-
-
 ```
+---
+
+**Element Value:** Used `getAttribute("value")` to retrieve the input field value instead of `getText()`.
 
 ---
 
