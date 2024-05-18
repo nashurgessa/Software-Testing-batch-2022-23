@@ -16,17 +16,13 @@ public class HandlingWebElementsTest {
     private static WebDriver driver;
 
     @BeforeAll
-    static void setUp() {
+    static void setUp() throws InterruptedException{
         EdgeOptions options = new EdgeOptions();
-         options.addArguments("--remote-allow-origins=*");
-         System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "/src/main/resources/msedgedriver.exe");
-         driver = new EdgeDriver(options);
+        driver = new EdgeDriver(options);
 
-        if (driver == null) {
-            throw new IllegalStateException("Driver did not initialize. Please check your WebDriver executable path and configurations.");
-        }
+        Thread.sleep(2000);
 
-        String appUrl = "http://127.0.0.1:3000/Lab/codes/frontend/web_elements.html";
+        String appUrl = "file:///Users/nashu/Desktop/Source_code/software_testing/SoftwareTesting/Lab/codes/selenium_test/src/main/resources/index.html";
         driver.get(appUrl);
 
         // maximize the window
@@ -34,19 +30,14 @@ public class HandlingWebElementsTest {
     }
 
     @Test
-    void foo() {
-
-    }
-
-    @Test
-    public void testDropDowns() throws InterruptedException{
-
-        // Go to Bing
-        driver.findElement(By.linkText("Bing")).click();
-        Thread.sleep(2000);
-        // navigate back to previous page
-        driver.navigate().back();
-        Thread.sleep(2000);
+    public void testWebElements() throws InterruptedException{
+        //
+        //// Go to Bing
+        //driver.findElement(By.linkText("Bing")).click();
+        //Thread.sleep(2000);
+        //// navigate back to previous page
+        //driver.navigate().back();
+        //Thread.sleep(2000);
 
 
         // Select by visible text
@@ -59,31 +50,28 @@ public class HandlingWebElementsTest {
         fruitDropDown.selectByValue("banana");
         Thread.sleep(1000);
 
-        // Fill then name Field
-        WebElement nameInput = driver.findElement(By.id("nameInput"));
-        nameInput.sendKeys("Neusoft Institute Guangdong");
+        // TextField
+        WebElement textField = driver.findElement(By.id("nameInput"));
+        textField.sendKeys("Neusoft");
+        Thread.sleep(2000);
+
+        // Male RadioButton
+        WebElement maleRadioButton = driver.findElement(By.xpath("/html/body/fieldset[1]/label[1]"));
+        maleRadioButton.click();
+        Thread.sleep(2000);
+
+        // female RadioButton
+        WebElement femaleRadioButton = driver.findElement(By.xpath("/html/body/fieldset[1]/label[2]"));
+        femaleRadioButton.click();
+        Thread.sleep(2000);
 
 
-        // Handling radio buttons
-        WebElement maleRadio = driver.findElement(By.xpath("//input[@name='gender'][@value='male']"));
-        maleRadio.click();
+        // Select by value
+        Select countries = new Select(driver.findElement(By.id("countrySelect")));
+        countries.selectByIndex(3);
         Thread.sleep(1000);
 
-        // Handling checkboxes
-        WebElement sportsCheckbox = driver.findElement(By.xpath("//input[@name='hobby'][@value='sports']"));
-        if (!sportsCheckbox.isSelected()) {
-            sportsCheckbox.click();
-        }
-        Thread.sleep(1000);
 
-        // select by index
-        Select countryDropdown = new Select(driver.findElement(By.id("countrySelect")));
-        countryDropdown.selectByIndex(1);
-        Thread.sleep(1000);
-
-        // Submitting the form
-        driver.findElement(By.id("submitBtn")).click();
-        Thread.sleep(1000);
     }
 
     @AfterAll

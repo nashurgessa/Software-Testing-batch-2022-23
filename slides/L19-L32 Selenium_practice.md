@@ -1560,8 +1560,73 @@ public class SauceDemoTest {
 
 ---
 
+```java
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+class BmiCalculatorTest {
+
+    private WebDriver driver;
+    private WebDriverWait wait;
+
+    @BeforeEach
+    void setUp() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.get("https://www.texasheart.org/heart-health/heart-information-center/topics/body-mass-index-bmi-calculator/");
+        wait = new WebDriverWait(driver, 10);
+    }
+
+    @AfterEach
+    void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "180, 70, 21.6",
+        "160, 80, 31.2",
+        "170, 65, 22.5"
+    })
+    void testBmiCalculator(int height, int weight, double expectedBmi) {
+        WebElement heightInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("heightInput")));
+        WebElement weightInput = driver.findElement(By.id("weightInput"));
+        WebElement calculateButton = driver.findElement(By.xpath("//input[@value='Calculate']"));
+
+        heightInput.clear();
+        weightInput.clear();
+
+        heightInput.sendKeys(String.valueOf(height));
+        weightInput.sendKeys(String.valueOf(weight));
+        calculateButton.click();
+
+        WebElement bmiResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("bmiSpan")));
+        double result = Double.parseDouble(bmiResult.getText());
+        assert Math.abs(result - expectedBmi) < 0.1 : "Expected BMI close to " + expectedBmi + ", but got " + result;
+    }
+}
 
 
+```
+
+---
+
+###### Class Activity: More practice
+
+https://practicetestautomation.com/practice-test-login/
+
+---
 
 case1: locator matches multiple elements, findElement() ----> this can be located single element
 case2: locator mathces multiple elements, findElements() --> this can be located multiple elements

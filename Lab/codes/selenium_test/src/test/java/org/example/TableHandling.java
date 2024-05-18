@@ -11,39 +11,25 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class TableHandling {
-
     private WebDriver driver;
-
     @BeforeClass
-    public void setUp() {
-        // System.setProperty("webdriver.edge.driver", "path_to_edgedriver");
+    public void setUp() throws InterruptedException {
         driver = new EdgeDriver();
-        driver.get("http://localhost:63342/selenium_test/Lab/codes/selenium_test/src/test/resources/table_demo.html?_ijt=acb4345dflv9fivlmand66qimj&_ij_reload=RELOAD_ON_SAVE");
-        driver.manage().window().maximize();
+        Thread.sleep(2000);
+        driver.get("file:///Users/nashu/Desktop/Source_code/software_testing/SoftwareTesting/Lab/codes/selenium_test/src/test/resources/table_demo.html");
+        // driver.manage().window().maximize();
     }
-
     @Test
     public void testReadTTable() {
         // Locate the table
         WebElement table = driver.findElement(By.id("data-table"));
 
-        // Fetch all row of the elements
-        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        List<WebElement> rows = driver.findElements(By.tagName("tr"));
+        System.out.println("Num of rows: "+ rows);
 
-        // print data from eaach row
-        for (WebElement row: rows) {
-            List<WebElement> cols = row.findElements(By.tagName("td"));
-
-            for (WebElement col: cols) {
-                System.out.print(col.getText() + "\t\t");
-            }
-            System.out.println();
-        }
     }
-
-//    @AfterClass
-//    public void tearDown() {
-//        driver.quit();
-//    }
-
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
+    }
 }
