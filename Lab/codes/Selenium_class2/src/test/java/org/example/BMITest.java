@@ -1,15 +1,15 @@
 package org.example;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
 
@@ -18,7 +18,7 @@ public class BMITest {
     WebDriver driver;
     WebDriverWait myWait;
 
-    @BeforeEach
+    @BeforeClass
     void setUp(){
         driver = new EdgeDriver();
         myWait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -59,7 +59,7 @@ public class BMITest {
     }
 
 
-    @AfterEach
+    @AfterClass
     void tearDown(){
         if (driver != null) {
             driver.quit();

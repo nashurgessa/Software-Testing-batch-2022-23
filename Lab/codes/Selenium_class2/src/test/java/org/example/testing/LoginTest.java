@@ -1,18 +1,18 @@
 package org.example.testing;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class LoginTest {
 
     private WebDriver driver;
 
-    @BeforeEach
+    @BeforeClass
     public void setUp() {
         // WebDriverManager.chromedriver().setup();
         driver = new EdgeDriver();
@@ -38,7 +38,7 @@ public class LoginTest {
 
     }
 
-    @AfterEach
+    @AfterClass
     public void tearDown() {
         driver.quit();
     }

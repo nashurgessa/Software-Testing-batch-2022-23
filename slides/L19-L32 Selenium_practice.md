@@ -1618,8 +1618,8 @@ class BmiCalculatorTest {
 
     @BeforeEach
     void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+    
+        driver = new EdgeDriver();
         driver.get("https://www.texasheart.org/heart-health/heart-information-center/topics/body-mass-index-bmi-calculator/");
         wait = new WebDriverWait(driver, 10);
     }
@@ -1704,6 +1704,136 @@ WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(B
 ###### Class Activity: More practice
 
 https://practicetestautomation.com/practice-test-login/
+
+
+---
+
+###### Using `test suite`
+
+(a) Let's create a TestNG test suite to test the login functionality of the page at "https://practicetestautomation.com/practice-test-login/". We'll cover the following scenarios:
+
+> ***Valid Login***: Correct username and password.
+***Invalid Login***: Incorrect username.
+***Invalid Login***: Incorrect password.
+***Empty Fields***: Both fields are empty.
+
+Step-by-Step Guide
+1. Add TestNG Dependency
+
+Ensure you have the TestNG dependency in your project.
+
+Maven
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>7.4.0</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.1.0</version>
+    </dependency>
+</dependencies>
+```
+
+---
+
+2. Create Test Class  - (TDD based)
+
+`/auth/LoginTest.java`
+
+```java
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class LoginTest {
+    WebDriver driver;
+
+    @BeforeMethod
+    public void setUp() {
+        // Setup the WebDriver (assuming ChromeDriver for this example)
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        driver = new ChromeDriver();
+        driver.get("https://practicetestautomation.com/practice-test-login/");
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    @Test(dataProvider = "loginData")
+    public void testLogin(String username, String password, String expectedError) {
+        WebElement usernameField = driver.findElement(By.id("username"));
+        WebElement passwordField = driver.findElement(By.id("password"));
+        WebElement submitButton = driver.findElement(By.id("submit"));
+
+        usernameField.clear();
+        passwordField.clear();
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        submitButton.click();
+
+        if (expectedError.isEmpty()) {
+            // Check for successful login (e.g., checking URL or logout button presence)
+            WebElement logoutButton = driver.findElement(By.id("logout"));
+            Assert.assertTrue(logoutButton.isDisplayed(), "Logout button should be displayed on successful login");
+        } else {
+            // Check for error message
+            WebElement errorMessage = driver.findElement(By.id("error"));
+            Assert.assertEquals(errorMessage.getText(), expectedError, "Error message should match expected");
+        }
+    }
+
+    @DataProvider(name = "loginData")
+    public Object[][] loginData() {
+        return new Object[][]{
+                {"student", "Password123", ""}, // Valid login
+                {"invalidUser", "Password123", "Your username is invalid!"}, // Invalid username
+                {"student", "invalidPass", "Your password is invalid!"}, // Invalid password
+                {"", "", "Both username and password must be present!"} // Empty fields
+        };
+    }
+}
+```
+
+---
+
+3. Create TestNG XML ***Suite*** File
+   
+`resource\testng-suite.xml`
+
+```xml
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AuthTestSuite">
+    <test name="AuthTests">
+        <classes>
+            <class name="org.example.auth.LoginTest"/>
+			<class name="org.example.BMICalculatorTest"/>
+        </classes>
+    </test>
+</suite>
+```
+
+---
+
+4. Run the Test Suite
+
+In IntelliJ IDEA or Eclipse, right-click on the ***testng-suite.xml*** file and select "Run".
 
 ---
 
@@ -2200,10 +2330,6 @@ public class WebTable3_Pagination {
 
 }
 ```
-
-
-***Check Day15 Files***
-
 
 ```java
 public class DoubleClickDemo2 {
