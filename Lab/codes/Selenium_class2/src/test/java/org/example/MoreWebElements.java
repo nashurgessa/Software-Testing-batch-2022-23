@@ -238,7 +238,7 @@ public class MoreWebElements {
         // Slider interaction
         WebElement slider = driver.findElement(By.id("slider"));
         actions.clickAndHold(slider).moveByOffset(50, 0).release().perform();
-        
+
         // Resizable
         WebElement resizableBtn = driver.findElement(By.id("resizable"));
         actions.clickAndHold(resizableBtn).moveByOffset(20, 250).release().perform();
