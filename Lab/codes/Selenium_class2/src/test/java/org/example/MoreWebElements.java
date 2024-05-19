@@ -186,6 +186,7 @@ public class MoreWebElements {
         // New Window/Tab:
         Set<String> allWindows = driver.getWindowHandles();
         for (String windowHandle: allWindows) {
+            
             if (!windowHandle.equals(originalWindow)) {
                 driver.switchTo().window(windowHandle);
                 break;
