@@ -169,9 +169,10 @@ public class MoreWebElements {
         for(WebElement e:search_results)
         {
             String link=e.getText();
+            System.out.println(link);
             driver.findElement(By.linkText(link)).click();
+            System.out.println(driver.getTitle());
         }
-
     }
 
     @Test
@@ -186,9 +187,11 @@ public class MoreWebElements {
         // New Window/Tab:
         Set<String> allWindows = driver.getWindowHandles();
         for (String windowHandle: allWindows) {
-            
+
             if (!windowHandle.equals(originalWindow)) {
                 driver.switchTo().window(windowHandle);
+                //String title = driver.getTitle();
+                //System.out.println(title);
                 break;
             }
         }
@@ -235,6 +238,11 @@ public class MoreWebElements {
         // Slider interaction
         WebElement slider = driver.findElement(By.id("slider"));
         actions.clickAndHold(slider).moveByOffset(50, 0).release().perform();
+        
+        // Resizable
+        WebElement resizableBtn = driver.findElement(By.id("resizable"));
+        actions.clickAndHold(resizableBtn).moveByOffset(20, 250).release().perform();
+
     }
 
     @Test
