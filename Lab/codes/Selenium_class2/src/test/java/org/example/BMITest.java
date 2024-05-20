@@ -93,7 +93,7 @@ public class BMITest {
         btnCalculateBMI.click();
 
         WebElement result_ = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[2]/input")));
-
+        // myWait.until((WebDriver d) -> !result_.getAttribute("value").isEmpty());
         assertEquals(Double.valueOf(result_.getAttribute("value")), Double.valueOf(result), 0.1);
     }
 
