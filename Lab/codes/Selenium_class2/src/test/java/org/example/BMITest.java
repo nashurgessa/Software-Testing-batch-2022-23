@@ -24,13 +24,12 @@ public class BMITest {
     void setUp(){
         driver = new EdgeDriver();
         myWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.get("https://www.texasheart.org/heart-health/heart-\n" +
-                "information-center/topics/body-mass-index-bmi-calculator/");
+        driver.get("https://www.texasheart.org/heart-health/heart-information-center/topics/body-mass-index-bmi-calculator/");
 
         // driver.manage().window().maximize();
     }
 
-    @Test(enabled = false)
+    @Test
     void testBMI() throws InterruptedException {
         // //*[@id="post-601"]/div/div/form/fieldset/div[2]/div[1]/div[2]/div[2]/input
         WebElement height = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[1]/div[2]/div[2]/input")));
@@ -49,15 +48,10 @@ public class BMITest {
 
         // Wait until the result is not empty
         WebElement result = myWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"post-601\"]/div/div/form/fieldset/div[2]/div[2]/input")));
-        // myWait.until((WebDriver d) -> !result.getAttribute("value").isEmpty());
-
+        myWait.until((WebDriver d) -> !result.getAttribute("value").isEmpty());
         String resultText = result.getAttribute("value");
-        System.out.println("Result: " + resultText);
 
-        // Parse the result to double and assert
-        double resultValue = Double.parseDouble(resultText);
-        assertEquals(22.85, resultValue, 0.2, "BMI calculation does not match expected value.");
-
+        assertEquals(22.85, Double.parseDouble(resultText), 0.2);
     }
 
     //@DataProvider(name = "bmi_datas")

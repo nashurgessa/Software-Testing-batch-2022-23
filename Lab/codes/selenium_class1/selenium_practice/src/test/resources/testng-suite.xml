@@ -1,0 +1,8 @@
+<suite name="AuthTestSuite">
+    <test name="AuthTests">
+        <classes>
+            <class name="org.example.practice_automation.LoginTest"/>
+            <class name="org.example.BMICalculatorTest"/>
+        </classes>
+    </test>
+</suite>
