@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -14,6 +15,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 
 public class MoreWebElementTest {
     WebDriver driver;
@@ -147,7 +149,61 @@ public class MoreWebElementTest {
 
 
 
+    }
 
+    @Test
+    void newWindowTest() throws InterruptedException{
+        // System.out.println(driver.getWindowHandle());
+        WebElement btnNewWindow = driver.findElement(By.xpath("//*[@id=\"HTML4\"]/div[1]/button"));
+        btnNewWindow.click();
+        Thread.sleep(2000);
+
+        String originalTab = driver.getWindowHandle();
+
+        Set<String> windowHandles = driver.getWindowHandles();
+        for  (String windowHandle: windowHandles) {
+            if(!windowHandle.equals(originalTab)){
+                driver.switchTo().window(windowHandle);
+            }
+            System.out.println(driver.getTitle());
+        }
+
+        Assert.assertTrue(driver.getCurrentUrl().contains("opencart"));
+    }
+
+
+    @Test
+    void alertTest() throws InterruptedException{
+        WebElement confirmBtn  = driver.findElement(By.xpath("//*[@id=\"HTML9\"]/div[1]/button[2]"));
+        Thread.sleep(1000);
+        confirmBtn.click();
+        Thread.sleep(1000);
+
+        driver.switchTo().alert().accept();
+        Thread.sleep(5000);
+    }
+    @Test
+    void actionTest() throws InterruptedException {
+        Actions actions=  new Actions(driver);
+        //WebElement btnCopyText = driver.findElement(By.xpath("//*[@id=\"HTML10\"]/div[1]/button"));
+        //
+        //// double click
+        //Thread.sleep(1000);
+        //actions.doubleClick(btnCopyText).perform();
+        //
+        //Thread.sleep(5000);
+        //
+        //// drag DROP
+        //WebElement source = driver.findElement(By.id("draggable"));
+        //WebElement destination = driver.findElement(By.id("droppable"));
+        //actions.dragAndDrop(source, destination).perform();
+        //
+        //Thread.sleep(5000);
+
+        // slidebar
+        WebElement slideBar = driver.findElement(By.id("slider"));
+        actions.clickAndHold(slideBar).moveByOffset(60, 0).release().perform();
+        Thread.sleep(5000);
 
     }
 
